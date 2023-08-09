@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace DummyApi.Models
+namespace BankApi.Models
 {
     public class Admin
     {
