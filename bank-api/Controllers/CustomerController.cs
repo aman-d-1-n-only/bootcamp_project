@@ -22,29 +22,47 @@ namespace BankApi.Controllers
         }
 
         [HttpPost,Route("create")]
-        public async Task<IActionResult> CreateCustomer( Customer c)
+        public async Task<IActionResult> CreateCustomer( Customer customer )
         {   
 
-            await dbContext.Customer.AddAsync(c);
+            await dbContext.Customer.AddAsync(customer);
             await dbContext.SaveChangesAsync();
-            return Ok(c);
+            return Ok(customer);
         }
 
-        [HttpPut,Route("edit")]
-        public IActionResult EditCustomer( Customer c )
+        [HttpPut,Route("edit/{id:int}")]
+        public async Task<IActionResult> EditCustomer( [FromRoute] int id,  CustomerRequest updateCustomer )
         {   
 
             /**Implementaion Here**/
-            
-            return Ok($"{c.c_id} info is updated");
+            var customer = await dbContext.Customer.FindAsync(id);
+            if( customer != null ){
+                customer.fname = updateCustomer.fname ;
+                customer.lname = updateCustomer.lname ;
+                customer.address = updateCustomer.address ;
+                customer.city = updateCustomer.city ;
+                customer.email = updateCustomer.email;
+                customer.contact = updateCustomer.contact;
+                customer.card_no = updateCustomer.card_no;
+                customer.pin = updateCustomer.pin;
+                customer.balance = updateCustomer.balance;
+                await dbContext.SaveChangesAsync();
+                return Ok(customer);
+            }
+            return NotFound();
         }
 
-        [HttpDelete,Route("delete")]
-        public IActionResult DeleteCustomer( Customer c )
+        [HttpDelete,Route("delete/{id:int}")]
+        public async Task<IActionResult> DeleteCustomer( [FromRoute] int id )
         {  
             /**Implementaion Here**/
-
-            return Ok($"{c.c_id} info is deleted");
+            var customer = await dbContext.Customer.FindAsync(id);
+            if( customer != null ){
+                dbContext.Remove(customer);
+                await dbContext.SaveChangesAsync();
+                return Ok(customer);
+            } 
+            return NotFound();
         }
 
        
