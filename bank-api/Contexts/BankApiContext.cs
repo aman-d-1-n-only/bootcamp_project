@@ -12,6 +12,7 @@ namespace BankApi.Contexts
 
         public DbSet<Admin> Admin { get; set; }
         public DbSet<Customer> Customer { get; set; }
+        public DbSet<Account> Account { get; set; }
 
     }
 }
