@@ -30,23 +30,21 @@ namespace BankApi.Controllers
             return Ok(a);
         }
 
-        [HttpPut,Route("edit")]
-        public IActionResult EditAccount( Account a )
-        {   
 
+        [HttpDelete, Route("delete/{id:int}")]
+        public async Task<IActionResult> DeleteAccount([FromRoute] int id)
+        {
             /**Implementaion Here**/
-            
-            return Ok($"{a.a_id} info is updated");
+            var account = await dbContext.Account.FindAsync(id);
+            if ( account != null)
+            {
+                dbContext.Remove(account);
+                await dbContext.SaveChangesAsync();
+                return Ok(account);
+            }
+            return NotFound();
         }
 
-        [HttpDelete,Route("delete")]
-        public IActionResult DeleteAccount( Account a )
-        {  
-            /**Implementaion Here**/
 
-            return Ok($"{a.a_id} info is deleted");
-        }
-
-       
     }
 }
