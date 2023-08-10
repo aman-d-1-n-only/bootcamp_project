@@ -10,8 +10,8 @@ namespace BankApi.Controllers
     [Route("api/[controller]")]
     public class AdminController : Controller
     {
-        private readonly AdminContext dbContext;
-        public AdminController(AdminContext dbContext)
+        private readonly BankApiContext dbContext;
+        public AdminController( BankApiContext dbContext)
         {
             this.dbContext = dbContext;
         }
@@ -20,7 +20,8 @@ namespace BankApi.Controllers
         public async Task<IActionResult> GetAdmins(){
             return Ok(await dbContext.Admin.ToListAsync());
         }
-        [HttpPost]
+        
+        [HttpPost,Route("SignUp")]
         public async Task<IActionResult> AdminSignUp(AdminRequest a)
         {
             var random = new Random();
@@ -36,27 +37,27 @@ namespace BankApi.Controllers
             return Ok(admin);
         }
 
-        // [HttpPost]
-        // public IActionResult AdminLogin(AdminRequest a )
-        // {
+        [HttpPost,Route("Login")]
+        public IActionResult AdminLogin(AdminRequest a )
+        {
 
-        //     //login functionality  
-        //     var user = a.username;
+            //login functionality  
+            var user = a.username;
 
-        //     if (user != "" )
-        //     {
-        //         //sign in
-        //         return Ok($"Hi {user}") ; 
+            if (user != "" )
+            {
+                //sign in
+                return Ok($"Hi {user}") ; 
                 
-        //     }
-        //     return Ok("Invalid Credentials.");
+            }
+            return Ok("Invalid Credentials.");
 
-        // }
+        }
 
-        // [HttpPost]
-        // public  IActionResult AdminLogout(AdminRequest a)
-        // {
-        //     return Ok("You are logged out.");
-        // }
+        [HttpPost,Route("Logout")]
+        public  IActionResult AdminLogout(AdminRequest a)
+        {
+            return Ok("You are logged out.");
+        }
     }
 }

@@ -10,7 +10,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<AdminContext>(options => options.UseInMemoryDatabase("BankDb"));
+builder.Services.AddDbContext<BankApiContext>(options => options.UseInMemoryDatabase("BankDb"));
 
 var app = builder.Build();
 

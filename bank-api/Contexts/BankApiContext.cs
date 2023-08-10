@@ -3,13 +3,15 @@ using BankApi.Models;
 
 namespace BankApi.Contexts
 {
-    public class AdminContext : DbContext
+    public class BankApiContext : DbContext
     {
-        public AdminContext(DbContextOptions options) : base(options)
+        public BankApiContext(DbContextOptions options) : base(options)
         {
 
         }
 
         public DbSet<Admin> Admin { get; set; }
+        public DbSet<Customer> Customer { get; set; }
+
     }
 }
