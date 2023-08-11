@@ -5,7 +5,7 @@ namespace BankApi.Models
     public class CustomerRequest
     {
 
-        public string fname { get; set; } = null!;
+        public string fname { get; set; }
 
         public string lname { get; set; }
 
