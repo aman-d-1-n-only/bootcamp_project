@@ -34,6 +34,7 @@ namespace BankApi.Models
 
         public double balance { get; set;}
 
+        public ICollection<Account> Account { get; set; }
         
     }
 }

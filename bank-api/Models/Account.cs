@@ -21,6 +21,8 @@ namespace BankApi.Models
         public string currentBalance { get; set; }
 
         public long acc_no {get; set;}
+
+        public Customer Customer { get; set; }
         
     }
 }
