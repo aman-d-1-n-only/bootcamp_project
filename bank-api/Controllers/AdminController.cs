@@ -24,10 +24,8 @@ namespace BankApi.Controllers
         [HttpPost,Route("SignUp")]
         public async Task<IActionResult> AdminSignUp(AdminRequest a)
         {
-            var random = new Random();
             var admin = new Admin()
             {
-                id = random.Next(101, 999),
                 username = a.username,
                 password = a.password
             };

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace bank_api.Migrations
 {
     [DbContext(typeof(BankApiContext))]
-    [Migration("20230810201504_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230811085537_initialCreate")]
+    partial class initialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,7 +28,7 @@ namespace bank_api.Migrations
                     b.Property<long>("acc_no")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("c_id1")
+                    b.Property<int>("c_id")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("creditFields")
@@ -49,7 +49,7 @@ namespace bank_api.Migrations
 
                     b.HasKey("a_id");
 
-                    b.HasIndex("c_id1");
+                    b.HasIndex("c_id");
 
                     b.ToTable("Account");
                 });
@@ -118,13 +118,13 @@ namespace bank_api.Migrations
 
             modelBuilder.Entity("BankApi.Models.Account", b =>
                 {
-                    b.HasOne("BankApi.Models.Customer", "c_id")
+                    b.HasOne("BankApi.Models.Customer", "customer")
                         .WithMany("Account")
-                        .HasForeignKey("c_id1")
+                        .HasForeignKey("c_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("c_id");
+                    b.Navigation("customer");
                 });
 
             modelBuilder.Entity("BankApi.Models.Customer", b =>

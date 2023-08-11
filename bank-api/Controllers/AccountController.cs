@@ -22,12 +22,20 @@ namespace BankApi.Controllers
         }
 
         [HttpPost,Route("create")]
-        public async Task<IActionResult> CreateAccount( Account a)
+        public async Task<IActionResult> CreateAccount( AccountRequest newAccount)
         {   
 
-            await dbContext.Account.AddAsync(a);
+            var account = new Account(){
+                fname = newAccount.fname ,
+                lname = newAccount.lname ,
+                creditFields = newAccount.creditFields ,
+                currentBalance = newAccount.currentBalance ,
+                acc_no = newAccount.acc_no,
+                c_id = newAccount.c_id
+            };
+            await dbContext.Account.AddAsync(account);
             await dbContext.SaveChangesAsync();
-            return Ok(a);
+            return Ok(account);
         }
 
 

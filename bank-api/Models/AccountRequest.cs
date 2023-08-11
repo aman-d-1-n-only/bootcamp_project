@@ -3,12 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BankApi.Models
 {
-    public class Account
+    public class AccountRequest
     {
-
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int a_id { get; set; }
 
         [Required]
         public string fname { get; set; }
@@ -28,7 +24,8 @@ namespace BankApi.Models
         [Required]
         public int c_id { get; set; }
         
-        [ForeignKey("c_id")]
-        public Customer? customer {get; set;}
+        // [ForeignKey("c_id")]
+        // public Customer? customer {get; set;}
+        
     }
 }

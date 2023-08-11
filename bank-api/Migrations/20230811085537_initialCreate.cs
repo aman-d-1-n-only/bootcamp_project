@@ -5,7 +5,7 @@
 namespace bank_api.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class initialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -56,23 +56,23 @@ namespace bank_api.Migrations
                     creditFields = table.Column<string>(type: "TEXT", nullable: false),
                     currentBalance = table.Column<string>(type: "TEXT", nullable: false),
                     acc_no = table.Column<long>(type: "INTEGER", nullable: false),
-                    c_id1 = table.Column<int>(type: "INTEGER", nullable: false)
+                    c_id = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Account", x => x.a_id);
                     table.ForeignKey(
-                        name: "FK_Account_Customer_c_id1",
-                        column: x => x.c_id1,
+                        name: "FK_Account_Customer_c_id",
+                        column: x => x.c_id,
                         principalTable: "Customer",
                         principalColumn: "c_id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Account_c_id1",
+                name: "IX_Account_c_id",
                 table: "Account",
-                column: "c_id1");
+                column: "c_id");
         }
 
         /// <inheritdoc />

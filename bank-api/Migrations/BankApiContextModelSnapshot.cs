@@ -22,10 +22,10 @@ namespace bank_api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Customerc_id")
+                    b.Property<long>("acc_no")
                         .HasColumnType("INTEGER");
 
-                    b.Property<long>("acc_no")
+                    b.Property<int>("c_id")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("creditFields")
@@ -46,7 +46,7 @@ namespace bank_api.Migrations
 
                     b.HasKey("a_id");
 
-                    b.HasIndex("Customerc_id");
+                    b.HasIndex("c_id");
 
                     b.ToTable("Account");
                 });
@@ -115,13 +115,13 @@ namespace bank_api.Migrations
 
             modelBuilder.Entity("BankApi.Models.Account", b =>
                 {
-                    b.HasOne("BankApi.Models.Customer", "Customer")
+                    b.HasOne("BankApi.Models.Customer", "customer")
                         .WithMany("Account")
-                        .HasForeignKey("Customerc_id")
+                        .HasForeignKey("c_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Customer");
+                    b.Navigation("customer");
                 });
 
             modelBuilder.Entity("BankApi.Models.Customer", b =>

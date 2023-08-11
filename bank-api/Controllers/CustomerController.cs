@@ -22,9 +22,19 @@ namespace BankApi.Controllers
         }
 
         [HttpPost,Route("create")]
-        public async Task<IActionResult> CreateCustomer( Customer customer )
+        public async Task<IActionResult> CreateCustomer( CustomerRequest newCustomer )
         {   
-
+            var customer = new Customer(){
+                fname = newCustomer.fname ,
+                lname = newCustomer.lname ,
+                address = newCustomer.address ,
+                city = newCustomer.city ,
+                email = newCustomer.email,
+                contact = newCustomer.contact,
+                card_no = newCustomer.card_no,
+                pin = newCustomer.pin,
+                balance = newCustomer.balance
+            };
             await dbContext.Customer.AddAsync(customer);
             await dbContext.SaveChangesAsync();
             return Ok(customer);
