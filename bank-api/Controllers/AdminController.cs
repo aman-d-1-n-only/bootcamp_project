@@ -1,61 +1,46 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using BankApi.Models;
-using BankApi.Contexts;
+using BankApi.Services;
+using BankApi.Entities;
+using Microsoft.AspNetCore.Mvc;
+using AutoMapper;
 
 namespace BankApi.Controllers
 {
-
     [ApiController]
-    [Route("api/[controller]")]
-    public class AdminController : Controller
+    [Route("api/admin")]
+
+    public class AdminController : ControllerBase
     {
-        private readonly BankApiContext dbContext;
-        public AdminController( BankApiContext dbContext)
+
+        private readonly IBankRepository _bankRepository;
+        private readonly IMapper _mapper;
+
+        public AdminController(IBankRepository bankRepository, IMapper mapper)
         {
-            this.dbContext = dbContext;
+            _bankRepository = bankRepository ?? throw new ArgumentNullException(nameof(BankRepository));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAdmins(){
-            return Ok(await dbContext.Admin.ToListAsync());
-        }
-        
-        [HttpPost,Route("SignUp")]
-        public async Task<IActionResult> AdminSignUp(AdminRequest a)
+        [HttpPost, Route("signUp")]
+        public async Task<IActionResult> AdminSignUp(AdminDTO newAdmin)
         {
-            var admin = new Admin()
-            {
-                username = a.username,
-                password = a.password
-            };
-            await dbContext.Admin.AddAsync(admin);
-            await dbContext.SaveChangesAsync();
-
-            return Ok(admin);
+            //Implementation Here
+            var admin = _mapper.Map<Admin>(newAdmin);
+            await _bankRepository.AddAdminAsync(admin);
+            await _bankRepository.SaveChangesAsync();
+            var respAdmin = _mapper.Map<AdminDTO>(admin);
+            return Ok(respAdmin);
         }
 
-        [HttpPost,Route("Login")]
-        public IActionResult AdminLogin(AdminRequest a )
+        [HttpPost, Route("login")]
+        public IActionResult AdminLogin(AdminDTO admin)
         {
 
-            //login functionality  
-            var user = a.username;
-
-            if (user != "" )
-            {
-                //sign in
-                return Ok($"Hi {user}") ; 
-                
-            }
-            return Ok("Invalid Credentials.");
-
+            //Implementation Here
+            return NoContent();
         }
 
-        [HttpPost,Route("Logout")]
-        public  IActionResult AdminLogout(AdminRequest a)
-        {
-            return Ok("You are logged out.");
-        }
+
     }
 }

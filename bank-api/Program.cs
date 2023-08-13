@@ -1,12 +1,19 @@
-using BankApi.Models;
-using BankApi.Contexts;
 using Microsoft.EntityFrameworkCore;
-
-
+using BankApi.Contexts;
+using BankApi.Services;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<BankApiContext>( dbContextOptions => dbContextOptions.UseSqlite("Data Source = BankDB.db"));
+builder.Services.AddScoped<IBankRepository,BankRepository>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddCors();
 builder.Services.AddCors(options =>
 {
@@ -18,12 +25,6 @@ builder.Services.AddCors(options =>
                                 .AllowAnyMethod();
         });
 });
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<BankApiContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("BankApiDatabase")));
-
 var app = builder.Build();
 app.UseCors();
 app.UseCors("AllowOrigin");

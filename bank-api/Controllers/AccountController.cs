@@ -1,58 +1,83 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using BankApi.Models;
-using BankApi.Contexts;
+using BankApi.Services;
+using BankApi.Entities;
+using Microsoft.AspNetCore.Mvc;
+using AutoMapper;
 
 namespace BankApi.Controllers
 {
-
     [ApiController]
-    [Route("api/[controller]")]
-    public class AccountController : Controller
+    [Route("api/customer/{CustId:int}/account")]
+
+    public class AccountController : ControllerBase
     {
-        private readonly BankApiContext dbContext;
-        public AccountController(BankApiContext dbContext)
+
+        private readonly IBankRepository _bankRepository;
+        private readonly IMapper _mapper;
+
+        public AccountController(IBankRepository bankRepository, IMapper mapper)
         {
-            this.dbContext = dbContext;
+            _bankRepository = bankRepository ?? throw new ArgumentNullException(nameof(BankRepository));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAccount(){
-            return Ok(await dbContext.Account.ToListAsync());
-        }
-
-        [HttpPost,Route("create")]
-        public async Task<IActionResult> CreateAccount( AccountRequest newAccount)
+        public async Task<ActionResult<IEnumerable<AccountDTO>>> GetAccounts( [FromRoute] int CustId)
         {   
-
-            var account = new Account(){
-                fname = newAccount.fname ,
-                lname = newAccount.lname ,
-                creditFields = newAccount.creditFields ,
-                currentBalance = newAccount.currentBalance ,
-                acc_no = newAccount.acc_no,
-                c_id = newAccount.c_id
-            };
-            await dbContext.Account.AddAsync(account);
-            await dbContext.SaveChangesAsync();
-            return Ok(account);
-        }
-
-
-        [HttpDelete, Route("delete/{id:int}")]
-        public async Task<IActionResult> DeleteAccount([FromRoute] int id)
-        {
-            /**Implementaion Here**/
-            var account = await dbContext.Account.FindAsync(id);
-            if ( account != null)
-            {
-                dbContext.Remove(account);
-                await dbContext.SaveChangesAsync();
-                return Ok(account);
+            if( !await _bankRepository.CustomerExistsAsync(CustId)){
+                return NotFound();
             }
-            return NotFound();
+            var accounts = await _bankRepository.GetAccountsOfCustomerAsync(CustId);
+            return Ok(_mapper.Map<IEnumerable<RespAccountDTO>>(accounts));
         }
 
 
+        [HttpPost]
+        public async Task<ActionResult<AccountDTO>> CreateAccount([FromRoute] int CustId , AccountDTO newAcccount ){
+               
+            if (!await _bankRepository.CustomerExistsAsync(CustId)){
+                return NotFound();
+            }
+            var account = _mapper.Map<Account>(newAcccount);
+            await _bankRepository.AddAccountForCustomerAsync( CustId , account );
+            await _bankRepository.SaveChangesAsync();
+            var respAccount = _mapper.Map<RespAccountDTO>(account);
+            return Ok(respAccount);
+        }
+
+        [HttpPut, Route("{AccId:int}")]
+        public async Task<IActionResult> UpdateAccount([FromRoute] int CustId, int AccId , AccountDTO updatedAccount )
+        {
+            if (!await _bankRepository.CustomerExistsAsync(CustId))
+            {
+                return NotFound();
+            }
+            var account = await _bankRepository.GetAccountOfCustomerAsync(CustId, AccId);
+            if (account == null)
+            {
+                return NotFound();
+            }
+            _mapper.Map(updatedAccount, account);
+            await _bankRepository.SaveChangesAsync();
+            return Ok("Update is done");
+        }
+
+        [HttpDelete, Route("{AccId:int}")]
+        public async Task<ActionResult> DeleteAccount([FromRoute] int CustId, int AccId )
+        {
+            if (!await _bankRepository.CustomerExistsAsync(CustId))
+            {
+                return NotFound();
+            }
+            var account = await _bankRepository.GetAccountOfCustomerAsync(CustId, AccId);
+            if (account == null)
+            {
+                return NotFound();
+            }
+            _bankRepository.DeleteAccount(account);
+            await _bankRepository.SaveChangesAsync();
+            return Ok("Delete is done");
+        }
     }
 }
