@@ -13,7 +13,7 @@ namespace BankApi.Services {
         Task AddCustomerAsync( Customer customer);
         Task AddAdminAsync(Admin admin);
         void DeleteCustomer( Customer customer);
-
         void DeleteAccount( Account account);
+        Task<Admin?> GetAdminAsync( AdminDTO admin );
     }
 }

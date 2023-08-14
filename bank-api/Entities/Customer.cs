@@ -26,13 +26,9 @@ namespace BankApi.Entities
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Contact is required.")]
-        [MinLength(10)]
-        [MaxLength(10)]
         public long Contact { get; set; }
 
         [Required(ErrorMessage = "Pincode is required.")]
-        [MinLength(6)]
-        [MaxLength(6)]
         public int Pincode { get; set; }
 
         public ICollection<Account> Accounts { get; set; } = new List<Account>();

@@ -3,6 +3,7 @@ using BankApi.Services;
 using BankApi.Entities;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
+using System.Text;
 
 namespace BankApi.Controllers
 {
@@ -14,11 +15,13 @@ namespace BankApi.Controllers
 
         private readonly IBankRepository _bankRepository;
         private readonly IMapper _mapper;
+        private readonly IConfiguration _configuration;
 
-        public AdminController(IBankRepository bankRepository, IMapper mapper)
+        public AdminController(IBankRepository bankRepository, IMapper mapper , IConfiguration configuration)
         {
             _bankRepository = bankRepository ?? throw new ArgumentNullException(nameof(BankRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
 
         }
 
@@ -34,10 +37,21 @@ namespace BankApi.Controllers
         }
 
         [HttpPost, Route("login")]
-        public IActionResult AdminLogin(AdminDTO admin)
-        {
+        public ActionResult<String> AdminLogin(AdminDTO newAdmin)
+        {   
+            // var admin = await _bankRepository.GetAdminAsync(newAdmin);
+            // if( admin == NULL ){
+            //     return NotFound("No such user found.");
+            // }
 
-            //Implementation Here
+            // var securityKey = new SymmetricSecurityKey(
+            //     Encoding.ASCII.GetBytes(_configuration["Authentication:SecretForKey"])
+            // );
+            // var signingCredentials = new SigningCredential(securityKey, SecuringAlgorithms.HmacSha256);
+            // // var claimsForToken = new List<Claim>();
+            // // claimsForToken.Add()
+
+            // //Implementation Here
             return NoContent();
         }
 
