@@ -3,9 +3,11 @@ import { CustomerCard } from './card'
 export const Customer = () => {
     return (
         <>
-            <CustomerCard cardName="Add Customer Details" />
-            <CustomerCard cardName="View Customer Details" />
-            <CustomerCard cardName="Transactions" />
+            <div className='flex flex-row p-2 m-2'>
+                <CustomerCard cardName="add-customer" />
+                <CustomerCard cardName="view-customer" />
+                <CustomerCard cardName="Transactions" />
+            </div>
         </>
     )
 }
