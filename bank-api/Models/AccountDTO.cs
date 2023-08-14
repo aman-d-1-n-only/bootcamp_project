@@ -4,9 +4,7 @@ namespace BankApi.Models
 {
     public class AccountDTO
     {
-        [Required(ErrorMessage = "Account Number is required.")]
-        [MinLength(8)]
-        [MaxLength(8)]
+        
         public long AccNo { get; set; }
 
         public double Balance { get; set; }
