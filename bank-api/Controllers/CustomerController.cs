@@ -1,80 +1,65 @@
+using BankApi.Models ;
+using BankApi.Services;
+using BankApi.Entities;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using BankApi.Models;
-using BankApi.Contexts;
+using AutoMapper;
 
-namespace BankApi.Controllers
-{
-
+namespace BankApi.Controllers{
     [ApiController]
-    [Route("api/[controller]")]
-    public class CustomerController : Controller
-    {
-        private readonly BankApiContext dbContext;
-        public CustomerController(BankApiContext dbContext)
-        {
-            this.dbContext = dbContext;
+    [Route("api/customer")]
+
+    public class CustomerController : ControllerBase {
+
+        private readonly IBankRepository _bankRepository;
+        private readonly IMapper _mapper ;
+
+        public CustomerController( IBankRepository bankRepository , IMapper mapper ){
+            _bankRepository = bankRepository ?? throw new ArgumentNullException(nameof(BankRepository));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetCustomers(){
-            return Ok(await dbContext.Customer.ToListAsync());
+        public async Task<ActionResult<IEnumerable<CustomerWithoutAccountDTO>>> GetCustomers(){
+            var customers = await _bankRepository.GetCustomersAsync();
+            return Ok(_mapper.Map<IEnumerable<RespCustomerDTO>>(customers));
         }
 
-        [HttpPost,Route("create")]
-        public async Task<IActionResult> CreateCustomer( CustomerRequest newCustomer )
-        {   
-            var customer = new Customer(){
-                fname = newCustomer.fname ,
-                lname = newCustomer.lname ,
-                address = newCustomer.address ,
-                city = newCustomer.city ,
-                email = newCustomer.email,
-                contact = newCustomer.contact,
-                card_no = newCustomer.card_no,
-                pin = newCustomer.pin,
-                balance = newCustomer.balance
-            };
-            await dbContext.Customer.AddAsync(customer);
-            await dbContext.SaveChangesAsync();
-            return Ok(customer);
+
+        [HttpPost]
+        public async Task<ActionResult<CustomerWithoutAccountDTO>> CreateCustomer(CustomerWithoutAccountDTO newCustomer)
+        {
+
+            var customer = _mapper.Map<Customer>(newCustomer);
+            await _bankRepository.AddCustomerAsync(customer);
+            await _bankRepository.SaveChangesAsync();
+            var respCustomer = _mapper.Map<RespCustomerDTO>(customer);
+            return Ok(respCustomer);
         }
 
-        [HttpPut,Route("edit/{id:int}")]
-        public async Task<IActionResult> EditCustomer( [FromRoute] int id,  CustomerRequest updateCustomer )
-        {   
-
-            /**Implementaion Here**/
-            var customer = await dbContext.Customer.FindAsync(id);
-            if( customer != null ){
-                customer.fname = updateCustomer.fname ;
-                customer.lname = updateCustomer.lname ;
-                customer.address = updateCustomer.address ;
-                customer.city = updateCustomer.city ;
-                customer.email = updateCustomer.email;
-                customer.contact = updateCustomer.contact;
-                customer.card_no = updateCustomer.card_no;
-                customer.pin = updateCustomer.pin;
-                customer.balance = updateCustomer.balance;
-                await dbContext.SaveChangesAsync();
-                return Ok(customer);
+        [HttpPut,Route("{CustId:int}")]
+        public async Task<ActionResult> UpdateCustomer( [FromRoute] int CustId , CustomerWithoutAccountDTO updatedCustomer ){
+            if (!await _bankRepository.CustomerExistsAsync(CustId))
+            {
+                return NotFound();
             }
-            return NotFound();
+            var customer = await _bankRepository.GetCustomerAsync(CustId); 
+            _mapper.Map(updatedCustomer , customer );
+            await _bankRepository.SaveChangesAsync();
+            return Ok("Update is done");
         }
 
-        [HttpDelete,Route("delete/{id:int}")]
-        public async Task<IActionResult> DeleteCustomer( [FromRoute] int id )
-        {  
-            /**Implementaion Here**/
-            var customer = await dbContext.Customer.FindAsync(id);
-            if( customer != null ){
-                dbContext.Remove(customer);
-                await dbContext.SaveChangesAsync();
-                return Ok(customer);
-            } 
-            return NotFound();
+        [HttpDelete,Route("{CustId:int}")]
+        public async Task<ActionResult> DeleteCustomer( [FromRoute] int CustId ){
+            if (!await _bankRepository.CustomerExistsAsync(CustId))
+            {
+                return NotFound();
+            }
+            var customer = await _bankRepository.GetCustomerAsync(CustId);
+            _bankRepository.DeleteCustomer(customer);
+            await _bankRepository.SaveChangesAsync();
+            return Ok("Delete is done");
         }
 
-       
     }
 }
