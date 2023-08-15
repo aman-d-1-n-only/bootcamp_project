@@ -1,67 +1,71 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
-
+import {
+    Card,
+    CardHeader,
+    CardBody,
+    CardFooter,
+    Typography,
+    Input,
+    Checkbox,
+    Button,
+  } from "@material-tailwind/react";
+   
 
 export const Login = () => {
     const navigate = useNavigate();
-    return (<><div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-
-            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                Sign in to your account
-            </h2>
-        </div>
-
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form className="space-y-6">
-                <div>
-                    <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                        Username
-                    </label>
-                    <div className="mt-2">
-                        <input
-                            id="email"
+    return (<>
+    {/* <div className="h-screen flex justify-center items-center"> */}
+    <div className="relative min-h-screen flex items-center justify-center bg-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 bg-gray-500 bg-no-repeat bg-cover"
+	style={{backgroundImage: "url('https://images.unsplash.com/photo-1532423622396-10a3f979251a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1500&q=80')",}}>
+	<div className="absolute bg-black opacity-60 inset-0 z-0"></div>
+    <Card className="w-96 ">
+    <CardHeader
+      variant="gradient"
+      color="gray"
+      className=" mb-4 grid h-28 place-items-center"
+    >
+      <Typography variant="h3" color="white">
+        Sign In
+      </Typography>
+    </CardHeader>
+    <form>
+    <CardBody className="flex flex-col gap-4">
+        <Input label="Username/Email" size="lg" id="email"
+          required
                             name="email"
                             type="email"
                             autoComplete="email"
-                            required
-                            className="block w-full rounded-md border-0 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        />
-                    </div>
-                </div>
-
-                <div>
-
-                    <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                        Password
-                    </label>
-
-
-                    <div className="mt-2">
-                        <input
-                            id="password"
-                            name="password"
-                            type="password"
-                            autoComplete="current-password"
-                            required
-                            className="block w-full rounded-md border-0 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        />
-                    </div>
-                </div>
-
-                <div>
-                    <button
-                        type="submit"
-                        className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                        onClick={() => navigate('customer')}
-                    >
-                        Sign in
-                    </button>
-                </div>
-            </form>
-
-
+                          />
+        <Input label="Password" size="lg" 
+         id="password"
+         name="password"
+         type="password"
+         autoComplete="current-password"
+         required/>
+        <div className="-ml-2.5">
+          <Checkbox label="Remember Me" />
         </div>
+      </CardBody>
+      <CardFooter className="pt-0">
+        <Button variant="gradient"   type="submit" fullWidth onClick={() => navigate('customer')}>
+          Sign In
+        </Button>
+        <Typography variant="small" className="mt-6 flex justify-center">
+          Don&apos;t have an account?
+          <Typography
+            as="a"
+            href="#signup"
+            variant="small"
+            color="blue-gray"
+            className="ml-1 font-bold"
+          >
+            Sign up
+          </Typography>
+        </Typography>
+      </CardFooter>
+      </form>
+    </Card>
     </div>
     </>)
 

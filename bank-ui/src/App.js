@@ -10,7 +10,7 @@ import { AddAccount } from './components/addAccount';
 function App() {
   return (
     <>
-      <div className="App">
+      <div className="App bg-gray-100">
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Login />} />
