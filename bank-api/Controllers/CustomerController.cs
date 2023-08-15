@@ -2,10 +2,12 @@ using BankApi.Models ;
 using BankApi.Services;
 using BankApi.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
 
 namespace BankApi.Controllers{
     [ApiController]
+    [Authorize]
     [Route("api/customer")]
 
     public class CustomerController : ControllerBase {

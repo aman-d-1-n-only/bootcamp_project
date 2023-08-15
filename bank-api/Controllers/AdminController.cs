@@ -2,8 +2,12 @@ using BankApi.Models;
 using BankApi.Services;
 using BankApi.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using AutoMapper;
 using System.Text;
+using System.Security.Claims;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace BankApi.Controllers
 {
@@ -26,10 +30,10 @@ namespace BankApi.Controllers
         }
 
         [HttpPost, Route("signUp")]
-        public async Task<IActionResult> AdminSignUp(AdminDTO newAdmin)
+        public async Task<IActionResult> AdminSignUp(AdminDTO user)
         {
             //Implementation Here
-            var admin = _mapper.Map<Admin>(newAdmin);
+            var admin = _mapper.Map<Admin>(user);
             await _bankRepository.AddAdminAsync(admin);
             await _bankRepository.SaveChangesAsync();
             var respAdmin = _mapper.Map<AdminDTO>(admin);
@@ -37,22 +41,31 @@ namespace BankApi.Controllers
         }
 
         [HttpPost, Route("login")]
-        public ActionResult<String> AdminLogin(AdminDTO newAdmin)
+        public async Task<ActionResult<String>> AdminLogin(AdminDTO user )
         {   
-            // var admin = await _bankRepository.GetAdminAsync(newAdmin);
-            // if( admin == NULL ){
-            //     return NotFound("No such user found.");
-            // }
+            var admin = await _bankRepository.GetAdminAsync(user);
+            if( admin == null ){
+                return NotFound("No such user found.");
+            }
 
-            // var securityKey = new SymmetricSecurityKey(
-            //     Encoding.ASCII.GetBytes(_configuration["Authentication:SecretForKey"])
-            // );
-            // var signingCredentials = new SigningCredential(securityKey, SecuringAlgorithms.HmacSha256);
-            // // var claimsForToken = new List<Claim>();
-            // // claimsForToken.Add()
+            var securityKey = new SymmetricSecurityKey(
+                Encoding.ASCII.GetBytes(_configuration["Authentication:SecretForKey"])
+            );
+            var signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            var claimsForToken = new List<Claim>();
+            claimsForToken.Add( new Claim("sub" , admin.Id.ToString()));
+            claimsForToken.Add( new Claim("username" , admin.Username));
 
-            // //Implementation Here
-            return NoContent();
+            var jwtSecurityToken = new JwtSecurityToken(
+                _configuration["Authentication:Issuer"],
+                _configuration["Authentication:Audience"],
+                claimsForToken,
+                DateTime.UtcNow, //ValidityStart
+                DateTime.UtcNow.AddHours(1), //ValidityEnd
+                signingCredentials);
+
+            var tokenToReturn = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
+            return Ok(tokenToReturn);
         }
 
 

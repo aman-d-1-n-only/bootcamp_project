@@ -3,10 +3,12 @@ using BankApi.Services;
 using BankApi.Entities;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BankApi.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/customer/{CustId:int}/account")]
 
     public class AccountController : ControllerBase
