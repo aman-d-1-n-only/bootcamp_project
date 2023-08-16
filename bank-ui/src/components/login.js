@@ -1,9 +1,54 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-
+import axios from 'axios';
 
 export const Login = () => {
     const navigate = useNavigate();
+    const [loginCredentials, setloginCredentials] = useState({
+        username: "",
+        password: ""
+    })
+    // const [validloginCredentials, setvalidloginCredentials] = useState({
+    //     username: "",
+    //     password: ""
+    // })
+    const handleChange = (e) => {
+        setloginCredentials({ ...loginCredentials, [e.target.name]: e.target.value });
+    };
+    const handleClick = (e) => {
+        if (loginCredentials.username === "" || loginCredentials.password === "") {
+
+        }
+        else {
+            e.preventDefault();
+            // console.log(loginCredentials);
+            // axios.post('http://localhost:5165/api/admin/signUp', loginCredentials).then(res => {
+            //     // console.log(res.data);
+            //     setvalidloginCredentials(res.data);
+            // console.log(validloginCredentials);
+
+            axios.post('http://localhost:5165/api/admin/login', loginCredentials).then(response => {
+                // console.log(response.data);
+                sessionStorage.setItem('jwtToken', response.data)
+
+                if (response.data) {
+                    navigate('customer');
+                }
+            }).catch(function (error) {
+                if (error.response) {
+                    if (error.response.status) {
+                        alert("Invalid Credentials. Please Try again");
+                    }
+                }
+            })
+
+        }
+
+    }
+    // })
+
+
+
     return (<><div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
 
@@ -15,15 +60,15 @@ export const Login = () => {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <form className="space-y-6">
                 <div>
-                    <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                    <label className="block text-sm font-medium leading-6 text-gray-900">
                         Username
                     </label>
                     <div className="mt-2">
                         <input
+                            onChange={handleChange}
                             id="email"
-                            name="email"
-                            type="email"
-                            autoComplete="email"
+                            name="username"
+                            autoComplete="username"
                             required
                             className="block w-full rounded-md border-0 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
@@ -39,6 +84,7 @@ export const Login = () => {
 
                     <div className="mt-2">
                         <input
+                            onChange={handleChange}
                             id="password"
                             name="password"
                             type="password"
@@ -53,7 +99,7 @@ export const Login = () => {
                     <button
                         type="submit"
                         className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                        onClick={() => navigate('customer')}
+                        onClick={handleClick}
                     >
                         Sign in
                     </button>

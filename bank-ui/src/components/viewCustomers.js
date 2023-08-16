@@ -13,15 +13,20 @@ import {
 export const SeeCustomers = () => {
 
     const navigate = useNavigate();
+    const jwtToken = sessionStorage.getItem('jwtToken');
+
     const [customerData, setcustomerData] = useState([]);
     useEffect(() => {
-        axios.get('http://localhost:5165/api/Customer')
-            .then(res => {
-                // console.log(res.data);
-                // customerData = res.data;
-                setcustomerData(res.data);
+        axios.get('http://localhost:5165/api/Customer', {
+            headers: {
+                'Authorization': 'bearer ' + jwtToken
+            }
+        }).then(res => {
+            // console.log(res.data);
+            // customerData = res.data;
+            setcustomerData(res.data);
 
-            })
+        })
     }, [])
 
     // const handleClick = (key) => {

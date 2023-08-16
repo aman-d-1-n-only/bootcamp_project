@@ -13,6 +13,7 @@ export const CustomerDetails = () => {
         city: ""
     };
     const [customerData, setcustomerData] = useState(customerInitialValues);
+    const jwtToken = sessionStorage.getItem('jwtToken');
     const display = (event) => {
         if (customerData.name === "" || customerData.address === "" || customerData.email === "" || customerData.contact === 0 || customerData.pincode === 0 || customerData.city === "") {
 
@@ -20,14 +21,17 @@ export const CustomerDetails = () => {
         else {
             event.preventDefault();
             try {
-                axios.post('http://localhost:5165/api/Customer/', customerData)
-                    .then(res => {
-                        console.log(res.data);
+                axios.post('http://localhost:5165/api/Customer/', customerData, {
+                    headers: {
+                        'Authorization': 'bearer ' + jwtToken
+                    }
+                }).then(res => {
+                    console.log(res.data);
 
-                        if (res.data) {
-                            alert("Customer Details Added successfully");
-                        }
-                    })
+                    if (res.data) {
+                        alert("Customer Details Added successfully");
+                    }
+                })
 
             } catch (error) {
                 console.log(error);
@@ -87,6 +91,7 @@ export const CustomerDetails = () => {
                         <div className="mt-2">
                             <input onChange={handleChange}
                                 name="email"
+                                type="email"
                                 value={customerData.email}
                                 required
                                 className="block w-full rounded-md border-0 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"

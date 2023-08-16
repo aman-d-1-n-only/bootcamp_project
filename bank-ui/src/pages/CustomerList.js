@@ -4,7 +4,7 @@
 
 
 import * as React from 'react';
-import {useState , useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -54,11 +54,18 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 // ];
 
 export default function CustomerList() {
-  const [data, setData ] = useState([]);
-    const [error , setError] = useState("");
+  // const jwttoken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwidXNlcm5hbWUiOiJhZG1pbiIsIm5iZiI6MTY5MjEyODE1NiwiZXhwIjoxNjkyMTMxNzU2LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo1MTY1IiwiYXVkIjoiYmFua0FwaSJ9.fCH6ShvEre6k01AnInrJumbu6ox6LvrTmbSkWWDI6Fk'
+  const [data, setData] = useState([]);
+  const [error, setError] = useState("");
 
-    useEffect (() => {
-      axios("http://localhost:5165/api/customer")
+  useEffect(() => {
+    axios("http://localhost:5165/api/customer",
+      //  {
+      //   headers: {
+      //     'Authorization': 'bearer ' + jwttoken
+      //   }
+      // }
+    )
       .then((response) => {
         setData(response.data)
         console.log(response.data)
@@ -67,7 +74,7 @@ export default function CustomerList() {
         setError(error)
         console.log(error)
       })
-    }, []);
+  }, []);
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
