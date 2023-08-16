@@ -8,6 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Navbar from "./Navbar";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -42,8 +43,10 @@ const TransactionList = () => {
     //  setTransactions(await response.json);
     // }
     return(
+        <>
+        <Navbar/>
         <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 700 }} aria-label="customized table">
+        <Table style = {{width :'95%',borderRadius:'10px' , margin : 30}} sx={{ manWidth: 1000 }} aria-label="customized table">
           <TableHead>
             <TableRow>
               <StyledTableCell>Customer Name</StyledTableCell>
@@ -103,6 +106,7 @@ const TransactionList = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      </>
     )
 }
 export default TransactionList;

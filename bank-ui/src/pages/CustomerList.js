@@ -14,6 +14,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import axios from "axios";
+import Navbar from "./Navbar";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -69,8 +70,12 @@ export default function CustomerList() {
       })
     }, []);
   return (
+    <>
+    <Navbar/>
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 500 }} aria-label="customized table">
+      <Table style = {{width :'95%',borderRadius:'10px' , margin : 30 , borderBottom : "none"}} sx={{ minWidth: 500 ,  
+      borderBottom: "none"
+    }} aria-label="customized table"c className='p-6'>
         <TableHead>
           <TableRow>
             <StyledTableCell> Name</StyledTableCell>
@@ -102,5 +107,6 @@ export default function CustomerList() {
         </TableBody>
       </Table>
     </TableContainer>
+    </>
   );
 }

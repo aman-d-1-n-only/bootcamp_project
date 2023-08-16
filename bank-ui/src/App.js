@@ -1,4 +1,4 @@
-import './App.css';
+
 import React from 'react'
 import { Login } from './components/login';
 import { Customer } from './components/customer'
@@ -13,7 +13,7 @@ import TransactionList from './pages/TransactionList';
 function App() {
   return (
     <>
-      <div className="App">
+      <div className="App bg-gray-100">
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Login />} />
