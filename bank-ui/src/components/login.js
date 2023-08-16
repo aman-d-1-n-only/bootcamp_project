@@ -51,7 +51,7 @@ export const Login = () => {
         <Button variant="gradient"   type="submit" fullWidth onClick={() => navigate('customer')}>
           Sign In
         </Button>
-        <Typography variant="small" className="mt-6 flex justify-center">
+        {/* <Typography variant="small" className="mt-6 flex justify-center">
           Don&apos;t have an account?
           <Typography
             as="a"
@@ -62,6 +62,10 @@ export const Login = () => {
           >
             Sign up
           </Typography>
+        </Typography> */}
+
+<Typography variant="small" className="mt-6 flex justify-center">
+        Forgot Passoword?
         </Typography>
       </CardFooter>
       </form>

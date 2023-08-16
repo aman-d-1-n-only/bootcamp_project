@@ -50,21 +50,21 @@ export const CustomerCard = (props) => {
                   
                 </CardBody> */}
 
-<Card className="mt-6 w-96">
+<Card className="mt-6 w-96 bg-grey">
       <CardHeader color="blue-gray" className="relative h-56">
         <img
           src={props.img}
           alt="card-image"
         />
       </CardHeader>
-      {/* <CardBody>
+      <CardBody>
         <Typography variant="h5" color="blue-gray" className="mb-2">
          {props.text}
         </Typography>
         <Typography>
           {props.para}
         </Typography>
-      </CardBody> */}
+      </CardBody>
                 <CardFooter className="pt-6 m-4">
                 <Button>{props.cardName}</Button>
                     
