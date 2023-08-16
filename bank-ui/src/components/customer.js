@@ -1,8 +1,10 @@
 import React from "react";
 import { CustomerCard } from "./card";
+import Navbar from "./../pages/Navbar"
 export const Customer = () => {
   return (
     <>
+    <Navbar/>
       {/* <div className="relative min-h-screen flex items-center justify-center bg-center py-12 px-4 sm:px-6 lg:px-8 bg-gray-500 bg-no-repeat bg-cover"
 	style={{backgroundImage: "url('https://images.unsplash.com/photo-1532423622396-10a3f979251a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1500&q=80')",}}>
 	<div className="absolute bg-black opacity-60 inset-0 z-0"></div> */}
@@ -22,6 +24,7 @@ export const Customer = () => {
         />
       </div>
       {/* </div> */}
+     
     </>
   );
 };

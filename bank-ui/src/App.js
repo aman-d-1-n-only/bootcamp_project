@@ -7,6 +7,7 @@ import CustomerList from './pages/CustomerList';
 import { CustomerDetails } from './components/customerDetails'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AddAccount } from './components/addAccount';
+import TransactionList from './pages/TransactionList';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             {/* <Route path="/customer/view-customer" element={<CustomerList />} /> */}
             <Route path="/customer/view-customer" element={<SeeCustomers />} />
             <Route path="/customer/add-account" element={<AddAccount />} />
+            <Route path = "/customer/transactions" element = {<TransactionList/>}/>
           </Routes>
         </BrowserRouter>
       </div>
