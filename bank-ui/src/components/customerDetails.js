@@ -174,6 +174,7 @@ import {
     CreditCardIcon,
     LockClosedIcon,
 } from "@heroicons/react/24/solid";
+import { useNavigate } from 'react-router';
 
 
 export const CustomerDetails = () => {
@@ -190,12 +191,13 @@ export const CustomerDetails = () => {
 
     const [customerData, setcustomerData] = useState(customerInitialValues);
     const jwtToken = sessionStorage.getItem('jwtToken');
+    const navigate = useNavigate();
     const display = (event) => {
         if (customerData.name === "" || customerData.address === "" || customerData.email === "" || customerData.contact === 0 || customerData.pincode === 0 || customerData.city === "") {
 
         }
         else {
-            event.preventDefault();
+            // event.preventDefault();
             try {
                 axios.post('http://localhost:5165/api/Customer/', customerData, {
                     headers: {
@@ -207,6 +209,7 @@ export const CustomerDetails = () => {
 
                     if (res.data) {
                         alert("Customer Details Added successfully");
+                        navigate('/customer/view-customer');
                     }
                 })
 
