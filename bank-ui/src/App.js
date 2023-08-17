@@ -9,11 +9,12 @@ import { AddAccount } from './components/addAccount';
 import TransactionList from './pages/TransactionList';
 import PrivateRoutes from './components/PrivateRoute';
 import CustomerProfile from './components/CustomerProfile';
+import Profile from './components/Profile2';
 
 function App() {
   return (
     <>
-      <div className="App bg-gray-100">
+      <div className="App bg-gray-100 min-h-screen">
         <BrowserRouter>
           <Routes>
             <Route element={<PrivateRoutes />}>
@@ -23,7 +24,8 @@ function App() {
               {/* <Route path="/customer/view-customer" element={<SeeCustomers />} /> */}
               <Route path="/customer/add-account" element={<AddAccount />} />
               <Route path="/customer/transactions" element={<TransactionList />} />
-              <Route path="/customer/customer-profile" element={<CustomerProfile />} />
+              {/* <Route path="/customer/customer-profile" element={<CustomerProfile />} /> */}
+              <Route path="/customer/customer-profile" element={<Profile />} />
             </Route>
 
             <Route path="/" element={<Login />} />
