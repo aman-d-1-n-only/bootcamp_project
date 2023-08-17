@@ -11,9 +11,9 @@ namespace BankApi.Models
 
         public string Email { get; set; }
 
-        public long Contact { get; set; }
+        public string Contact { get; set; }
 
-        public int Pincode { get; set; }
+        public string Pincode { get; set; }
 
         public int number_of_acc{
             get{ return Accounts.Count; }
@@ -21,14 +21,6 @@ namespace BankApi.Models
 
         public ICollection<AccountDTO> Accounts { get; set; } = new List<AccountDTO>();
 
-        public CustomerDTO()
-        {
-            Name = "name";
-            Address = "address";
-            City = "city";
-            Email = "email";
-            Contact = 0;
-            Pincode = 0;
-        }
+
     }
 }

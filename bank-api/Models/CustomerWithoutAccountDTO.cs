@@ -7,35 +7,31 @@ namespace BankApi.Models
     {
 
         
-        [Required(ErrorMessage = "Name is required.")]
-        [MaxLength(100)]
+        [Required]
+        [MaxLength(50)]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Address is required.")]
-        [MaxLength(500)]
+        [Required]
+        [MaxLength(200)]
         public string Address { get; set; }
 
-        [Required(ErrorMessage = "City is required.")]
+        [Required]
         [MaxLength(50)]
         public string City { get; set; }
 
-        [Required(ErrorMessage = "Email is required.")]
+        [Required]
+        [MaxLength(50)]
+        [RegularExpression(@"[a-z0-9]+@[a-z]+\.[a-z]{2,3}", ErrorMessage = "The email should follow format : (something)@(some_domain).(some_toplevel_domain)")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Contact is required.")]
-        public long Contact { get; set; }
+        [StringLength(10, MinimumLength = 10, ErrorMessage = "Contact must be 10 characters")]
+        [RegularExpression(@"^[6-9]\d{9}$", ErrorMessage = "The Contact is not valid")]
+        public string Contact { get; set; }
 
         [Required(ErrorMessage = "Pincode is required.")]
-        public int Pincode { get; set; }
+        [StringLength(6, MinimumLength = 6, ErrorMessage = "Pincode must be 6 characters")]
+        public string Pincode { get; set; }
 
-        public CustomerWithoutAccountDTO()
-        {
-            Name = "name";
-            Address = "address";
-            City = "city";
-            Email = "email";
-            Contact = 0;
-            Pincode = 0;
-        }
     }
 }

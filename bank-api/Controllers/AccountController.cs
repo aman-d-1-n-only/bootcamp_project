@@ -37,7 +37,9 @@ namespace BankApi.Controllers
 
         [HttpPost]
         public async Task<ActionResult<AccountDTO>> CreateAccount([FromRoute] int CustId , AccountDTO newAcccount ){
-               
+            if (!ModelState.IsValid){
+                return BadRequest(ModelState);
+            }
             if (!await _bankRepository.CustomerExistsAsync(CustId)){
                 return NotFound();
             }
@@ -51,6 +53,10 @@ namespace BankApi.Controllers
         [HttpPut, Route("{AccId:int}")]
         public async Task<IActionResult> UpdateAccount([FromRoute] int CustId, int AccId , AccountDTO updatedAccount )
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             if (!await _bankRepository.CustomerExistsAsync(CustId))
             {
                 return NotFound();
@@ -62,7 +68,7 @@ namespace BankApi.Controllers
             }
             _mapper.Map(updatedAccount, account);
             await _bankRepository.SaveChangesAsync();
-            return Ok("Update is done");
+            return Ok(updatedAccount);
         }
 
         [HttpDelete, Route("{AccId:int}")]
@@ -79,7 +85,8 @@ namespace BankApi.Controllers
             }
             _bankRepository.DeleteAccount(account);
             await _bankRepository.SaveChangesAsync();
-            return Ok("Delete is done");
+            var respAccount = _mapper.Map<RespAccountDTO>(account);
+            return Ok(respAccount);
         }
     }
 }

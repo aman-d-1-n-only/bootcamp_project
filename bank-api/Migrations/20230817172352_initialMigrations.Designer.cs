@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace bank_api.Migrations
 {
     [DbContext(typeof(BankApiContext))]
-    [Migration("20230813213109_initialMigrations")]
+    [Migration("20230817172352_initialMigrations")]
     partial class initialMigrations
     {
         /// <inheritdoc />
@@ -26,16 +26,16 @@ namespace bank_api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<long>("AccNo")
-                        .HasMaxLength(8)
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("AccNo")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<double>("Balance")
                         .HasColumnType("REAL");
 
-                    b.Property<long>("CardNo")
-                        .HasMaxLength(12)
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("CardNo")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("CustId")
                         .HasColumnType("INTEGER");
@@ -43,9 +43,9 @@ namespace bank_api.Migrations
                     b.Property<int?>("CustomerCustId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Pin")
-                        .HasMaxLength(4)
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Pin")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("AccId");
 
@@ -66,7 +66,6 @@ namespace bank_api.Migrations
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -82,17 +81,15 @@ namespace bank_api.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
-                    b.Property<long>("Contact")
-                        .HasMaxLength(10)
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Contact")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -100,12 +97,11 @@ namespace bank_api.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Pincode")
-                        .HasMaxLength(6)
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Pincode")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("CustId");
 

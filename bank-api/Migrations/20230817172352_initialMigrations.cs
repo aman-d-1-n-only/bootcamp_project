@@ -16,7 +16,7 @@ namespace bank_api.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Username = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Username = table.Column<string>(type: "TEXT", nullable: false),
                     Password = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -30,12 +30,12 @@ namespace bank_api.Migrations
                 {
                     CustId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Address = table.Column<string>(type: "TEXT", maxLength: 500, nullable: false),
-                    City = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Address = table.Column<string>(type: "TEXT", nullable: false),
+                    City = table.Column<string>(type: "TEXT", nullable: false),
                     Email = table.Column<string>(type: "TEXT", nullable: false),
-                    Contact = table.Column<long>(type: "INTEGER", maxLength: 10, nullable: false),
-                    Pincode = table.Column<int>(type: "INTEGER", maxLength: 6, nullable: false)
+                    Contact = table.Column<string>(type: "TEXT", nullable: false),
+                    Pincode = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -48,10 +48,10 @@ namespace bank_api.Migrations
                 {
                     AccId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    AccNo = table.Column<long>(type: "INTEGER", maxLength: 8, nullable: false),
+                    AccNo = table.Column<string>(type: "TEXT", nullable: false),
                     Balance = table.Column<double>(type: "REAL", nullable: false),
-                    CardNo = table.Column<long>(type: "INTEGER", maxLength: 12, nullable: false),
-                    Pin = table.Column<int>(type: "INTEGER", maxLength: 4, nullable: false),
+                    CardNo = table.Column<string>(type: "TEXT", nullable: false),
+                    Pin = table.Column<string>(type: "TEXT", nullable: false),
                     CustId = table.Column<int>(type: "INTEGER", nullable: false),
                     CustomerCustId = table.Column<int>(type: "INTEGER", nullable: true)
                 },

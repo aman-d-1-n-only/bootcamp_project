@@ -32,6 +32,10 @@ namespace BankApi.Controllers
         [HttpPost, Route("signUp")]
         public async Task<IActionResult> AdminSignUp(AdminDTO user)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             //Implementation Here
             var admin = _mapper.Map<Admin>(user);
             await _bankRepository.AddAdminAsync(admin);
@@ -42,7 +46,11 @@ namespace BankApi.Controllers
 
         [HttpPost, Route("login")]
         public async Task<ActionResult<String>> AdminLogin(AdminDTO user )
-        {   
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var admin = await _bankRepository.GetAdminAsync(user);
             if( admin == null ){
                 return NotFound("No such user found.");

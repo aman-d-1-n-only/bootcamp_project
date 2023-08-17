@@ -10,16 +10,13 @@ namespace BankApi.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AccId { get; set; }
 
-        [Required]
-        public long AccNo { get; set; }
+        public string AccNo { get; set; }
 
         public double Balance { get; set; }
 
-        [Required]
-        public long CardNo { get; set; }
+        public string CardNo { get; set; }
 
-        [Required]
-        public int Pin { get; set; }
+        public string Pin { get; set; }
 
         [ForeignKey("CustId")]
         public int CustId { get; set; }

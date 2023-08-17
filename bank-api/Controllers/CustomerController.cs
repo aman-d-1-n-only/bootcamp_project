@@ -31,7 +31,10 @@ namespace BankApi.Controllers{
         [HttpPost]
         public async Task<ActionResult<CustomerWithoutAccountDTO>> CreateCustomer(CustomerWithoutAccountDTO newCustomer)
         {
-
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var customer = _mapper.Map<Customer>(newCustomer);
             await _bankRepository.AddCustomerAsync(customer);
             await _bankRepository.SaveChangesAsync();
@@ -41,6 +44,10 @@ namespace BankApi.Controllers{
 
         [HttpPut,Route("{CustId:int}")]
         public async Task<ActionResult> UpdateCustomer( [FromRoute] int CustId , CustomerWithoutAccountDTO updatedCustomer ){
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             if (!await _bankRepository.CustomerExistsAsync(CustId))
             {
                 return NotFound();
@@ -48,7 +55,7 @@ namespace BankApi.Controllers{
             var customer = await _bankRepository.GetCustomerAsync(CustId); 
             _mapper.Map(updatedCustomer , customer );
             await _bankRepository.SaveChangesAsync();
-            return Ok("Update is done");
+            return Ok(updatedCustomer);
         }
 
         [HttpDelete,Route("{CustId:int}")]
@@ -60,7 +67,8 @@ namespace BankApi.Controllers{
             var customer = await _bankRepository.GetCustomerAsync(CustId);
             _bankRepository.DeleteCustomer(customer);
             await _bankRepository.SaveChangesAsync();
-            return Ok("Delete is done");
+            var respCustomer = _mapper.Map<RespCustomerDTO>(customer);
+            return Ok(respCustomer);
         }
 
     }

@@ -11,18 +11,10 @@ namespace BankApi.Models
 
         public string Email { get; set; }
 
-        public long Contact { get; set; }
+        public string Contact { get; set; }
 
-        public int Pincode { get; set; }
+        public string Pincode { get; set; }
 
-        public RespCustomerDTO()
-        {
-            Name = "name";
-            Address = "address";
-            City = "city";
-            Email = "email";
-            Contact = 0;
-            Pincode = 0;
-        }
+
     }
 }
