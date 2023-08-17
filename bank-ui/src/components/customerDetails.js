@@ -345,7 +345,7 @@ export const CustomerDetails = () => {
                                         </Typography>
                                         <Input type="email" label="Email Address" />
                                     </div>
-                                    <Button onClick={display}
+                                    <Button onClick={() => { navigate('/customer/add-account') }}
                                         type="submit"
                                         className="mt-4 mx-10"
                                     >
