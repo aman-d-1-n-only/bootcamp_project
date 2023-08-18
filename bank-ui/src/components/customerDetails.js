@@ -171,7 +171,7 @@ export const CustomerDetails = () => {
                                     />
 
                                     <Button onClick={display}
-                                        type="submit"
+                                        // type="submit"
                                         className="mt-4 mx-10"
                                     >
                                         Add Customer
