@@ -12,17 +12,19 @@ import {
 
 import UserProfile from "../img/UserProfile.png";
 
-import { BanknotesIcon } from "@heroicons/react/24/solid";
 
 import { useLocation } from "react-router-dom";
 import DeleteCustomer from "../services/DeleteCustomer";
 import AddAccnt2 from "../services/AddAccnt";
 
 export default function Profile() {
-  
+
   const location = useLocation();
   const customerData = location.state.data1;
   const custId = customerData.custId;
+
+  const [total, setTotal] = useState(0);
+
 
   const accountInitialValues = {
     accNo: 0,
@@ -39,7 +41,7 @@ export default function Profile() {
   const toggleModal = () => {
     setShowModal(!showModal);
   };
-  
+
 
   const jwtToken = sessionStorage.getItem("jwtToken");
   useEffect(() => {
@@ -50,12 +52,17 @@ export default function Profile() {
         },
       })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setAccountDetails(res.data);
         // customerData = res.data;
         // setcustomerData(res.data);
       });
+
+    accountDetails.map((item) => {
+      setTotal(total + item.balance)
+    })
   });
+
   const handleAccountChange = (e) => {
     setaccountData({ ...accountData, [e.target.name]: e.target.value });
   };
@@ -99,7 +106,9 @@ export default function Profile() {
       // console.log(accountData);
     }
   };
-  const handleClick = () => {};
+
+  const handleClick = () => { };
+
   return (
     <>
       <div className="bg-gray-100">
@@ -115,7 +124,7 @@ export default function Profile() {
             {/* <!-- Left Side --> */}
             <div className="w-full md:w-3/12 md:mx-2">
               {/* <!-- Profile Card --> */}
-              <div className="bg-white p-3 border-t-4 border-teal-500">
+              <div className="bg-white p-3 border-t-4 border-gray-800">
                 <div className="image overflow-hidden"></div>
                 {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -141,8 +150,8 @@ export default function Profile() {
                   <li className="flex items-center py-3">
                     <span>Bank Balance</span>
                     <span className="ml-auto">
-                      <span className="bg-gray-100 py-1 px-2 rounded text-white text-sm">
-                        {/* {updatedData.name} */}
+                      <span className="bg-gray-100 py-1 px-2 rounded text-sm text-gray-800">
+                        {total}
                       </span>
                     </span>
                   </li>
@@ -177,7 +186,7 @@ export default function Profile() {
                       />
                     </svg>
                   </span>
-                  <span className="tracking-wide text-lg text-teal-500">
+                  <span className="tracking-wide text-lg text-gray-800">
                     About
                   </span>
                 </div>
@@ -323,8 +332,8 @@ export default function Profile() {
                     >
                       {name}
                     </Button>
-                   <DeleteCustomer/>
-                    
+                    <DeleteCustomer />
+
                   </div>
                 </form>
               </div>
@@ -352,108 +361,108 @@ export default function Profile() {
                         />
                       </svg>
                     </span>
-                    <span className="tracking-wide text-lg text-teal-500">
+                    <span className="tracking-wide text-lg text-gray-800">
                       Account Details
                     </span>
                   </div>
-              
-                    <Button
-         className="mt-4 mx-10 z-0"
-        type="button"
-        onClick={() => setShowModal(true)}
-      >
-      Add Account
-      </Button>
-      {showModal ? (
-        <>
-         <div className="flex items-center justify-center w-full top-0 right-0 left-0 inset-0 fixed  ">
-          <div
-            onClick={() => setShowModal(false)}
-            
-            className="bg-[rgba(49,49,49,0.8)] absolute w-full h-full inset-0 "
-          ></div>
-          
-        <Card className="m-2 p-2 lg:max-w-[35rem]  sm:w-1/2 ">
-<CardHeader
-  color="gray"
-  className="m-0 grid place-items-center rounded-b-none py-8 px-4 text-center"
->
 
-  <Typography variant="h4" color="white">
-   Add Account
-  </Typography>
-</CardHeader>
-<CardBody className="px-20">
-  {/* Add Account */}
+                  <Button
+                    className="mt-4 mx-10 z-0 "
+                    type="button"
+                    onClick={() => setShowModal(true)}
+                  >
+                    Add Account
+                  </Button>
+                  {showModal ? (
+                    <>
+                      <div className="flex items-center justify-center w-full top-0 right-0 left-0 inset-0 fixed  ">
+                        <div
+                          onClick={() => setShowModal(false)}
 
-  <form className="mt-8 flex flex-col gap-y-4 ">
-    <Typography
-      variant="small"
-      color="blue-gray"
-      className="font-medium"
-    >
-      Account Details
-    </Typography>
+                          className="bg-[rgba(49,49,49,0.8)] absolute w-full h-full inset-0 "
+                        ></div>
 
-    <Input className="w-fit"
-      onChange={handleAccountChange}
-      name="accNo"
-      label="Account Number"
-      value={accountData.name}
-    />
+                        <Card className="m-2 p-2 lg:max-w-[35rem]  sm:w-1/2 ">
+                          <CardHeader
+                            color="gray"
+                            className="m-0 grid place-items-center rounded-b-none py-8 px-4 text-center"
+                          >
 
-    <Input className="w-fit"
-      onChange={handleAccountChange}
-      name="cardNo"
-      label="Card Number"
-      value={accountData.name}
-    />
+                            <Typography variant="h4" color="white">
+                              Add Account
+                            </Typography>
+                          </CardHeader>
+                          <CardBody className="px-20">
+                            {/* Add Account */}
 
-    <Input className="w-fit"
-      onChange={handleAccountChange}
-      name="balance"
-      label="Balance"
-      value={accountData.name}
-    />
+                            <form className="mt-8 flex flex-col gap-y-4 w-full ">
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-medium"
+                              >
+                                Account Details
+                              </Typography>
 
-    <Input className="w-fit"
-      onChange={handleAccountChange}
-      name="pin"
-      label="Pin"
-      type="password"
-      value={accountData.name}
-    />
-<div className="flex items-center justify-center">
-    <Button onClick={SubmitAccount} className="mt-4 mx-10 hover:scale-105">
-      Add
-    </Button>
-    <Button
-                  className="mt-4 mx-10 bg-gray-400   shadow-lowshade hover:scale-105 hover:bg-gray-500 cursor-pointer 
+                              <Input className="w-min"
+                                onChange={handleAccountChange}
+                                name="accNo"
+                                label="Account Number"
+                                value={accountData.name}
+                              />
+
+                              <Input className="w-fit"
+                                onChange={handleAccountChange}
+                                name="cardNo"
+                                label="Card Number"
+                                value={accountData.name}
+                              />
+
+                              <Input className="w-fit"
+                                onChange={handleAccountChange}
+                                name="balance"
+                                label="Balance"
+                                value={accountData.name}
+                              />
+
+                              <Input className="w-fit"
+                                onChange={handleAccountChange}
+                                name="pin"
+                                label="Pin"
+                                type="password"
+                                value={accountData.name}
+                              />
+                              <div className="flex items-center justify-center">
+                                <Button onClick={SubmitAccount} className="mt-4 mx-10 hover:scale-105">
+                                  Add
+                                </Button>
+                                <Button
+                                  className="mt-4 mx-10 bg-gray-400   shadow-lowshade hover:scale-105 hover:bg-gray-500 cursor-pointer 
               text-gray-900 "
-              onClick={() => setShowModal(false)}
-                >
-                  Close
-                </Button>
-                </div>
-  </form>
-</CardBody>
-</Card>
-</div>   </>
-      ) : null}
-   
+                                  onClick={() => setShowModal(false)}
+                                >
+                                  Close
+                                </Button>
+                              </div>
+                            </form>
+                          </CardBody>
+                        </Card>
+                      </div>   </>
+                  ) : null}
+
                   <div className="grid sm:grid-cols-2 lg:grid-cols-4 items-center justify-start -z-100">
                     {accountDetails.length > 0 && !showModal ? (
                       <>
-                        {console.log(accountDetails)}
+                        {/* {console.log(accountDetails)} */}
                         {accountDetails.map((item) => {
                           return (
                             <>
-                            <Card className="m-4 h-fit w-fit md:basis-1/2 lg:basis-1/4"
-                              // {/* <Card className={`m-4 h-fit w-fit md:lg:basis-1/2 lg:basis-1/4 -z-100 ${!showModal? `bg-transparent text-transparent:null`:'bg-white text-gray-800 outline'}`} */}
-                              floated={false}
-                              shadow={false}>
+                              <Card className="m-4 h-fit w-fit md:basis-1/2 lg:basis-1/4 outline-black shadow-lg"
+                                // {/* <Card className={`m-4 h-fit w-fit md:lg:basis-1/2 lg:basis-1/4 -z-100 ${!showModal? `bg-transparent text-transparent:null`:'bg-white text-gray-800 outline'}`} */}
+                                floated={false}
+                                shadow={false}>
                                 <CardBody className="text-base " floated={false}
-                              shadow={false}>
+                                  shadow={false}>
                                   <Typography>
                                     Account Number: {item.accNo}
                                   </Typography>
@@ -488,12 +497,12 @@ export default function Profile() {
                     )}
                   </div>
 
-                 
+
                 </div>
               </div>
 
               {/* <!-- End of profile tab --> */}
-            
+
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router";
 import { Button } from '@material-tailwind/react';
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -78,12 +79,22 @@ const Navbar = () => {
                   aria-current="page"
                   href="#"
                   data-te-nav-link-ref
-                >Dashboard</a
+                >
+                 <Link to="/customer/" >Dashboard</Link>
+            </a
                 >
               </li>
             </ul>
 
             <div class={"flex items-center"}>
+
+           <div className="">
+            <Link to="/customer/view-customer" className="mx-4 bg-gray-200 p-4 rounded-lg">View Customer</Link>
+            <Link to="/customer/add-customer" className="mx-4 bg-gray-200 p-4 rounded-lg">Add Customer</Link>
+            <Link to="/customer/transactions" className="mx-4 bg-gray-200 p-4 rounded-lg">Transactions</Link>
+            </div>
+
+            
               <Button
                 type="button"
                 onClick={handleClick}
