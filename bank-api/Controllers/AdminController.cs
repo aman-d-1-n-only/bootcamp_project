@@ -32,10 +32,6 @@ namespace BankApi.Controllers
         [HttpPost, Route("signUp")]
         public async Task<IActionResult> AdminSignUp(AdminDTO user)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             //Implementation Here
             var admin = _mapper.Map<Admin>(user);
             await _bankRepository.AddAdminAsync(admin);

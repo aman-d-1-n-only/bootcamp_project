@@ -12,6 +12,8 @@ namespace BankApi.Profiles
             CreateMap<Account, AccountDTO>();
             CreateMap<AccountDTO, Account>();
             CreateMap<Account,RespAccountDTO>();
+            CreateMap<UpdateAccountDTO, Account>();
+
 
         }
     }
