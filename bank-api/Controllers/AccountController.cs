@@ -49,6 +49,26 @@ namespace BankApi.Controllers
             var respAccount = _mapper.Map<RespAccountDTO>(account);
             return Ok(respAccount);
         }
+        [HttpGet, Route("{AccId:int}")]
+        public async Task<IActionResult> GetAccount([FromRoute] int CustId, int AccId  )
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (!await _bankRepository.CustomerExistsAsync(CustId))
+            {
+                return NotFound();
+            }
+            var account = await _bankRepository.GetAccountOfCustomerAsync(CustId, AccId);
+            if (account == null)
+            {
+                return NotFound();
+            }
+            
+            var respAccount = _mapper.Map<RespAccountDTO>(account);
+            return Ok(respAccount);
+        }
 
         [HttpPut, Route("{AccId:int}")]
         public async Task<IActionResult> UpdateAccount([FromRoute] int CustId, int AccId , AccountDTO updatedAccount )
