@@ -55,7 +55,8 @@ namespace BankApi.Controllers{
             var customer = await _bankRepository.GetCustomerAsync(CustId); 
             _mapper.Map(updatedCustomer , customer );
             await _bankRepository.SaveChangesAsync();
-            return Ok(updatedCustomer);
+            var respCustomer = _mapper.Map<RespCustomerDTO>(customer);
+            return Ok(respCustomer);
         }
 
         [HttpDelete,Route("{CustId:int}")]

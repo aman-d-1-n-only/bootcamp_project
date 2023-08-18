@@ -88,7 +88,8 @@ namespace BankApi.Controllers
             }
             _mapper.Map(updatedAccount, account);
             await _bankRepository.SaveChangesAsync();
-            return Ok(updatedAccount);
+            var respAccount = _mapper.Map<RespAccountDTO>(account);
+            return Ok(respAccount);
         }
 
         [HttpDelete, Route("{AccId:int}")]
