@@ -23,16 +23,12 @@ namespace BankApi.Controllers
 
         }
 
-        // [HttpGet]
-        // public async Task<ActionResult<IEnumerable<AccountDTO>>> GetAccounts([FromRoute] int CustId)
-        // {
-        //     if (!await _bankRepository.CustomerExistsAsync(CustId))
-        //     {
-        //         return NotFound();
-        //     }
-        //     var accounts = await _bankRepository.GetAccountsOfCustomerAsync(CustId);
-        //     return Ok(_mapper.Map<IEnumerable<RespAccountDTO>>(accounts));
-        // }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Transaction>>> GetTransactions()
+        {
+            var txns = await _bankRepository.GetTransactionsAsync();
+            return Ok(txns);
+        }
 
 
         [HttpPost]
