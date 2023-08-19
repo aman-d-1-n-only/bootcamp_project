@@ -8,13 +8,22 @@ import {
   Input,
   Button,
   Typography,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter
 } from "@material-tailwind/react";
+import { CurrencyRupeeIcon } from '@heroicons/react/24/solid';
+
 
 import UserProfile from "../img/UserProfile.png";
 
 
 import { useLocation } from "react-router-dom";
 import DeleteCustomer from "../services/DeleteCustomer";
+import LeftProfileCard from "./LeftProfileCard";
+import { Modal,Box } from "@mui/material";
+import AccntTable from "./AccntTable";
 // import AddAccnt2 from "../services/AddAccnt";
 
 export default function Profile() {
@@ -22,6 +31,7 @@ export default function Profile() {
   const location = useLocation();
   const customerData = location.state.data1;
   const custId = customerData.custId;
+  const TABLE_HEAD = ["Account Number", "Card Number", "Balance", "Edit Pin","Delete","Withdraw Cash"];
 
   const [total, setTotal] = useState(0);
 
@@ -96,7 +106,9 @@ export default function Profile() {
             if (res.data) {
               alert(
                 `Account Details Added successfully for ${customerData.name}`
+                
               );
+              toggleModal();
             }
           });
       } catch (error) {
@@ -113,56 +125,13 @@ export default function Profile() {
     <>
       <div className="bg-gray-100">
         <Navbar />
-        <div className="w-full text-white bg-main-color">
-          <h1 class="text-xl text-black font-semibold tracking-wide uppercase mt-6 px-4 max-w-screen-xl  mx-auto md:items-center md:justify-between md:flex-row md:px-6 ">
-            Customer Profile
-          </h1>
-        </div>
+        
 
         <div className="container mx-auto my-5 p-0">
           <div className="md:flex no-wrap md:-mx-2 ">
-            {/* <!-- Left Side --> */}
-            <div className="w-full md:w-3/12 md:mx-2">
-              {/* <!-- Profile Card --> */}
-              <div className="bg-white p-3 border-t-4 border-gray-800">
-                <div className="image overflow-hidden"></div>
-                {/* <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="w-fit h-fit "
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                </svg> */}
-                <img
-                  src={UserProfile}
-                  alt="user_profile_icon"
-                  className="rounded-full"
-                />
+           
+            <LeftProfileCard/>
 
-                <ul className="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
-                  <li className="flex items-center py-3">
-                    <span>Bank Balance</span>
-                    <span className="ml-auto">
-                      <span className="bg-gray-100 py-1 px-2 rounded text-sm text-gray-800">
-                        {total}
-                      </span>
-                    </span>
-                  </li>
-                  <li className="flex items-center py-3">
-                    <span>Member since</span>
-                    <span className="ml-auto text-sm">Jul XX, 20XX</span>
-                  </li>
-                </ul>
-              </div>
-              {/* <!-- End of profile card --> */}
-            </div>
             {/* <!-- Right Side --> */}
             <div className="w-full md:w-9/12 mx-2 h-64">
               {/* <!-- Profile tab --> */}
@@ -342,7 +311,7 @@ export default function Profile() {
               <div className="my-4 "></div>
 
               {/* <!-- Start of Account section --> */}
-              <div className="bg-white p-3 shadow-sm rounded-sm ">
+              <div className="bg-white p-5 shadow-sm rounded-sm ">
                 <div className="w-full">
                   <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
                     <span clas="text-green-500">
@@ -369,29 +338,34 @@ export default function Profile() {
                   <Button
                     className="mt-4 mx-10 z-0 "
                     type="button"
-                    onClick={() => setShowModal(true)}
+                    onClick={toggleModal}
                   >
                     Add Account
                   </Button>
                   {showModal ? (
                     <>
-                      <div className="flex items-center justify-center w-full top-0 right-0 left-0 inset-0 fixed  ">
-                        <div
-                          onClick={() => setShowModal(false)}
-
-                          className="bg-[rgba(49,49,49,0.8)] absolute w-full h-full inset-0 "
-                        ></div>
-
-                        <Card className="m-2 p-2 lg:max-w-[35rem]  sm:w-1/2 ">
+                               <Dialog
+        size="xs"
+        
+        open={showModal} handler={toggleModal}
+        className="bg-transparent shadow-none "
+      >
+        <Card>
                           <CardHeader
-                            color="gray"
-                            className="m-0 grid place-items-center rounded-b-none py-8 px-4 text-center"
+                            className=" grid place-items-center  py-8 px-4 text-center bg-gray-900 
+                            "
                           >
+                            
+<div className=" text-white mb-4">
+<CurrencyRupeeIcon className="h-20 w-20" />
+                        {/* <CurrencyRupeeIcon className="h-20 w-20" /> */}
+                        
+                    </div>
 
                             <Typography variant="h4" color="white">
                               Add Account
                             </Typography>
-                          </CardHeader>
+                            </CardHeader>
                           <CardBody className="px-20">
                             {/* Add Account */}
 
@@ -404,7 +378,7 @@ export default function Profile() {
                                 Account Details
                               </Typography>
 
-                              <Input className="w-min"
+                              <Input 
                                 onChange={handleAccountChange}
                                 name="accNo"
                                 label="Account Number"
@@ -433,69 +407,28 @@ export default function Profile() {
                                 value={accountData.name}
                               />
                               <div className="flex items-center justify-center">
-                                <Button onClick={SubmitAccount} className="mt-4 mx-10 hover:scale-105">
+                                <Button onClick={SubmitAccount } className="mt-4 mx-10 hover:scale-105">
                                   Add
                                 </Button>
                                 <Button
                                   className="mt-4 mx-10 bg-gray-400   shadow-lowshade hover:scale-105 hover:bg-gray-500 cursor-pointer 
               text-gray-900 "
-                                  onClick={() => setShowModal(false)}
+              onClick={toggleModal} 
                                 >
                                   Close
                                 </Button>
-                              </div>
+                                </div>
                             </form>
-                          </CardBody>
-                        </Card>
-                      </div>   </>
+                            </CardBody>
+                            
+                        </Card> 
+                        </Dialog></>
                   ) : null}
 
-                  <div className="grid sm:grid-cols-2 lg:grid-cols-4 items-center justify-start -z-100">
-                    {accountDetails.length > 0 && !showModal ? (
-                      <>
-                        {/* {console.log(accountDetails)} */}
-                        {accountDetails.map((item) => {
-                          return (
-                            <>
-                              <Card className="m-4 h-fit w-fit md:basis-1/2 lg:basis-1/4 outline-black shadow-lg"
-                                // {/* <Card className={`m-4 h-fit w-fit md:lg:basis-1/2 lg:basis-1/4 -z-100 ${!showModal? `bg-transparent text-transparent:null`:'bg-white text-gray-800 outline'}`} */}
-                                floated={false}
-                                shadow={false}>
-                                <CardBody className="text-base " floated={false}
-                                  shadow={false}>
-                                  <Typography>
-                                    Account Number: {item.accNo}
-                                  </Typography>
-                                  <Typography>
-                                    Card Number:{item.cardNo}
-                                  </Typography>
-                                  <Typography>
-                                    Balance: {item.balance}
-                                  </Typography>
+{/* Start of account table */}
 
-                                  {/* <ul class="list-inside space-y-2">
-                                <li>
-                                    <div class="text-gray-600">Account Number: {item.accNo}</div>
-                                    
-                                </li>
-                                <li>
-                                <div class="text-gray-600">Card Number:{item.cardNo}</div>
-                                </li>
-                                <li>
-                                    <div class="text-gray-600">Balance: {item.balance}</div>
-                                </li>
-                                
-                            </ul> */}
-                                </CardBody>
-                              </Card>
-                            </>
-                          );
-                        })}
-                      </>
-                    ) : (
-                      <></>
-                    )}
-                  </div>
+<AccntTable accountDetails={accountDetails} showModal={showModal}/>
+                
 
 
                 </div>

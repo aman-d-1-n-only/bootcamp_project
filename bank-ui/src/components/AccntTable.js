@@ -4,16 +4,18 @@ import {
     Typography
   } from "@material-tailwind/react";
 
+  import { useNavigate } from 'react-router-dom';
 
 
 
 export default function AccntTable({accountDetails}, {showModal}) {
-    
+  const navigate = useNavigate();
+
     const TABLE_HEAD = ["Account Number", "Card Number", "Balance", "Edit Pin","Delete","Withdraw Cash"];
   return (
     <div>
         
-       {accountDetails.length > 0 && !showModal ? (
+       {accountDetails.length > 0 ? (
                       <>
                       <Card className="h-full w-full overflow-auto mt-6">
       <table className="w-full min-w-max table-auto text-center justify-center">
@@ -112,7 +114,7 @@ export default function AccntTable({accountDetails}, {showModal}) {
               color="blue-gray"
               className="font-medium"
             >
-          <button>
+          <button onClick={() => navigate("/customer/cash-withdraw")} >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6 text-green-800">
   <path stroke-linecap="round" stroke-linejoin="round" d="M15 8.25H9m6 3H9m3 6l-3-3h1.5a3 3 0 100-6M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
 </svg></button>    
