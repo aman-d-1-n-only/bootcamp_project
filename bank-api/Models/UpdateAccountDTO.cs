@@ -6,9 +6,7 @@ namespace BankApi.Models
     {
 
         [Required]
-        [StringLength(10, MinimumLength = 10, ErrorMessage = "Account Number must be 10 characters")]
-        [RegularExpression(@"^[0-9]{10}$", ErrorMessage = "The Account Number should only contain number from 0 to 9.")]
-        public string AccNo { get; set; }
+        public string AccType { get; set; }
 
         [Required]
         public double Balance { get; set; }

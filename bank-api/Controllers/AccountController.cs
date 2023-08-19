@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace BankApi.Controllers
 {
     [ApiController]
-    [Authorize]
+    // [Authorize]
     [Route("api/customer/{CustId:int}/account")]
 
     public class AccountController : ControllerBase

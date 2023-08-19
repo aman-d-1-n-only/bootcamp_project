@@ -5,6 +5,7 @@ namespace BankApi.Models
         public int AccId { get; set; }
 
         public string AccType { get; set; }
+        
         public double Balance { get; set; }
 
         public string CardNo { get; set; }
