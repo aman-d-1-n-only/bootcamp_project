@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace bank_api.Migrations
 {
     [DbContext(typeof(BankApiContext))]
-    [Migration("20230817172352_initialMigrations")]
+    [Migration("20230819080033_initialMigrations")]
     partial class initialMigrations
     {
         /// <inheritdoc />
@@ -26,7 +26,7 @@ namespace bank_api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("AccNo")
+                    b.Property<string>("AccType")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -106,6 +106,34 @@ namespace bank_api.Migrations
                     b.HasKey("CustId");
 
                     b.ToTable("Customer");
+                });
+
+            modelBuilder.Entity("BankApi.Entities.Transaction", b =>
+                {
+                    b.Property<int>("TxnId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("Amount")
+                        .HasColumnType("REAL");
+
+                    b.Property<int>("CreditTo")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Date")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("DebitedFrom")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("TxnId");
+
+                    b.ToTable("Transaction");
                 });
 
             modelBuilder.Entity("BankApi.Entities.Account", b =>

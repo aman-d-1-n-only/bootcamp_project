@@ -10,7 +10,7 @@ namespace BankApi.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AccId { get; set; }
 
-        public string AccNo { get; set; }
+        public string AccType {get; set; }
 
         public double Balance { get; set; }
 
