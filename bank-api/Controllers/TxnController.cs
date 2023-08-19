@@ -35,23 +35,18 @@ namespace BankApi.Controllers
         // }
 
 
-        // [HttpPost]
-        // public async Task<ActionResult<AccountDTO>> CreateAccount([FromRoute] int CustId, AccountDTO newAcccount)
-        // {
-        //     if (!ModelState.IsValid)
-        //     {
-        //         return BadRequest(ModelState);
-        //     }
-        //     if (!await _bankRepository.CustomerExistsAsync(CustId))
-        //     {
-        //         return NotFound();
-        //     }
-        //     var account = _mapper.Map<Account>(newAcccount);
-        //     await _bankRepository.AddAccountForCustomerAsync(CustId, account);
-        //     await _bankRepository.SaveChangesAsync();
-        //     var respAccount = _mapper.Map<RespAccountDTO>(account);
-        //     return Ok(respAccount);
-        // }
+        [HttpPost]
+        public async Task<ActionResult<Transaction>> CreateTransaction( TransactionDTO newTransaction )
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var transaction = _mapper.Map<Transaction>(newTransaction);
+            await _bankRepository.AddTransactionAsync(transaction);
+            await _bankRepository.SaveChangesAsync();
+            return Ok(transaction);
+        }
         
 
         [HttpPut, Route("/fundTransfer")]

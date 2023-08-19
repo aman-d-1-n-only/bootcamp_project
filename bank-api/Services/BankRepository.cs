@@ -66,10 +66,23 @@ namespace BankApi.Services {
 
         public async Task<Admin?> GetAdminAsync( AdminDTO admin ){
             return await _context.Admin.Where( a => a.Username == admin.Username && a.Password == admin.Password ).FirstOrDefaultAsync();
+            throw new NotImplementedException();
         }
 
         public async Task<Account?> GetAccountAsync( int AccNo ){
             return await _context.Account.Where(a => a.AccId == AccNo).FirstOrDefaultAsync();
+            throw new NotImplementedException();
+        }
+
+        public async Task AddTransactionAsync( Transaction transaction )
+        {
+            await _context.Transaction.AddAsync(transaction);
+        }
+
+        public async Task<IEnumerable<Transaction>> GetTransactionsAsync()
+        {
+            return await _context.Transaction.ToListAsync();
+            throw new NotImplementedException();
         }
     }
 }
