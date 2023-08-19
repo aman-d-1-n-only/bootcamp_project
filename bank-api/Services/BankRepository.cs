@@ -67,5 +67,9 @@ namespace BankApi.Services {
         public async Task<Admin?> GetAdminAsync( AdminDTO admin ){
             return await _context.Admin.Where( a => a.Username == admin.Username && a.Password == admin.Password ).FirstOrDefaultAsync();
         }
+
+        public async Task<Account?> GetAccountAsync( int AccNo ){
+            return await _context.Account.Where(a => a.AccId == AccNo).FirstOrDefaultAsync();
+        }
     }
 }

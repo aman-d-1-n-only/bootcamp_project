@@ -15,5 +15,6 @@ namespace BankApi.Services {
         void DeleteCustomer( Customer customer);
         void DeleteAccount( Account account);
         Task<Admin?> GetAdminAsync( AdminDTO admin );
+        Task<Account?> GetAccountAsync( int AccNo);
     }
 }
