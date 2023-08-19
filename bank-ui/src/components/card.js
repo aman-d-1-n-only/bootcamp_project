@@ -50,7 +50,7 @@ export const CustomerCard = (props) => {
                   
                 </CardBody> */}
 
-<Card className="mt-6 w-96 bg-grey">
+<Card className="mt-6 w-60 bg-grey">
       <CardHeader color="blue-gray" className="relative h-56">
         <img
           src={props.img}

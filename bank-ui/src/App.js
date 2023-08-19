@@ -9,6 +9,7 @@ import { AddAccount } from './components/addAccount';
 import TransactionList from './pages/TransactionList';
 import PrivateRoutes from './components/PrivateRoute';
 import CustomerProfile from './components/CustomerProfile';
+import  CashWithdraw  from './pages/CashWithdraw';
 
 function App() {
   return (
@@ -23,8 +24,11 @@ function App() {
               {/* <Route path="/customer/view-customer" element={<SeeCustomers />} /> */}
               <Route path="/customer/add-account" element={<AddAccount />} />
               <Route path="/customer/transactions" element={<TransactionList />} />
+              <Route path="/customer/cash-withdraw" element={<CashWithdraw />} />
+
               <Route path="/customer/customer-profile" element={<CustomerProfile />} />
             </Route>
+
 
             <Route path="/" element={<Login />} />
 

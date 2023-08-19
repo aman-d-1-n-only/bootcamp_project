@@ -121,6 +121,11 @@ const TransactionList = () => {
   return (
     <>
       <Navbar />
+      <div>
+      <TextField id="outlined-basic" label="Enter CustomerId" variant="outlined" placeholder = "Enter CustomerId" />
+      <TextField id="outlined-basic" label="Enter AccountId" variant="outlined" placeholder = "Enter AccountId" />
+      <IconButton>Withdraw</IconButton>
+       </div>
       <div style={inputStyle}>
         {/* <input 
             type = "number"

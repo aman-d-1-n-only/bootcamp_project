@@ -11,7 +11,7 @@ export const Customer = () => {
       <div className="gap-6 flex items-center justify-center lg:flex-row lg:h-screen sm:flex-col sm:min-h-screen ">
         <CustomerCard
           cardName="add-customer"
-          img="https://images.pexels.com/photos/1602726/pexels-photo-1602726.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          img="https://images.pexels.com/photos/1602726/pexels-photo-1602726.jpeg"
           // img="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
         />
         <CustomerCard
@@ -21,6 +21,10 @@ export const Customer = () => {
         <CustomerCard
           cardName="transactions"
           img="https://images.pexels.com/photos/3943727/pexels-photo-3943727.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        />
+        <CustomerCard
+          cardName="cash-withdraw"
+          img="https://images.pexels.com/photos/4475523/pexels-photo-4475523.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         />
       </div>
       {/* </div> */}
