@@ -15,7 +15,7 @@ import UserProfile from "../img/UserProfile.png";
 
 import { useLocation } from "react-router-dom";
 import DeleteCustomer from "../services/DeleteCustomer";
-import AddAccnt2 from "../services/AddAccnt";
+// import AddAccnt2 from "../services/AddAccnt";
 
 export default function Profile() {
 
