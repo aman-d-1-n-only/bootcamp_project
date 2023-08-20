@@ -37,7 +37,7 @@ export default function Profile() {
 
 
   const accountInitialValues = {
-    accNo: 0,
+    accType: "",
     cardNo: 0,
     balance: 0,
     pin: 0,
@@ -68,10 +68,10 @@ export default function Profile() {
         // setcustomerData(res.data);
       });
 
-    accountDetails.map((item) => {
-      setTotal(total + item.balance)
-    })
-  });
+    // accountDetails.map((item) => {
+    //   setTotal(total + item.balance)
+    // })
+  },[]);
 
   const handleAccountChange = (e) => {
     setaccountData({ ...accountData, [e.target.name]: e.target.value });
@@ -82,7 +82,7 @@ export default function Profile() {
   };
   const SubmitAccount = (event) => {
     if (
-      accountData.accNo === "" ||
+      accountData.accType === "" ||
       accountData.cardNo === "" ||
       accountData.balance === "" ||
       accountData.pin === 0
@@ -130,7 +130,7 @@ export default function Profile() {
         <div className="container mx-auto my-5 p-0">
           <div className="md:flex no-wrap md:-mx-2 ">
            
-            <LeftProfileCard/>
+            <LeftProfileCard customerId={custId}/>
 
             {/* <!-- Right Side --> */}
             <div className="w-full md:w-9/12 mx-2 h-64">
@@ -301,7 +301,7 @@ export default function Profile() {
                     >
                       {name}
                     </Button>
-                    <DeleteCustomer />
+                    <DeleteCustomer customerId={custId}/>
 
                   </div>
                 </form>
@@ -380,8 +380,9 @@ export default function Profile() {
 
                               <Input 
                                 onChange={handleAccountChange}
-                                name="accNo"
-                                label="Account Number"
+                                name="accType"
+                                label="Account Type"
+                                placeholder="Cuurent or Savings"
                                 value={accountData.name}
                               />
 

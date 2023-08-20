@@ -26,10 +26,10 @@ function App() {
               <Route path="/customer/add-account" element={<AddAccount />} />
               <Route path="/customer/transactions" element={<TransactionList />} />
               <Route path="/customer/cash-withdraw" element={<CashWithdraw />} />
+              <Route path="/customer/customer-profile" element={<Profile />} />
 
               {/* <Route path="/customer/customer-profile" element={<CustomerProfile />} /> */}
               {/* <Route path="/customer/customer-profile" element={<CustomerProfile />} /> */}
-              <Route path="/customer/customer-profile" element={<Profile />} />
             </Route>
 
 
