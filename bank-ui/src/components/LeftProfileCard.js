@@ -27,7 +27,7 @@ export default function LeftProfileCard() {
           </div>
           <ul className="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-5 mt-3 divide-y rounded shadow-sm">
             <li className=" py-3 flex flex-col">
-              <Button onClick={() => setVisible(!visible)}>
+              <Button  variant="gradient" onClick={() => setVisible(!visible)}>
                 {visible ? "Hide Bank Balance" : "Check Bank Balance"}{" "}
               </Button>
               {visible && (
