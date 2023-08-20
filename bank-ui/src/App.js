@@ -9,11 +9,9 @@ import { AddAccount } from './components/addAccount';
 import TransactionList from './pages/TransactionList';
 import PrivateRoutes from './components/PrivateRoute';
 import CustomerProfile from './components/CustomerProfile';
-<<<<<<< HEAD
 import  CashWithdraw  from './pages/CashWithdraw';
-=======
 import Profile from './components/Profile2';
->>>>>>> bc813dc14a2465caa1bb3f72faf4eda767d802e1
+import FundTransfer from './pages/FundTransfer';
 
 function App() {
   return (
@@ -33,6 +31,7 @@ function App() {
               {/* <Route path="/customer/customer-profile" element={<CustomerProfile />} /> */}
               {/* <Route path="/customer/customer-profile" element={<CustomerProfile />} /> */}
               <Route path="/customer/customer-profile" element={<Profile />} />
+              <Route path = "/customer/fund-transfer" element={<FundTransfer/>}/>
             </Route>
 
 
