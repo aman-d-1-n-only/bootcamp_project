@@ -11,11 +11,8 @@ import PrivateRoutes from './components/PrivateRoute';
 import CustomerProfile from './components/CustomerProfile';
 import  CashWithdraw  from './pages/CashWithdraw';
 import Profile from './components/Profile2';
-<<<<<<< HEAD
 import EditPin from './pages/EditPin';
-=======
-import FundTransfer from './pages/FundTransfer';
->>>>>>> ddd91a4f6549ffd1d04f4b52ccb12326242b9378
+import FundTransfer from './pages/FundTransfer'
 
 function App() {
   return (

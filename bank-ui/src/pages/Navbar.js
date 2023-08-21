@@ -93,7 +93,7 @@ const Navbar = () => {
             <Link to="/customer/view-customer" className="mx-4 hover:bg-gray-400 p-3 rounded-lg bg-gradient-to-t from-gray-200">View Customer</Link>
             <Link to="/customer/transactions" className="mx-4 hover:bg-gray-400 p-3 rounded-lg bg-gradient-to-t from-gray-200">Transactions</Link>
             <Link to="/customer/cash-withdraw" className="mx-4 hover:bg-gray-400 p-3 rounded-lg bg-gradient-to-t from-gray-200">Cash Withdrawal</Link>
-            <Link to="/customer/Changepin" className="mx-4 hover:bg-gray-400 p-3 rounded-lg bg-gradient-to-t from-gray-200">Chane Pin</Link>
+            <Link to="/customer/Changepin" className="mx-4 hover:bg-gray-400 p-3 rounded-lg bg-gradient-to-t from-gray-200">Change Pin</Link>
 
             </div>
 
