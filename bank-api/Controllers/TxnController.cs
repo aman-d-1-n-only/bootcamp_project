@@ -100,5 +100,26 @@ namespace BankApi.Controllers
             }
             return NotFound("Pin doesn't matches !");
         }
+
+        [HttpPost, Route("/changePin")]
+        public async Task<ActionResult<AccountDTO>> ChangePin([FromBody] ChangePinDTO changePin )
+        {
+            if (!ModelState.IsValid){
+                return BadRequest(ModelState);
+            }
+
+            var account = await _bankRepository.GetAccountAsync( changePin.AccNo);
+            if ( account == null ){
+                return NotFound($"There is no account with account number :{changePin.AccNo}");
+            }
+
+            if( account.Pin == changePin.ExistingPin ){
+                account.Pin = changePin.NewPin ;
+                await _bankRepository.SaveChangesAsync();
+                var respAccount = _mapper.Map<RespAccountDTO>(account);
+                return Ok(respAccount);
+            }
+            return NotFound("Existing Pin doesn't matches !");
+        }
     }
 }
