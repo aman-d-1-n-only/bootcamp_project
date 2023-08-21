@@ -18,7 +18,7 @@ export default function LeftProfileCard(props) {
         },
       })
       .then((res) => {
-        console.log(res.data);
+        console.log("Inside left profile",res.data);
         res.data.map((item)=>{
           // console.log(item);
           sum+=item.balance;

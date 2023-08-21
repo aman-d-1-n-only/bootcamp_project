@@ -11,7 +11,9 @@ import {
   Dialog,
   DialogHeader,
   DialogBody,
-  DialogFooter
+  DialogFooter,
+  Select,
+  Option
 } from "@material-tailwind/react";
 import { CurrencyRupeeIcon } from '@heroicons/react/24/solid';
 import UserProfile from "../img/UserProfile.png";
@@ -60,13 +62,10 @@ export default function Profile() {
       .then((res) => {
         // console.log(res.data);
         setAccountDetails(res.data);
+        // console.log(accountDetails)
         // customerData = res.data;
         // setcustomerData(res.data);
       });
-
-    // accountDetails.map((item) => {
-    //   setTotal(total + item.balance)
-    // })
   },[]);
 
   const handleAccountChange = (e) => {
@@ -356,9 +355,17 @@ export default function Profile() {
                                 onChange={handleAccountChange}
                                 name="accType"
                                 label="Account Type"
-                                placeholder="Cuurent or Savings"
+                                placeholder="Current or Savings"
                                 value={accountData.name}
                               />
+      {/* <Select
+      onChange={handleAccountChange}
+      name="accType"
+      label="Account Type"
+      value={accountData.name}>
+        <Option>"Current</Option>
+        <Option>Savings</Option>
+      </Select> */}
 
                               <Input className="w-fit"
                                 onChange={handleAccountChange}

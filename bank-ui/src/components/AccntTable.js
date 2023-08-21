@@ -13,6 +13,7 @@ export default function AccntTable({ accountDetails }, { showModal }) {
 
   const TABLE_HEAD = [
     "Account Number",
+    "Account Type",
     "Card Number",
     "Balance",
     "Edit Pin",
@@ -57,7 +58,16 @@ export default function AccntTable({ accountDetails }, { showModal }) {
                             color="blue-gray"
                             className="font-normal "
                           >
-                            {item.accNo}
+                            {item.accId}
+                          </Typography>
+                        </td>
+                        <td className="p-3 border-b border-blue-gray-50">
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
+                          >
+                            {item.accType}
                           </Typography>
                         </td>
                         <td className="p-3 border-b border-blue-gray-50">

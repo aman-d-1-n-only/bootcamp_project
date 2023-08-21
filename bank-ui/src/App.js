@@ -1,6 +1,6 @@
 import React from 'react'
 import { Login } from './components/login';
-import { Customer } from './components/customer'
+import { Customer } from './components/Dashboard'
 import { SeeCustomers } from './components/viewCustomers';
 import CustomerList from './pages/CustomerList';
 import { CustomerDetails } from './components/customerDetails'
