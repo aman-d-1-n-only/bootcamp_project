@@ -123,7 +123,7 @@ export default function Profile() {
         <div className="container mx-auto my-5 p-0">
           <div className="md:flex no-wrap md:-mx-2 ">
            
-            <LeftProfileCard customerId={custId}/>
+            <LeftProfileCard custId={custId}/>
 
             {/* <!-- Right Side --> */}
             <div className="w-full md:w-9/12 mx-2 h-64">
@@ -389,12 +389,12 @@ export default function Profile() {
                                 value={accountData.name}
                               />
                               <div className="flex items-center justify-center">
-                                <Button onClick={SubmitAccount } className="mt-4 mx-10 hover:scale-105">
+                                <Button onClick={SubmitAccount } className="mt-4 mx-10 hover:scale-10 min-w-fit">
                                   Add
                                 </Button>
                                 <Button
                                   className="mt-4 mx-10 bg-gray-400   shadow-lowshade hover:scale-105 hover:bg-gray-500 cursor-pointer 
-              text-gray-900 "
+              text-gray-900 min-w-fit"
               onClick={toggleModal} 
                                 >
                                   Close
@@ -409,7 +409,9 @@ export default function Profile() {
 
 {/* Start of account table */}
 
-<AccntTable accountDetails={accountDetails} showModal={showModal}/>
+<AccntTable accountDetails={accountDetails} 
+custId={custId}
+/>
                 
 
 

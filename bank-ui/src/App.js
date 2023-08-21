@@ -29,7 +29,6 @@ function App() {
               <Route path="/customer/customer-profile" element={<Profile />} />
 
               {/* <Route path="/customer/customer-profile" element={<CustomerProfile />} /> */}
-              {/* <Route path="/customer/customer-profile" element={<CustomerProfile />} /> */}
             </Route>
 
 
