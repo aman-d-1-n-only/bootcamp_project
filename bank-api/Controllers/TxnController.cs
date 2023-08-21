@@ -45,7 +45,7 @@ namespace BankApi.Controllers
         }
         
 
-        [HttpPut, Route("/fundTransfer")]
+        [HttpPost, Route("/fundTransfer")]
         public async Task<ActionResult<IEnumerable<AccountDTO>>> FundTransfer([FromBody] FundTransferDTO transfer )
         {
             if (!ModelState.IsValid){
@@ -71,6 +71,30 @@ namespace BankApi.Controllers
                     var respAccount2 = _mapper.Map<RespAccountDTO>(account2);
                     var resp = new List<RespAccountDTO>() { respAccount1 , respAccount2 };
                     return Ok(resp);
+                }
+                return NotFound("Insufficient Funds !");
+            }
+            return NotFound("Pin doesn't matches !");
+        }
+
+        [HttpPost, Route("/cashWithdrawal")]
+        public async Task<ActionResult<AccountDTO>> CashWithdrawal([FromBody] CashWithdrawalDTO transfer )
+        {
+            if (!ModelState.IsValid){
+                return BadRequest(ModelState);
+            }
+
+            var account = await _bankRepository.GetAccountAsync(transfer.AccNo);
+            if ( account == null ){
+                return NotFound($"There is no account with account number :{transfer.AccNo}");
+            }
+
+            if( account.Pin == transfer.Pin ){
+                if( account.Balance >= transfer.Amount ){
+                    account.Balance = account.Balance - transfer.Amount ;
+                    await _bankRepository.SaveChangesAsync();
+                    var respAccount = _mapper.Map<RespAccountDTO>(account);
+                    return Ok(respAccount);
                 }
                 return NotFound("Insufficient Funds !");
             }
