@@ -11,6 +11,7 @@ import PrivateRoutes from './components/PrivateRoute';
 import CustomerProfile from './components/CustomerProfile';
 import  CashWithdraw  from './pages/CashWithdraw';
 import Profile from './components/Profile2';
+import EditPin from './pages/EditPin';
 
 function App() {
   return (
@@ -27,7 +28,7 @@ function App() {
               <Route path="/customer/transactions" element={<TransactionList />} />
               <Route path="/customer/cash-withdraw" element={<CashWithdraw />} />
               <Route path="/customer/customer-profile" element={<Profile />} />
-
+              <Route path="/customer/changepin" element={<EditPin/>}/>
               {/* <Route path="/customer/customer-profile" element={<CustomerProfile />} /> */}
               {/* <Route path="/customer/customer-profile" element={<CustomerProfile />} /> */}
             </Route>
