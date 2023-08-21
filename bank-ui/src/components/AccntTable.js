@@ -92,7 +92,6 @@ export default function AccntTable({ accountDetails }, { showModal }) {
                         <td className="p-3 border-b border-blue-gray-50">
                           <Typography
                             as="a"
-                            href="#"
                             variant="small"
                             color="blue-gray"
                             className="font-medium"
@@ -105,7 +104,6 @@ export default function AccntTable({ accountDetails }, { showModal }) {
                         <td className="p-3 border-b border-blue-gray-50">
                           <Typography
                             as="a"
-                            href="#"
                             variant="small"
                             color="blue-gray"
                             className="font-medium"
@@ -121,7 +119,6 @@ export default function AccntTable({ accountDetails }, { showModal }) {
                         <td className="p-3">
                           <Typography
                             as="a"
-                            href="#"
                             variant="small"
                             color="blue-gray"
                             className="font-medium"
