@@ -89,9 +89,11 @@ const Navbar = () => {
             <div class={"flex items-center"}>
 
            <div className="">
-            <Link to="/customer/view-customer" className="mx-4 bg-gray-200 p-4 rounded-lg">View Customer</Link>
-            <Link to="/customer/add-customer" className="mx-4 bg-gray-200 p-4 rounded-lg">Add Customer</Link>
-            <Link to="/customer/transactions" className="mx-4 bg-gray-200 p-4 rounded-lg">Transactions</Link>
+            <Link to="/customer/add-customer" className="mx-4 hover:bg-gray-400 p-3 rounded-lg bg-gradient-to-t from-gray-200">Add Customer</Link>
+            <Link to="/customer/view-customer" className="mx-4 hover:bg-gray-400 p-3 rounded-lg bg-gradient-to-t from-gray-200">View Customer</Link>
+            <Link to="/customer/transactions" className="mx-4 hover:bg-gray-400 p-3 rounded-lg bg-gradient-to-t from-gray-200">Transactions</Link>
+            <Link to="/customer/cash-withdraw" className="mx-4 hover:bg-gray-400 p-3 rounded-lg bg-gradient-to-t from-gray-200">Cash Withdrawal</Link>
+
             </div>
 
             

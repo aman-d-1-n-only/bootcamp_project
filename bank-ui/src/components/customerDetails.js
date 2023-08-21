@@ -76,43 +76,32 @@ export const CustomerDetails = () => {
 
     return (<>
     <Navbar/>
-        <div className='h-full flex justify-center items-center my-8'>
-            <Card className="lg:max-w-[35rem]  sm:w-1/2 
+        <div className='h-full flex justify-center items-center pt-20'>
+            <Card className="w-fit lg:w-fit
              ">
                 <CardHeader
                     color="gray"
-                    floated={false}
-                    shadow={false}
-                    className="m-0 grid place-items-center rounded-b-none py-8 px-4 text-center"
+                    
+                    className=" py-6  grid h-fit place-items-center"
                 >
-                    <div className="mb-4 rounded-full border border-white/10 bg-white/10 p-6 text-white">
+                    <div className="mb-4 rounded-full border border-white/10 bg-white/10 p-5 text-white">
                         <BanknotesIcon className="h-10 w-10" />
                     </div>
-                    <Typography variant="h4" color="white">
+                    <Typography variant="h3" color="white">
                         Add Customer Details
                     </Typography>
                 </CardHeader>
-                <CardBody className='px-20'>
-                    <Tabs value={type} className="overflow-visible">
-                        <TabsHeader className="relative z-0 ">
-                            <Tab value="customer" onClick={() => setType("card")}>
-                                Add Customer
-                            </Tab>
-                            <Tab value="account" onClick={() => setType("paypal")}>
-                                Add Account
-                            </Tab>
-                        </TabsHeader>
-                        <TabsBody>
-                            <TabPanel value="customer" className="p-0">
-                                <form className="mt-8 flex flex-col gap-y-4 ">
-                                    <Typography
+                <CardBody className='px-10'>
+                                <form className=" flex flex-col gap-y-4 ">
+                                    {/* <Typography
                                         variant="small"
                                         color="blue-gray"
                                         className="font-medium"
                                     >
                                         Personal Details
-                                    </Typography>
-
+                                    </Typography> */}
+<div className="grid lg:grid-rows-3 gap-6">
+                   
 
                                     <Input onChange={handleChange}
                                         name="name" label="Name"
@@ -121,12 +110,8 @@ export const CustomerDetails = () => {
                                         required
 
                                     />
-                                    <Input type="email" label="Email Address" onChange={handleChange}
-                                        name="email"
-                                        value={customerData.email}
-                                        required />
 
-                                    <Input
+                                     <Input
                                         label="Address"
                                         onChange={handleChange}
                                         name="address"
@@ -134,33 +119,35 @@ export const CustomerDetails = () => {
                                         required
                                     />
 
-                                    <Input
+                                    <div className='grid md:grid-cols-2 gap-6'>
+                                     
+
+                                   
+<Input type="email" label="Email Address" onChange={handleChange}
+                                        name="email"
+                                        value={customerData.email}
+                                        required />
+                                       
+                                       <Input
                                         label="Contact Number"
                                         onChange={handleChange}
                                         name="contact"
                                         value={customerData.contact}
                                         required
                                     />
+                                     </div>
 
-
+                                   
+                                  
+<div className='grid md:grid-cols-2 gap-6'>
                                     <Input
                                         label="City"
+                                        size="xs"
                                         onChange={handleChange}
                                         name="city"
                                         value={customerData.city}
                                         required
                                     />
-                                    {/* <Select label="Country" menuProps={{ className: "h-48" }}>
-                    {countries.map(({ name }: any) => (
-                      <Option key={name} value={name}>
-                        {name}
-                      </Option>
-                    ))}
-                  </Select> */}
-                                    {/* <Input
-                    label="Postal Code"
-                    containerProps={{ className: "mt-4" }}
-                  /> */}
 
                                     <Input
                                         label="Pincode"
@@ -169,6 +156,8 @@ export const CustomerDetails = () => {
                                         value={customerData.pincode}
                                         required
                                     />
+                                    </div>
+                                    </div>
 
                                     <Button onClick={display}
                                         // type="submit"
@@ -178,29 +167,7 @@ export const CustomerDetails = () => {
                                     </Button>
 
                                 </form>
-                            </TabPanel>
-                            <TabPanel value="account" className="p-0">
-                                <form className="mt-12 flex flex-col gap-4">
-                                    <div>
-                                        <Typography
-                                            variant="small"
-                                            color="blue-gray"
-                                            className="mb-4 font-medium"
-                                        >
-                                            Account Details
-                                        </Typography>
-                                        <Input type="email" label="Email Address" />
-                                    </div>
-                                    <Button onClick={() => { navigate('/customer/add-account') }}
-                                        type="submit"
-                                        className="mt-4 mx-10"
-                                    >
-                                        Add Account
-                                    </Button>
-                                </form>
-                            </TabPanel>
-                        </TabsBody>
-                    </Tabs>
+                           
                 </CardBody>
             </Card>
 
