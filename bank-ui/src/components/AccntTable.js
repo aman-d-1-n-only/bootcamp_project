@@ -101,8 +101,9 @@ export default function AccntTable(props) {
                             </button>
                           </Typography>
                         </td>
-                        <td>
-                        <Typography
+                        <td className="p-3 border-b border-blue-gray-50">
+                          <Typography
+                            
                             variant="small"
                             color="blue-gray"
                             className="font-medium flex items-center justify-center" 
@@ -114,6 +115,7 @@ export default function AccntTable(props) {
                         </td>
                         <td className="p-3">
                           <Typography
+                            as="a"
                             variant="small"
                             color="blue-gray"
                             className="font-medium"
