@@ -40,7 +40,7 @@ const FundTransfer = () => {
     }
     const handleTransfer = () => {
         console.log(data)
-           axios.put(`http://localhost:5165/fundTransfer` , data 
+           axios.post(`http://localhost:5165/fundTransfer` , data 
            ).then((response) => {
             console.log("fund transfer response")
             console.log(response.data)
@@ -48,7 +48,7 @@ const FundTransfer = () => {
             console.log(error)
            })
            const txnData = {
-            "status": "delivered",
+            "status": "Success",
             "amount": data.amount,
             "debitedFrom": data.accNo1,
             "creditTo": data.accNo2
@@ -61,7 +61,7 @@ const FundTransfer = () => {
             console.log(error)
         })
    
-       window.location.reload();
+    //    window.location.reload();
 
     }
     // const handleAccTwo = (event) =>{

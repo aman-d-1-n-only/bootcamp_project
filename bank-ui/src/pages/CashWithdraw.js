@@ -132,7 +132,10 @@ const CashWithdraw = () => {
         }).then((response) => {
             console.log("response")
             console.log(response.data);
-            alert("Account updated Successfully")
+            alert(`Withdrawal Successful Updated balance = ${response.data.balance}`)
+            if(response.data){
+                window.location.reload();
+            }
         }).catch((error) => {
             console.log(error)
         })
