@@ -1,11 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import UserProfile from "../img/UserProfile.png";
 import { Button } from "@material-tailwind/react";
+import axios from "axios";
 
-export default function LeftProfileCard() {
+export default function LeftProfileCard(props) {
   const [total, setTotal] = useState(0);
+
   const [visible, setVisible] = React.useState(false);
+  const jwtToken=sessionStorage.getItem('jwtToken');
+  useEffect(() => {
+    let sum=0;
+    axios
+      .get(`http://localhost:5165/api/customer/${props.customerId}/account`, {
+        headers: {
+          Authorization: "bearer " + jwtToken,
+        },
+      })
+      .then((res) => {
+        console.log("Inside left profile",res.data);
+        res.data.map((item)=>{
+          // console.log(item);
+          sum+=item.balance;
+        })
+        setTotal(sum);
+        // setAccountDetails(res.data);
+        // customerData = res.data;
+        // setcustomerData(res.data);
+      });
+
+    // accountDetails.map((item) => {
+    //   setTotal(total + item.balance)
+    // })
+  },[]);
 
   return (
     <>
@@ -27,7 +54,7 @@ export default function LeftProfileCard() {
           </div>
           <ul className="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-5 mt-3 divide-y rounded shadow-sm">
             <li className=" py-3 flex flex-col">
-              <Button onClick={() => setVisible(!visible)}>
+              <Button  variant="gradient" onClick={() => setVisible(!visible)}>
                 {visible ? "Hide Bank Balance" : "Check Bank Balance"}{" "}
               </Button>
               {visible && (

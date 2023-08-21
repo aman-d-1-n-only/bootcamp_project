@@ -11,19 +11,18 @@ import {
   Dialog,
   DialogHeader,
   DialogBody,
-  DialogFooter
+  DialogFooter,
+  Select,
+  Option
 } from "@material-tailwind/react";
 import { CurrencyRupeeIcon } from '@heroicons/react/24/solid';
-
-
 import UserProfile from "../img/UserProfile.png";
-
-
 import { useLocation } from "react-router-dom";
 import DeleteCustomer from "../services/DeleteCustomer";
 import LeftProfileCard from "./LeftProfileCard";
-import { Modal,Box } from "@mui/material";
 import AccntTable from "./AccntTable";
+import {ClipboardDocumentListIcon, UserIcon } from "@heroicons/react/24/outline";
+import Info from "./Info";
 // import AddAccnt2 from "../services/AddAccnt";
 
 export default function Profile() {
@@ -31,13 +30,12 @@ export default function Profile() {
   const location = useLocation();
   const customerData = location.state.data1;
   const custId = customerData.custId;
-  const TABLE_HEAD = ["Account Number", "Card Number", "Balance", "Edit Pin","Delete","Withdraw Cash"];
 
   const [total, setTotal] = useState(0);
 
 
   const accountInitialValues = {
-    accNo: 0,
+    accType: "",
     cardNo: 0,
     balance: 0,
     pin: 0,
@@ -64,14 +62,11 @@ export default function Profile() {
       .then((res) => {
         // console.log(res.data);
         setAccountDetails(res.data);
+        // console.log(accountDetails)
         // customerData = res.data;
         // setcustomerData(res.data);
       });
-
-    accountDetails.map((item) => {
-      setTotal(total + item.balance)
-    })
-  });
+  },[]);
 
   const handleAccountChange = (e) => {
     setaccountData({ ...accountData, [e.target.name]: e.target.value });
@@ -82,7 +77,7 @@ export default function Profile() {
   };
   const SubmitAccount = (event) => {
     if (
-      accountData.accNo === "" ||
+      accountData.accType === "" ||
       accountData.cardNo === "" ||
       accountData.balance === "" ||
       accountData.pin === 0
@@ -119,8 +114,6 @@ export default function Profile() {
     }
   };
 
-  const handleClick = () => { };
-
   return (
     <>
       <div className="bg-gray-100">
@@ -130,7 +123,7 @@ export default function Profile() {
         <div className="container mx-auto my-5 p-0">
           <div className="md:flex no-wrap md:-mx-2 ">
            
-            <LeftProfileCard/>
+            <LeftProfileCard customerId={custId}/>
 
             {/* <!-- Right Side --> */}
             <div className="w-full md:w-9/12 mx-2 h-64">
@@ -139,22 +132,7 @@ export default function Profile() {
 
               <div className="bg-white p-3 shadow-sm rounded-sm">
                 <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
-                  <span clas="text-green-500">
-                    <svg
-                      className="h-5"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                      />
-                    </svg>
-                  </span>
+                  <UserIcon className="h-7"/>
                   <span className="tracking-wide text-lg text-gray-800">
                     About
                   </span>
@@ -301,7 +279,7 @@ export default function Profile() {
                     >
                       {name}
                     </Button>
-                    <DeleteCustomer />
+                    <DeleteCustomer customerId={custId}/>
 
                   </div>
                 </form>
@@ -314,34 +292,27 @@ export default function Profile() {
               <div className="bg-white p-5 shadow-sm rounded-sm ">
                 <div className="w-full">
                   <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
-                    <span clas="text-green-500">
-                      <svg
-                        className="h-5"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                        />
-                      </svg>
-                    </span>
+                    
+                    <ClipboardDocumentListIcon className="h-7"/>
+                   
+
                     <span className="tracking-wide text-lg text-gray-800">
                       Account Details
                     </span>
                   </div>
 
+                  <div className="flex 
+                           items-center gap-x-2">  
                   <Button
-                    className="mt-4 mx-10 z-0 "
+                    className="mt-4 ml-8 z-0 "
                     type="button"
+                    variant="gradient"
                     onClick={toggleModal}
                   >
                     Add Account
                   </Button>
+                  <Info/>
+                  </div>
                   {showModal ? (
                     <>
                                <Dialog
@@ -365,12 +336,13 @@ export default function Profile() {
                             <Typography variant="h4" color="white">
                               Add Account
                             </Typography>
+                            
                             </CardHeader>
                           <CardBody className="px-20">
                             {/* Add Account */}
 
                             <form className="mt-8 flex flex-col gap-y-4 w-full ">
-                              <Typography
+                           <Typography
                                 variant="small"
                                 color="blue-gray"
                                 className="font-medium"
@@ -378,12 +350,22 @@ export default function Profile() {
                                 Account Details
                               </Typography>
 
+
                               <Input 
                                 onChange={handleAccountChange}
-                                name="accNo"
-                                label="Account Number"
+                                name="accType"
+                                label="Account Type"
+                                placeholder="Current or Savings"
                                 value={accountData.name}
                               />
+      {/* <Select
+      onChange={handleAccountChange}
+      name="accType"
+      label="Account Type"
+      value={accountData.name}>
+        <Option>"Current</Option>
+        <Option>Savings</Option>
+      </Select> */}
 
                               <Input className="w-fit"
                                 onChange={handleAccountChange}

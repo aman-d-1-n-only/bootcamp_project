@@ -1,6 +1,6 @@
 import React from 'react'
 import { Login } from './components/login';
-import { Customer } from './components/customer'
+import { Customer } from './components/Dashboard'
 import { SeeCustomers } from './components/viewCustomers';
 import CustomerList from './pages/CustomerList';
 import { CustomerDetails } from './components/customerDetails'
@@ -27,6 +27,7 @@ function App() {
               <Route path="/customer/add-account" element={<AddAccount />} />
               <Route path="/customer/transactions" element={<TransactionList />} />
               <Route path="/customer/cash-withdraw" element={<CashWithdraw />} />
+              <Route path="/customer/customer-profile" element={<Profile />} />
 
               {/* <Route path="/customer/customer-profile" element={<CustomerProfile />} /> */}
               {/* <Route path="/customer/customer-profile" element={<CustomerProfile />} /> */}
