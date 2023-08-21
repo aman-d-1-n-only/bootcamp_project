@@ -11,6 +11,7 @@ import PrivateRoutes from './components/PrivateRoute';
 import CustomerProfile from './components/CustomerProfile';
 import  CashWithdraw  from './pages/CashWithdraw';
 import Profile from './components/Profile2';
+import FundTransfer from './pages/FundTransfer';
 
 function App() {
   return (
@@ -29,6 +30,9 @@ function App() {
               <Route path="/customer/customer-profile" element={<Profile />} />
 
               {/* <Route path="/customer/customer-profile" element={<CustomerProfile />} /> */}
+              {/* <Route path="/customer/customer-profile" element={<CustomerProfile />} /> */}
+              <Route path="/customer/customer-profile" element={<Profile />} />
+              <Route path = "/customer/fund-transfer" element={<FundTransfer/>}/>
             </Route>
 
 
