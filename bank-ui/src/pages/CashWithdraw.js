@@ -27,17 +27,18 @@ const CashWithdraw = () => {
     const [customerId, setCustomerId] = useState(0);
     const [accountId, setAccountId] = useState(0);
     const [amount, setAmount] = useState();
+    const [pin, setPin] = useState("");
     
   const [visible, setVisible] = React.useState(false);
     
     const [type, setType] = useState("check balance");
 
     const [accountData , setAccountData] = useState({
-        
-        "accNo": 0,
+        "accId": 0,
+        "accType": "",
         "balance": 0,
-        "cardNo":0 ,
-        "pin": 0
+        "cardNo": "",
+        "pin": ""
     });
     const [updatedAccount, setUpdatedAccount] = useState({
         
@@ -93,15 +94,18 @@ const CashWithdraw = () => {
         const handleAmt = (e) => {
             setAmount(e.target.value)
         }
+        const handlePin = (e) => {
+            setPin(e.target.value)
+        }
 
     const handleWithdraw = () => {
         // setUpdatedAccount({...accountData , [balance]:(accountData.balance - amount)})
-        console.log("amount:" + amount)
-        if(amount > accountData.balance){
-            alert("Insufficient Balance")
-        }
+        // console.log("amount:" + amount)
+        // if(amount > accountData.balance){
+        //     alert("Insufficient Balance")
+        // }
         // let temp =;
-        accountData.balance=accountData.balance - amount;
+        // accountData.balance=accountData.balance - amount;
     
     // setAccountData({[e.target.name]:accountData.balance-amount})
 
@@ -111,17 +115,27 @@ const CashWithdraw = () => {
 
     //    }))
     // accountData[balance] = (accountData[balance] - amount)
-    delete accountData['accId']
-    console.log(accountData);
+    // delete accountData['accId']
+    // console.log(accountData);
+    const withData = {
+        accNo: parseInt(accountId),
+        amount: parseInt(amount),
+        pin: pin
+    }
 
-        axios.put(`http://localhost:5165/api/customer/${customerId}/account/${accountId}`, accountData , {
+        console.log("withData")
+         console.log(typeof withData.accNo)
+        axios.post(`http://localhost:5165/cashWithdrawal`, withData , {
             headers: {
                 'Authorization': 'bearer ' + jwtToken
             }
         }).then((response) => {
             console.log("response")
             console.log(response.data);
-            alert("Account updated Successfully")
+            alert(`Withdrawal Successful Updated balance = ${response.data.balance}`)
+            if(response.data){
+                window.location.reload();
+            }
         }).catch((error) => {
             console.log(error)
         })
@@ -193,7 +207,7 @@ const CashWithdraw = () => {
                         (<Card className='mb-2 mt-6 outline-double shadow-lg mx-6 bg-gradient-to-t from-gray-300'>
                             <CardBody>
                                 <Typography>
-                                Account Number : {accountData.accNo}
+                                Account Number : {accountData.accId}
                                     </Typography>
                                     <Typography> Balance : {accountData.balance}
                                     </Typography>
@@ -205,14 +219,30 @@ const CashWithdraw = () => {
 
                             <TabPanel value="money withdraw" className="p-0">
                             <form className="mt-12 flex flex-col gap-4">
-                        <Input label="Enter Amount to withdraw" size="lg" 
+                        <Input label="Enter Account Number" size="lg" 
+                            id="amount"
+                            name="balance"
+                            type="number"
+                            value = {accountId}
+                            onChange = {handleAccId}
+                            required
+                         />
+                          <Input label="Enter Amount to withdraw" size="lg" 
                             id="amount"
                             name="balance"
                             type="number"
                             value = {amount}
                             onChange = {handleAmt}
                             required />
-                         <Button 
+
+                         <Input label="Enter Pin" size="lg" 
+                            id="amount"
+                            name="balance"
+                            type="number"
+                            value = {pin}
+                            onChange = {handlePin}
+                            required />
+                          <Button 
                      
                      className="mt-4 "
                     //  type="submit"

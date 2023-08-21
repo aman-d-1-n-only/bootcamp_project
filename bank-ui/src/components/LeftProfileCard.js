@@ -12,7 +12,7 @@ export default function LeftProfileCard(props) {
   useEffect(() => {
     let sum=0;
     axios
-      .get(`http://localhost:5165/api/customer/${props.customerId}/account`, {
+      .get(`http://localhost:5165/api/customer/${props.custId}/account`, {
         headers: {
           Authorization: "bearer " + jwtToken,
         },
@@ -64,10 +64,10 @@ export default function LeftProfileCard(props) {
                 </span>
               )}
             </li>
-            <li className="flex items-center py-3">
+            {/* <li className="flex items-center py-3">
               <span>Member since</span>
               <span className="ml-auto text-sm">Jul XX, 20XX</span>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>

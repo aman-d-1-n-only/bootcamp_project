@@ -8,9 +8,10 @@ import {
 } from "@material-tailwind/react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { TrashIcon } from "@heroicons/react/24/outline";
  
 
-export default function DeleteCustomer(props) {
+export default function DeleteAccnt(props) {
   const [open, setOpen] = useState(false);
  
   const handleOpen = () => setOpen(!open);
@@ -18,7 +19,7 @@ export default function DeleteCustomer(props) {
   const jwtToken=sessionStorage.getItem('jwtToken')
   const handleDelete=()=>{
     axios
-    .delete(`http://localhost:5165/api/customer/${props.custId}`, {
+    .delete(`http://localhost:5165/api/customer/${props.custId}/account/${props.accId}`, {
       headers: {
         Authorization: "bearer " + jwtToken,
       },
@@ -28,7 +29,7 @@ export default function DeleteCustomer(props) {
       if(res)
       {
         alert("Customer has been deleted successfully");
-        navigate("/customer/view-customer");
+        navigate("/customer-profile");
       }
     });
 
@@ -37,6 +38,12 @@ export default function DeleteCustomer(props) {
  
   return (
     <>
+    <TrashIcon
+                                className="w-6 h-6 text-red-900 hover:scale-105"
+                                fill="none"
+                                onClick={handleOpen} 
+                              />
+{/* 
       <Button
          className="mt-4 mx-10 hover:scale-105 bg-[#aa0000] 
          text-gray-200 cursor-pointer"
@@ -44,12 +51,13 @@ export default function DeleteCustomer(props) {
         onClick={handleOpen} 
       >
         Delete
-      </Button>
+      </Button> */}
       <Dialog open={open} handler={handleOpen}>
         <DialogHeader className="flex items-center justify-center text-center">Delete Confirmation</DialogHeader>
         
         <DialogBody divider className="flex items-center justify-center text-center text-lg">
-        Are you sure you want to delete ?
+
+        Are you sure you want to delete the account?
         </DialogBody>
         <DialogFooter divider className="flex items-center justify-around m-4">
         <Button
