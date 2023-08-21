@@ -44,6 +44,7 @@ const FundTransfer = () => {
            ).then((response) => {
             console.log("fund transfer response")
             console.log(response.data)
+            alert("Fund Transfer is Successful")
            }).catch((error) => {
             console.log(error)
            })
