@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace BankApi.Controllers
 {
     [ApiController]
-    // [Authorize]
+    [Authorize]
     [Route("api/customer/{CustId:int}/account")]
 
     public class AccountController : ControllerBase
@@ -28,7 +28,7 @@ namespace BankApi.Controllers
         public async Task<ActionResult<IEnumerable<AccountDTO>>> GetAccounts( [FromRoute] int CustId)
         {   
             if( !await _bankRepository.CustomerExistsAsync(CustId)){
-                return NotFound();
+                return NotFound($"There is no customer with customer id : {CustId}");
             }
             var accounts = await _bankRepository.GetAccountsOfCustomerAsync(CustId);
             return Ok(_mapper.Map<IEnumerable<RespAccountDTO>>(accounts));
@@ -41,7 +41,7 @@ namespace BankApi.Controllers
                 return BadRequest(ModelState);
             }
             if (!await _bankRepository.CustomerExistsAsync(CustId)){
-                return NotFound();
+                return NotFound($"There is no customer with customer id : {CustId}");
             }
             var account = _mapper.Map<Account>(newAcccount);
             await _bankRepository.AddAccountForCustomerAsync( CustId , account );
@@ -49,6 +49,8 @@ namespace BankApi.Controllers
             var respAccount = _mapper.Map<RespAccountDTO>(account);
             return Ok(respAccount);
         }
+
+
         [HttpGet, Route("{AccId:int}")]
         public async Task<IActionResult> GetAccount([FromRoute] int CustId, int AccId  )
         {
@@ -58,12 +60,12 @@ namespace BankApi.Controllers
             }
             if (!await _bankRepository.CustomerExistsAsync(CustId))
             {
-                return NotFound();
+                return NotFound($"There is no customer with customer id : {CustId}");
             }
             var account = await _bankRepository.GetAccountOfCustomerAsync(CustId, AccId);
             if (account == null)
             {
-                return NotFound();
+                return NotFound($"There is no account with account number :{AccId}}");
             }
             
             var respAccount = _mapper.Map<RespAccountDTO>(account);
@@ -71,7 +73,7 @@ namespace BankApi.Controllers
         }
 
         [HttpPut, Route("{AccId:int}")]
-        public async Task<IActionResult> UpdateAccount([FromRoute] int CustId, int AccId , UpdateAccountDTO updatedAccount )
+        public async Task<IActionResult> UpdateAccount([FromRoute] int CustId, int AccId , AccountDTO updatedAccount )
         {
             if (!ModelState.IsValid)
             {
@@ -79,12 +81,12 @@ namespace BankApi.Controllers
             }
             if (!await _bankRepository.CustomerExistsAsync(CustId))
             {
-                return NotFound();
+                return NotFound($"There is no customer with customer id : {CustId}");
             }
             var account = await _bankRepository.GetAccountOfCustomerAsync(CustId, AccId);
             if (account == null)
             {
-                return NotFound();
+                return NotFound($"There is no account with account number :{AccId}}");
             }
             _mapper.Map(updatedAccount, account);
             await _bankRepository.SaveChangesAsync();
@@ -92,17 +94,18 @@ namespace BankApi.Controllers
             return Ok(respAccount);
         }
 
+
         [HttpDelete, Route("{AccId:int}")]
         public async Task<ActionResult> DeleteAccount([FromRoute] int CustId, int AccId )
         {
             if (!await _bankRepository.CustomerExistsAsync(CustId))
             {
-                return NotFound();
+                return NotFound($"There is no customer with customer id : {CustId}");
             }
             var account = await _bankRepository.GetAccountOfCustomerAsync(CustId, AccId);
             if (account == null)
             {
-                return NotFound();
+                return NotFound($"There is no account with account number :{AccId}}");
             }
             _bankRepository.DeleteAccount(account);
             await _bankRepository.SaveChangesAsync();
