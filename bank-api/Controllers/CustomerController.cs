@@ -50,7 +50,7 @@ namespace BankApi.Controllers{
             }
             if (!await _bankRepository.CustomerExistsAsync(CustId))
             {
-                return NotFound();
+                return NotFound($"There is no customer with customer id : {CustId}");
             }
             var customer = await _bankRepository.GetCustomerAsync(CustId); 
             _mapper.Map(updatedCustomer , customer );
@@ -63,7 +63,7 @@ namespace BankApi.Controllers{
         public async Task<ActionResult> DeleteCustomer( [FromRoute] int CustId ){
             if (!await _bankRepository.CustomerExistsAsync(CustId))
             {
-                return NotFound();
+                return NotFound($"There is no customer with customer id : {CustId}");
             }
             var customer = await _bankRepository.GetCustomerAsync(CustId);
             _bankRepository.DeleteCustomer(customer);
