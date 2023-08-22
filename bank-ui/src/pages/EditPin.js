@@ -4,14 +4,29 @@ import axios from 'axios';
 import React, { useState } from 'react'
 
 export default function EditPin() {
+
+    
     const pinInitialValues = {
         accNo: 0,
        existingPin:"",
        newPin:"",
        confirmNewPin:""
     };
+    const visibilityInitialValues={  
+        accNo: false,
+        ExistingPin:false,
+        NewPin:false};
+
+    const [visibility,setVisibility]=useState(visibilityInitialValues)
+    const [errorMsg,setErrorMsg]=useState({
+        accNo: "",
+       ExistingPin:"",
+       NewPin:""
+
+    })
     const [pinDetails,setPinDetails]=useState(pinInitialValues)
     const handleChange = (e) => {
+      
         setPinDetails({ ...pinDetails, [e.target.name]: e.target.value });
     }
     const changePin=()=>{
@@ -21,7 +36,10 @@ export default function EditPin() {
             alert("New pin and confirm new pin should be same")
         }
         else{
-        delete pinDetails["confirmNewPin"];
+        // delete pinDetails["confirmNewPin"];
+        setVisibility(visibilityInitialValues)
+          
+        console.log(visibility);
         axios.post(`http://localhost:5165/changePin`,pinDetails,{
           headers: {
             Authorization: "bearer " + jwtToken,
@@ -33,6 +51,17 @@ export default function EditPin() {
           window.location.reload();
         }
         )
+        .catch((error)=>{
+            // console.log(Object.keys(error.response.data.errors));
+            // Object.keys(error.response.data.errors).map((item,index)=>{
+            //     // console.log(error.response.data.errors[item]);
+            //     setVisibility({ ...visibility, [item]: true })
+            //     setErrorMsg({...errorMsg,[item]:error.response.data.errors[item]})
+            //     console.log(item,visibility,errorMsg,index)
+            // })
+            // console.log(error.response.data.errors);
+            console.log(error.response);
+        })
     };
     }
   return (
@@ -59,17 +88,25 @@ export default function EditPin() {
                             <Input onChange={handleChange} label="Enter Account Number" size="lg" 
                             type="number"
                             name="accNo"
-                            
-                            required />     
+                            required /> 
+                              <span className={`${visibility.accNo? "block": "hidden"} `}>
+                            {errorMsg.accNo}
+                            </span>
+
                             <Input onChange={handleChange} label="Enter Old Pin" size="lg" 
                            name="existingPin"
                             type="number"
-                            
                             required />
+                            <span className={`${visibility.ExistingPin? "block": "hidden"} `}>
+                            {errorMsg.ExistingPin}
+                            </span>
 
                         <Input onChange={handleChange} label="Enter New Pin" size="lg"
                         name= "newPin"
                             required />
+                              <span className={`${visibility.NewPin? "block": "hidden"} `}>
+                            {errorMsg.NewPin}
+                            </span>
 
                         <Input onChange={handleChange} label="Confirm New Pin" size="lg" 
                            required 
