@@ -65,7 +65,7 @@ namespace BankApi.Controllers
             var account = await _bankRepository.GetAccountOfCustomerAsync(CustId, AccId);
             if (account == null)
             {
-                return NotFound($"There is no account with account number :{AccId}}");
+                return NotFound($"There is no account with account number :{AccId}");
             }
             
             var respAccount = _mapper.Map<RespAccountDTO>(account);
@@ -86,7 +86,7 @@ namespace BankApi.Controllers
             var account = await _bankRepository.GetAccountOfCustomerAsync(CustId, AccId);
             if (account == null)
             {
-                return NotFound($"There is no account with account number :{AccId}}");
+                return NotFound($"There is no account with account number :{AccId}");
             }
             _mapper.Map(updatedAccount, account);
             await _bankRepository.SaveChangesAsync();
@@ -105,7 +105,7 @@ namespace BankApi.Controllers
             var account = await _bankRepository.GetAccountOfCustomerAsync(CustId, AccId);
             if (account == null)
             {
-                return NotFound($"There is no account with account number :{AccId}}");
+                return NotFound($"There is no account with account number :{AccId}");
             }
             _bankRepository.DeleteAccount(account);
             await _bankRepository.SaveChangesAsync();
