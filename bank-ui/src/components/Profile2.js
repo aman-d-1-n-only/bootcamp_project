@@ -68,9 +68,11 @@ export default function Profile() {
       });
   },[]);
 
+  const [option,setOption]=useState();
   const handleAccountChange = (e) => {
+    setOption(e);
     setaccountData({ ...accountData, [e.target.name]: e.target.value });
-  };
+      };
 
   const handleChange = (e) => {
     setUpdatedData({ ...updatedData, [e.target.name]: e.target.value });
@@ -317,7 +319,6 @@ export default function Profile() {
                     <>
                                <Dialog
         size="xs"
-        
         open={showModal} handler={toggleModal}
         className="bg-transparent shadow-none "
       >
@@ -362,9 +363,10 @@ export default function Profile() {
       onChange={handleAccountChange}
       name="accType"
       label="Account Type"
-      value={accountData.name}>
-        <Option>"Current</Option>
-        <Option>Savings</Option>
+      value={option}
+        >
+        <Option value="Current">Current</Option>
+        <Option value="Savings">Savings</Option>
       </Select> */}
 
                               <Input className="w-fit"

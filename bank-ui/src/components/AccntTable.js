@@ -94,11 +94,11 @@ export default function AccntTable(props) {
                            
                             variant="small"
                             color="blue-gray"
-                            className="font-medium"
+                            className="font-medium flex items-center justify-center" 
                           >
-                            <button>
-                              <PencilSquareIcon className="w-6 h-6 hover:scale-105 text-blue-900 " />
-                            </button>
+                           
+                              <PencilSquareIcon className="w-6 h-6 hover:scale-105 text-blue-900 " onClick={() => navigate("/customer/changepin")}/>
+                           
                           </Typography>
                         </td>
                         <td className="p-3 border-b border-blue-gray-50">

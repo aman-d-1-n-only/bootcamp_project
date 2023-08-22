@@ -13,6 +13,7 @@ import  CashWithdraw  from './pages/CashWithdraw';
 import Profile from './components/Profile2';
 import EditPin from './pages/EditPin';
 import FundTransfer from './pages/FundTransfer'
+import CurrencyChange from './pages/CurrencyChange';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
               {/* <Route path="/customer/customer-profile" element={<CustomerProfile />} /> */}
               <Route path="/customer/customer-profile" element={<Profile />} />
               <Route path = "/customer/fund-transfer" element={<FundTransfer/>}/>
+              <Route path = "/customer/currency-change" element={<CurrencyChange/>}/>
             </Route>
 
 
