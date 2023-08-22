@@ -1,6 +1,8 @@
 import react, { useState } from 'react'
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const AddAccount = () => {
     const accountInitialValues = {
@@ -28,6 +30,18 @@ export const AddAccount = () => {
 
                         if (res.data) {
                             alert(`Account Details Added successfully for ${location.state.data1}`);
+                        }
+                    }).catch((error) => {
+                        if(error.response.status === 404){
+                            toast.error(error.response.data)
+                        }
+                        else if(error.response.status === 400){
+                            Object.keys(error.response.data.errors).map((key, index) => {
+                                    // setErrors(error.response.data.errors[key])
+                                 error.response.data.errors[key].map((val, i) => {
+                                    toast.error(val)
+                                 })  
+                             })  
                         }
                     })
 

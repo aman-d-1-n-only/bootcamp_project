@@ -20,6 +20,8 @@ import {
 } from "@heroicons/react/24/solid";
 import { useNavigate } from 'react-router';
 import Navbar from '../pages/Navbar';
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export const CustomerDetails = () => {
@@ -55,6 +57,18 @@ export const CustomerDetails = () => {
                     if (res.data) {
                         alert("Customer Details Added successfully");
                         navigate('/customer/view-customer');
+                    }
+                }).catch((error) => {
+                    if(error.response.status === 404){
+                        toast.error(error.response.data)
+                    }
+                    else if(error.response.status === 400){
+                        Object.keys(error.response.data.errors).map((key, index) => {
+                                // setErrors(error.response.data.errors[key])
+                             error.response.data.errors[key].map((val, i) => {
+                                toast.error(val)
+                             })  
+                         })  
                     }
                 })
 

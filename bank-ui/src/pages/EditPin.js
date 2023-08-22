@@ -3,6 +3,8 @@ import { Button, Card, CardBody, CardHeader, Input, Typography } from '@material
 import axios from 'axios';
 import React, { useState } from 'react'
 import Navbar from './Navbar';
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function EditPin() {
     const pinInitialValues = {
@@ -17,12 +19,12 @@ export default function EditPin() {
     }
     const changePin=()=>{
         const jwtToken=sessionStorage.getItem("jwtToken")
-        if(pinDetails.newPin!==pinDetails.confirmNewPin)
-        {
-            alert("New pin and confirm new pin should be same")
+        if(pinDetails.newPin !== pinDetails.confirmNewPin)
+        { 
+            toast.error("New pin and confirm new pin should be same")
         }
         else{
-        delete pinDetails["confirmNewPin"];
+        // delete pinDetails["confirmNewPin"];
         axios.post(`http://localhost:5165/changePin`,pinDetails,{
           headers: {
             Authorization: "bearer " + jwtToken,
@@ -30,10 +32,22 @@ export default function EditPin() {
         })
         .then((res) => {
           console.log(res.data);
-          alert(`Pin Changed successfully for Account Number : ${res.data.accId}`)
+          toast.success(`Pin Changed successfully for Account Number : ${res.data.accId}`)
           window.location.reload();
         }
-        )
+        ).catch((error) => {
+            if(error.response.status === 404){
+                toast.error(error.response.data)
+            }
+            else if(error.response.status === 400){
+                Object.keys(error.response.data.errors).map((key, index) => {
+                        // setErrors(error.response.data.errors[key])
+                     error.response.data.errors[key].map((val, i) => {
+                        toast.error(val)
+                     })  
+                 })  
+            }
+        })
     };
     }
   return (
@@ -89,6 +103,7 @@ export default function EditPin() {
                             </CardBody>
                
             </Card>
+            <ToastContainer/>
         </div>
                         </>
                   

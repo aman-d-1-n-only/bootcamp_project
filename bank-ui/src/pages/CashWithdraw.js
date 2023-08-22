@@ -149,12 +149,14 @@ const CashWithdraw = () => {
                 window.location.reload();
             }
         }).catch((error) => {
+            console.log(error)
             if(error.response.status === 404){
                 toast.error(error.response.data)
             }
             else if(error.response.status === 400){
                 Object.keys(error.response.data.errors).map((key, index) => {
                      error.response.data.errors[key].map((val, i) => {
+                        console.log(val)
                         toast.error(val)
                      })  
                  })  
@@ -279,6 +281,7 @@ const CashWithdraw = () => {
                             </CardBody>
                
             </Card>
+            <ToastContainer/>
         </div>
         
     </>)
