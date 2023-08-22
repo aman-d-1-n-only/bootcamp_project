@@ -14,6 +14,7 @@ import axios from 'axios';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import Navbar from './Navbar';
 
 
 
@@ -54,6 +55,7 @@ const FundTransfer = () => {
            ).then((response) => {
             console.log("fund transfer response")
             console.log(response.data)
+            alert("Fund Transfer is Successful")
            }).catch((error) => {
             console.log(error)
             if(error.response.status === 404){
@@ -87,9 +89,11 @@ const FundTransfer = () => {
     }
     
      return (<>
-        
-        <div className="relative min-h-screen min-h-screen flex items-center justify-center bg-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 bg-gray-500 bg-no-repeat bg-cover"
-            style={{ backgroundImage: "url('https://images.pexels.com/photos/2117938/pexels-photo-2117938.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')", }}>
+        <Navbar/>
+        {/* <div className="relative min-h-screen min-h-screen flex items-center justify-center bg-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 bg-gray-500 bg-no-repeat bg-cover"
+            style={{ backgroundImage: "url('https://images.pexels.com/photos/2117938/pexels-photo-2117938.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')", }}> */}
+            <div className="relative min-h-fit  h-full flex justify-center items-center pt-20"
+             >
             <Card className="w-96 ">
                 <CardHeader
                     variant="gradient"

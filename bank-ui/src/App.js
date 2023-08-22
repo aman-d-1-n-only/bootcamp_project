@@ -14,7 +14,8 @@ import Profile from './components/Profile2';
 import FundTransfer from './pages/FundTransfer';
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// toast.configure()
+import EditPin from './pages/EditPin';
+import CurrencyChange from './pages/CurrencyChange';
 
 function App() {
   return (
@@ -31,11 +32,12 @@ function App() {
               <Route path="/customer/transactions" element={<TransactionList />} />
               <Route path="/customer/cash-withdraw" element={<CashWithdraw />} />
               <Route path="/customer/customer-profile" element={<Profile />} />
-
+              <Route path="/customer/changepin" element={<EditPin/>}/>
               {/* <Route path="/customer/customer-profile" element={<CustomerProfile />} /> */}
               {/* <Route path="/customer/customer-profile" element={<CustomerProfile />} /> */}
               <Route path="/customer/customer-profile" element={<Profile />} />
               <Route path = "/customer/fund-transfer" element={<FundTransfer/>}/>
+              <Route path = "/customer/currency-change" element={<CurrencyChange/>}/>
             </Route>
 
 

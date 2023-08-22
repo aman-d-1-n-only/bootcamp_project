@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { Button } from '@material-tailwind/react';
 import { Link } from "react-router-dom";
 
+
 const Navbar = () => {
   const navigate = useNavigate();
   const handleClick = () => {
@@ -93,8 +94,9 @@ const Navbar = () => {
             <Link to="/customer/view-customer" className="mx-4 hover:bg-gray-400 p-3 rounded-lg bg-gradient-to-t from-gray-200">View Customer</Link>
             <Link to="/customer/transactions" className="mx-4 hover:bg-gray-400 p-3 rounded-lg bg-gradient-to-t from-gray-200">Transactions</Link>
             <Link to="/customer/cash-withdraw" className="mx-4 hover:bg-gray-400 p-3 rounded-lg bg-gradient-to-t from-gray-200">Cash Withdrawal</Link>
-
-            </div>
+            <Link to="/customer/changepin" className="mx-4 hover:bg-gray-400 p-3 rounded-lg bg-gradient-to-t from-gray-200">Change Pin</Link>
+            <Link to="/customer/fund-transfer" className="mx-4 hover:bg-gray-400 p-3 rounded-lg bg-gradient-to-t from-gray-200">Fund Transfer</Link>
+             </div>
 
             
               <Button

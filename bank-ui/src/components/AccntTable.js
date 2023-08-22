@@ -7,8 +7,10 @@ import {
   PencilSquareIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
+import DeleteCustomer from "../services/DeleteCustomer";
+import DeleteAccnt from "../services/DeleteAccnt";
 
-export default function AccntTable({ accountDetails }, { showModal }) {
+export default function AccntTable(props) {
   const navigate = useNavigate();
 
   const TABLE_HEAD = [
@@ -22,7 +24,7 @@ export default function AccntTable({ accountDetails }, { showModal }) {
   ];
   return (
     <div>
-      {accountDetails.length > 0 ? (
+      {props.accountDetails.length > 0 ? (
         <>
           <Card className="h-full w-full overflow-auto mt-6">
             <table className="w-full min-w-max table-auto text-center justify-center">
@@ -45,13 +47,11 @@ export default function AccntTable({ accountDetails }, { showModal }) {
                 </tr>
               </thead>
               <tbody>
-                {/* {console.log(accountDetails)} */}
-                {accountDetails.map((item, index) => {
-                  // const isLast = index === accountDetails.length - 1;
-                  // const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
+                {/* {console.log(props.accountDetails)} */}
+                {props.accountDetails.map((item, index) => {
                   return (
                     <>
-                      <tr key={item.accNo}>
+                      <tr key={item.accId}>
                         <td className="p-3 border-b border-blue-gray-50">
                           <Typography
                             variant="small"
@@ -91,37 +91,31 @@ export default function AccntTable({ accountDetails }, { showModal }) {
 
                         <td className="p-3 border-b border-blue-gray-50">
                           <Typography
-                            as="a"
-                            href="#"
+                           
                             variant="small"
                             color="blue-gray"
-                            className="font-medium"
+                            className="font-medium flex items-center justify-center" 
                           >
-                            <button>
-                              <PencilSquareIcon className="w-6 h-6 hover:scale-105 text-blue-900 " />
-                            </button>
+                           
+                              <PencilSquareIcon className="w-6 h-6 hover:scale-105 text-blue-900 " onClick={() => navigate("/customer/changepin")}/>
+                           
                           </Typography>
                         </td>
                         <td className="p-3 border-b border-blue-gray-50">
                           <Typography
-                            as="a"
-                            href="#"
+                            
                             variant="small"
                             color="blue-gray"
-                            className="font-medium"
-                          >
-                            <button>
-                              <TrashIcon
-                                className="w-6 h-6 text-red-900 hover:scale-105"
-                                fill="none"
-                              />
-                            </button>
-                          </Typography>
+                            className="font-medium flex items-center justify-center" 
+                                                    >
+                            <DeleteAccnt
+                             custId={props.custId} accId={item.accId}
+                             />
+                        </Typography>
                         </td>
                         <td className="p-3">
                           <Typography
                             as="a"
-                            href="#"
                             variant="small"
                             color="blue-gray"
                             className="font-medium"
