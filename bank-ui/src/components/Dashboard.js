@@ -33,6 +33,10 @@ export const Customer = () => {
           cardName="fund-transfer"
           img="https://images.pexels.com/photos/4968382/pexels-photo-4968382.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         />
+         <CustomerCard
+          cardName="currency-change"
+          img="https://images.pexels.com/photos/164527/pexels-photo-164527.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        />
       </div>
       {/* </div> */}
      
