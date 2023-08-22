@@ -16,7 +16,6 @@ import {
     TabPanel,
 } from "@material-tailwind/react";
 import axios from 'axios';
-import Navbar from './Navbar';
 import { BanknotesIcon, CurrencyRupeeIcon } from '@heroicons/react/24/solid';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -167,11 +166,6 @@ const CashWithdraw = () => {
     // }
     // })
     return (<>
-    <Navbar/>
-        {/* <div className="relative min-h-screen  bg-center py-12 px-4 sm:px-6 lg:px-8 bg-gray-100 bg-no-repeat 
-        bg-cover h-full flex justify-center items-center "
-            style={{ backgroundImage: "url('https://images.pexels.com/photos/2117938/pexels-photo-2117938.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')", }}
-            > */}
              <div className="relative min-h-fit  h-full flex justify-center items-center pt-20"
              >
             <Card className="w-96 ">

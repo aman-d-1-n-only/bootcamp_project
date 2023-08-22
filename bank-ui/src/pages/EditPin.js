@@ -2,7 +2,6 @@ import { CurrencyRupeeIcon } from '@heroicons/react/24/solid'
 import { Button, Card, CardBody, CardHeader, Input, Typography } from '@material-tailwind/react'
 import axios from 'axios';
 import React, { useState } from 'react'
-import Navbar from './Navbar';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -52,8 +51,6 @@ export default function EditPin() {
     }
   return (
     <>
-          
-          <Navbar/>
                                <div className="relative min-h-fit  h-full flex justify-center items-center pt-10"
              >
             <Card className="w-96 ">

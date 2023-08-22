@@ -12,7 +12,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import Navbar from "./Navbar";
 import { MenuHandler } from '@material-tailwind/react';
 import { ClassNames } from '@emotion/react';
 import axios from 'axios';
@@ -104,21 +103,12 @@ const TransactionList = () => {
   
   return (
     <>
-      <Navbar />
-      
-      <div >
+      <div className='flex items-center justify-start
+      ml-32 w-fit my-4'>
        
         <TextField
-          // label="Enter customerId"
           placeholder="Enter Sender's Account Number"
-          style={{
-            marginLeft: "130px",
-            marginRight: "-400px",
-            paddingRight: "-200px",
-            paddingLeft: "180px",
-            width: "800px",
-            marginTop: "20px"
-          }}
+          className=' min-w-fit'
           value={searchInput}
           onChange={handleChange}
           InputProps={{

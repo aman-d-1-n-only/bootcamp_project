@@ -1,43 +1,46 @@
 import React from "react";
-import { CustomerCard } from "./card";
-import Navbar from "../pages/Navbar"
-import Navbarlist from "../pages/Navbar2";
+import { CustomerCard } from "../components/Cards";
+import Card1 from "../img/Card1.png";
+import Card2 from "../img/Card2.png";
+import Card3 from "../img/Card3.png";
+import Card4 from "../img/Card4.png";
+import Card5 from "../img/Card5.png";
+import Card6 from "../img/Card6.png";
+import Card7 from "../img/Card7.png";
+
 export const Customer = () => {
   return (
     <>
-    <Navbar/>
-    {/* <Navbarlist/> */}
-     
-              <div className="gap-6  grid grid-cols-2 lg:grid-cols-4 items-center justify-center lg:h-screen sm:min-h-screen py-10">
-        <CustomerCard
+              <div className=" lg:h-full sm:min-h-screen p-8">
+     <div className="gap-6  grid grid-cols-2 lg:grid-cols-4 items-center justify-center">  <CustomerCard
           cardName="add-customer"
-          img="https://images.pexels.com/photos/1602726/pexels-photo-1602726.jpeg"
+          img={Card1}
           />
         <CustomerCard
           cardName="view-customer"
-          img="https://images.pexels.com/photos/4386370/pexels-photo-4386370.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          img={Card2}
         />
         <CustomerCard
           cardName="transactions"
-          img="https://images.pexels.com/photos/3943727/pexels-photo-3943727.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          img={Card3}
         />
         <CustomerCard
           cardName="cash-withdraw"
-          img="https://images.pexels.com/photos/4475523/pexels-photo-4475523.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          img={Card4}
         />
         <CustomerCard
           cardName="changepin"
-          img="https://images.pexels.com/photos/2988232/pexels-photo-2988232.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          img={Card5}
         />
         <CustomerCard
           cardName="fund-transfer"
-          img="https://images.pexels.com/photos/4968382/pexels-photo-4968382.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          img={Card6}
         />
          <CustomerCard
           cardName="currency-change"
-          img="https://images.pexels.com/photos/164527/pexels-photo-164527.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          img={Card7}
         />
-      </div>
+     </div>  </div>
       {/* </div> */}
      
     </>

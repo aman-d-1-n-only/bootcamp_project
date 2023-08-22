@@ -30,7 +30,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import axios from "axios";
-import Navbar from "./Navbar";
 import { Button } from '@material-tailwind/react';
 import { useNavigate } from 'react-router';
 
@@ -84,7 +83,6 @@ export default function CustomerList() {
   }, []);
   return (
     <>
-      <Navbar />
       <TableContainer component={Paper}>
         <Table style={{ width: '95%', borderRadius: '10px', margin: 30, borderBottom: "none" }} sx={{
           minWidth: 500,
