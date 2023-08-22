@@ -12,7 +12,7 @@ import CustomerProfile from './components/CustomerProfile';
 import  CashWithdraw  from './pages/CashWithdraw';
 import Profile from './components/Profile2';
 import EditPin from './pages/EditPin';
-import FundTransfer from './pages/FundTransfer';
+import FundTransfer from './pages/FundTransfer'
 
 function App() {
   return (
