@@ -11,12 +11,22 @@ import {
     Button,
 } from "@material-tailwind/react";
 import axios from 'axios';
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 
 const FundTransfer = () => {
+    // toast.configure();
     const jwtToken = sessionStorage.getItem('jwtToken')
-
+    const [errors, setErrors] = useState([])
+    // const errorDiv = error 
+    //     ? <div className="error">
+    //         <i class="material-icons error-icon">error_outline</i>
+    //         {error}
+    //       </div> 
+    //     : '';
    const [data , setData] = useState( {
         "accNo1": 0,
         "accNo2": 0,
@@ -46,6 +56,18 @@ const FundTransfer = () => {
             console.log(response.data)
            }).catch((error) => {
             console.log(error)
+            if(error.response.status === 404){
+                toast.error(error.response.data)
+            }
+            else if(error.response.status === 400){
+                Object.keys(error.response.data.errors).map((key, index) => {
+                        // setErrors(error.response.data.errors[key])
+                     error.response.data.errors[key].map((val, i) => {
+                        toast.error(val)
+                     })  
+                 })  
+            }
+            
            })
            const txnData = {
             "status": "Success",
@@ -58,21 +80,12 @@ const FundTransfer = () => {
             console.log("txn post response")
             console.log(response.data)
         }).catch((error) =>{
-            console.log(error)
+            if(error.response){
+            console.log(error.response.data.errors)
+            }
         })
-   
-    //    window.location.reload();
-
     }
-    // const handleAccTwo = (event) =>{
-    //      setAccountNoTwo(event.target.value)
-    // } 
-    // const handleAmount = (event) =>{
-    //     setAmount(event.target.value);
-    // }
-    // const handlePin = (event) =>{
-    //     setPin(event.target.value);
-    // }
+    
      return (<>
         
         <div className="relative min-h-screen min-h-screen flex items-center justify-center bg-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 bg-gray-500 bg-no-repeat bg-cover"
@@ -120,6 +133,8 @@ const FundTransfer = () => {
                             // value = {pin}
                             onChange = {handleData}
                             required />
+                          
+                     
                          <Button variant="gradient"
                         //  type="reset"
                          fullWidth 
@@ -142,8 +157,12 @@ const FundTransfer = () => {
                     </CardFooter>
                 </form>
             </Card>
+            <ToastContainer/>
         </div>
     </>)
 
 }
 export default FundTransfer;
+
+
+

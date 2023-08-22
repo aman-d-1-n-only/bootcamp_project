@@ -18,7 +18,8 @@ import {
 import axios from 'axios';
 import Navbar from './Navbar';
 import { BanknotesIcon, CurrencyRupeeIcon } from '@heroicons/react/24/solid';
-
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const CashWithdraw = () => {
@@ -69,6 +70,17 @@ const CashWithdraw = () => {
             })
             .catch(function(error) {
                 console.log(error)
+                if(error.response.status === 404){
+                    toast.error(error.response.data)
+                }
+                else if(error.response.status === 400){
+                    Object.keys(error.response.data.errors).map((key, index) => {
+                            // setErrors(error.response.data.errors[key])
+                         error.response.data.errors[key].map((val, i) => {
+                            toast.error(val)
+                         })  
+                     })  
+                }
             })
 
 
@@ -137,7 +149,16 @@ const CashWithdraw = () => {
                 window.location.reload();
             }
         }).catch((error) => {
-            console.log(error)
+            if(error.response.status === 404){
+                toast.error(error.response.data)
+            }
+            else if(error.response.status === 400){
+                Object.keys(error.response.data.errors).map((key, index) => {
+                     error.response.data.errors[key].map((val, i) => {
+                        toast.error(val)
+                     })  
+                 })  
+            }
         })
     }
 

@@ -12,6 +12,9 @@ import CustomerProfile from './components/CustomerProfile';
 import  CashWithdraw  from './pages/CashWithdraw';
 import Profile from './components/Profile2';
 import FundTransfer from './pages/FundTransfer';
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+// toast.configure()
 
 function App() {
   return (

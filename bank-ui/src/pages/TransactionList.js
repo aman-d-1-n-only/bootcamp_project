@@ -151,7 +151,7 @@ const TransactionList = () => {
           {console.log(searchInput)}
           {(searchInput) ? (
             <><TableBody>
-              {t?.map((row) => (
+              {t?.slice(0,9).map((row)  => (
                 <StyledTableRow key={row.custId}>
                   <StyledTableCell align="right">{row.txnId}</StyledTableCell>
                 
@@ -171,7 +171,7 @@ const TransactionList = () => {
 
               <>
               <TableBody>
-              {transactions?.map((row) => (
+              {transactions?.slice(0,9).map((row) => (
                 <StyledTableRow key={row.txnId}>
                   <StyledTableCell align="right">{row.txnId}</StyledTableCell>
                   <StyledTableCell align="right">{row.status}</StyledTableCell>
