@@ -29,7 +29,7 @@ export default function DeleteAccnt(props) {
       if(res)
       {
         alert("Customer has been deleted successfully");
-        navigate("/customer-profile");
+        navigate("/customer/customer-profile");
       }
     });
 
