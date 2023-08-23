@@ -7,26 +7,16 @@ import {
     Input,
     Button,
     Typography,
-    Tabs,
-    TabsHeader,
-    TabsBody,
-    Tab,
-    TabPanel,
-    Select,
-    Option,
 } from "@material-tailwind/react";
 import {
     BanknotesIcon,
 } from "@heroicons/react/24/solid";
 import { useNavigate } from 'react-router';
-import Navbar from '../pages/Navbar';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
 export const CustomerDetails = () => {
-
-
     const customerInitialValues = {
         name: "",
         address: "",
@@ -90,7 +80,6 @@ export const CustomerDetails = () => {
     const [type, setType] = React.useState("customer");
 
     return (<>
-    <Navbar/>
         <div className='h-full flex justify-center items-center pt-20'>
             <Card className="w-fit lg:w-fit
              ">
@@ -190,4 +179,3 @@ export const CustomerDetails = () => {
     </>
     )
 }
-

@@ -30,7 +30,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import axios from "axios";
-import Navbar from "./Navbar";
 import { Button } from '@material-tailwind/react';
 import { useNavigate } from 'react-router';
 import IconButton from "@material-ui/core/IconButton";

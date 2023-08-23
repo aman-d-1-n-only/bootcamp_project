@@ -1,16 +1,14 @@
 import React from 'react'
-import { Login } from './components/login';
+import { Login } from './pages/Login';
 import { Customer } from './components/Dashboard'
-import { SeeCustomers } from './components/viewCustomers';
 import CustomerList from './pages/CustomerList';
-import { CustomerDetails } from './components/customerDetails'
+import { CustomerDetails } from './components/CustomerDetails'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AddAccount } from './components/addAccount';
+import { AddAccount } from './components/AddAccount';
 import TransactionList from './pages/TransactionList';
 import PrivateRoutes from './components/PrivateRoute';
-import CustomerProfile from './components/CustomerProfile';
 import  CashWithdraw  from './pages/CashWithdraw';
-import Profile from './components/Profile2';
+import Profile from './components/Profile';
 import FundTransfer from './pages/FundTransfer';
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
