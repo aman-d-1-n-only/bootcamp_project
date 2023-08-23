@@ -113,7 +113,7 @@ export default function Profile() {
   return (
     <>
       <div className="bg-gray-100">
-        <Navbar />
+        
         
 
         <div className="container mx-auto my-5 p-0">

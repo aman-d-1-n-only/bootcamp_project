@@ -107,10 +107,12 @@ export default function CustomerList() {
   }, []);
   return (
     <>
-     <Navbar />
+    <div className='flex items-center justify-start
+      ml-32 w-fit my-4'>
     <TextField
           // label="Enter customerId"
-          placeholder="Enter Sender's Account Number"
+          placeholder="Enter Customer Id"
+          className=' min-w-fit'
           style={{
             marginLeft: "130px",
             marginRight: "-400px",
@@ -133,6 +135,7 @@ export default function CustomerList() {
             )
           }}
         />
+        </div>
      
       <TableContainer component={Paper}>
         <Table style={{ width: '95%', borderRadius: '10px', margin: 30, borderBottom: "none" }} sx={{
