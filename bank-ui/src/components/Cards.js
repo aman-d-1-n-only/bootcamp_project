@@ -9,7 +9,6 @@ import {
     Button,
 } from "@material-tailwind/react";
 
-
 export const CustomerCard = (props) => {
     const navigate = useNavigate()
     return (

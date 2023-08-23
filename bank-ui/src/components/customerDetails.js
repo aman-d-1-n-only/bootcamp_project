@@ -200,7 +200,7 @@ export const CustomerDetails = () => {
     validate: {
         startsWith6To9: (value) =>
           /^[6-9]/.test(value) ||
-          "Contact number should start with a digit between 6 and 9",
+          "Contact number should start with a digit from 6 to 9",
         validLength: (value) =>
           value.length === 10 || "Contact number should be exactly 10 digits",
       },

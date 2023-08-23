@@ -4,7 +4,8 @@ import Profile1 from "../img/Profile1.png";
 import Profile2 from "../img/Profile2.png";
 import Profile3 from "../img/Profile3.png";
 import Profile4 from "../img/Profile4.png";
-import { Button, Switch } from "@material-tailwind/react";
+import UserProfile from "../img/UserProfile.png";
+import { Button, Switch, Tab, Typography } from "@material-tailwind/react";
 import axios from "axios";
 import UserDisable from "./UserDisable";
 
@@ -72,7 +73,7 @@ export default function LeftProfileCard(props) {
                   "
             />
           </div>
-          <ul className="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-5 mt-3 divide-y rounded shadow-sm">
+          <ul className="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-5 mt-3 divide-y rounded shadow-sm w-full">
             <li className=" py-3 flex flex-col">
               <Button  variant="gradient" onClick={() => setVisible(!visible)}>
                 {visible ? "Hide Bank Balance" : "Check Bank Balance"}{" "}
