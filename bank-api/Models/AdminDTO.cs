@@ -11,7 +11,7 @@ namespace BankApi.Models
         public string Username { get; set; }
 
         [Required]
-        [StringLength(8, MinimumLength = 8, ErrorMessage = "Password must be 8 characters")]
+        [MinLength(8 , ErrorMessage = "Password should have a minimum length of 8.")]
         public string Password { get; set; }
 
     }

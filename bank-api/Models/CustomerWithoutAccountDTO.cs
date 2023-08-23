@@ -31,6 +31,7 @@ namespace BankApi.Models
 
         [Required(ErrorMessage = "Pincode is required.")]
         [StringLength(6, MinimumLength = 6, ErrorMessage = "Pincode must be 6 characters")]
+        [RegularExpression(@"^[0-9]{6}$", ErrorMessage = "The PIN should only contain numbers from 0 to 9.")]
         public string Pincode { get; set; }
 
     }
