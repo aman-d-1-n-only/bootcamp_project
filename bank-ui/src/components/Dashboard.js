@@ -11,8 +11,8 @@ import Card7 from "../img/Card7.png";
 export const Customer = () => {
   return (
     <>
-              <div className=" lg:h-full sm:min-h-screen p-8">
-     <div className="gap-6  grid grid-cols-2 lg:grid-cols-4 items-center justify-center">  <CustomerCard
+              <div className=" lg:h-full sm:min-h-screen max-w-full py-8">
+     <div className="flex flex-wrap items-center justify-center">  <CustomerCard
           cardName="add-customer"
           img={Card1}
           />
