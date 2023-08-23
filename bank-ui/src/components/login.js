@@ -33,11 +33,6 @@ export const Login = () => {
         }
         else {
             e.preventDefault();
-            // console.log(loginCredentials);
-            // axios.post('http://localhost:5165/api/admin/signUp', loginCredentials).then(res => {
-            //     // console.log(res.data);
-            //     setvalidloginCredentials(res.data);
-            // console.log(validloginCredentials);
 
             axios.post('http://localhost:5165/api/admin/login', loginCredentials).then(response => {
                 // console.log(response.data);

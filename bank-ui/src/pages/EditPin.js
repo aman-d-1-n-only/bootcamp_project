@@ -91,6 +91,7 @@ export default function EditPin() {
                             <Input onChange={handleChange} label="Enter Account Number" size="lg" 
                             type="number"
                             name="accNo"
+                            pattern="[0-9]{1}"
                             required /> 
                               <span className={`${visibility.accNo? "block": "hidden"} `}>
                             {errorMsg.accNo}
@@ -117,7 +118,7 @@ export default function EditPin() {
 
                          <Button
                      className="mt-4"
-                     onClick={changePin}                    
+                     onClick={changePin}   
                       >
                             Change Pin
                         </Button>
