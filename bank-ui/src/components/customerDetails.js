@@ -59,6 +59,7 @@ export const CustomerDetails = () => {
                         navigate('/customer/view-customer');
                     }
                 }).catch((error) => {
+
                     if(error.response.status === 404){
                         toast.error(error.response.data)
                     }
@@ -184,7 +185,7 @@ export const CustomerDetails = () => {
                            
                 </CardBody>
             </Card>
-
+    <ToastContainer/>
         </div>
     </>
     )
