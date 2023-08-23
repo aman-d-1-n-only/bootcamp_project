@@ -115,6 +115,9 @@ export default function Profile() {
     <>
     {/* <Nav/> */}
       <div className="bg-gray-100">
+        
+        
+
         <div className="container mx-auto my-5 p-0">
           <div className="md:flex no-wrap md:-mx-2 ">
            

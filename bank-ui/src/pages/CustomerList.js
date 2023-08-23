@@ -137,7 +137,9 @@ export default function CustomerList() {
         }} aria-label="customized table" c className='p-6'>
           <TableHead>
             <TableRow>
-              <StyledTableCell> Name</StyledTableCell>
+            <StyledTableCell align = "right"> Customer Id</StyledTableCell>
+
+              <StyledTableCell align = "right"> Name</StyledTableCell>
               {/* <StyledTableCell align="right">Last Name</StyledTableCell> */}
               <StyledTableCell align="right">Address</StyledTableCell>
               <StyledTableCell align="right">City</StyledTableCell>
@@ -154,7 +156,9 @@ export default function CustomerList() {
             {t?.map((row) => (
               <React.Fragment key={row.custId}>
                 <StyledTableRow key={row.custId}>
-                  <StyledTableCell component="th" scope="row">
+                <StyledTableCell align="right">{row.custId}</StyledTableCell>
+
+                  <StyledTableCell component="th" scope="row" align="right">
                     {row.name}
                   </StyledTableCell>
                   <StyledTableCell align="right">{row.address}</StyledTableCell>
@@ -179,7 +183,9 @@ export default function CustomerList() {
             {data?.map((row) => (
               <React.Fragment key={row.custId}>
                 <StyledTableRow key={row.custId}>
-                  <StyledTableCell component="th" scope="row">
+                <StyledTableCell align="right">{row.custId}</StyledTableCell>
+
+                  <StyledTableCell component="th" scope="row" align="right">
                     {row.name}
                   </StyledTableCell>
                   <StyledTableCell align="right">{row.address}</StyledTableCell>

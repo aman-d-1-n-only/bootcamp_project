@@ -25,17 +25,18 @@ function App() {
               <Route path="/customer" element={<Customer />} />
               <Route path="/customer/add-customer" element={<CustomerDetails />} />
               <Route path="/customer/view-customer" element={<CustomerList />} />
-              {/* <Route path="/customer/view-customer" element={<SeeCustomers />} /> */}
               <Route path="/customer/add-account" element={<AddAccount />} />
               <Route path="/customer/transactions" element={<TransactionList />} />
               <Route path="/customer/cash-withdraw" element={<CashWithdraw />} />
               <Route path="/customer/customer-profile" element={<Profile />} />
               <Route path="/customer/changepin" element={<EditPin/>}/>
-              {/* <Route path="/customer/customer-profile" element={<CustomerProfile />} /> */}
-              {/* <Route path="/customer/customer-profile" element={<CustomerProfile />} /> */}
               <Route path="/customer/customer-profile" element={<Profile />} />
               <Route path = "/customer/fund-transfer" element={<FundTransfer/>}/>
               <Route path = "/customer/currency-change" element={<CurrencyChange/>}/>
+              {/* <Route path="/customer/view-customer" element={<SeeCustomers />} /> */}
+              {/* <Route path="/customer/customer-profile" element={<CustomerProfile />} /> */}
+              {/* <Route path="/customer/customer-profile" element={<CustomerProfile />} /> */}
+             
             </Route>
 
 

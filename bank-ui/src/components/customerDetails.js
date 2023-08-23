@@ -21,8 +21,8 @@ export const CustomerDetails = () => {
         name: "",
         address: "",
         email: "",
-        contact: 0,
-        pincode: 0,
+        contact: "",
+        pincode: "",
         city: ""
     };
 
@@ -30,11 +30,11 @@ export const CustomerDetails = () => {
     const jwtToken = sessionStorage.getItem('jwtToken');
     const navigate = useNavigate();
     const display = (event) => {
-        if (customerData.name === "" || customerData.address === "" || customerData.email === "" || customerData.contact === 0 || customerData.pincode === 0 || customerData.city === "") {
-
+        if (customerData.name === "" || customerData.address === "" || customerData.email === "" || customerData.contact === "" || customerData.pincode === "" || customerData.city === "") {
+            toast.error("One or more fields are empty! ")
         }
         else {
-            // event.preventDefault();
+            event.preventDefault();
             try {
                 axios.post('http://localhost:5165/api/Customer/', customerData, {
                     headers: {
@@ -77,7 +77,7 @@ export const CustomerDetails = () => {
     };
 
     // const { countries } = useCountries();
-    const [type, setType] = React.useState("customer");
+    const [type, setType] = useState("customer");
 
     return (<>
         <div className='h-full flex justify-center items-center pt-20'>
@@ -85,7 +85,6 @@ export const CustomerDetails = () => {
              ">
                 <CardHeader
                     color="gray"
-                    
                     className=" py-6  grid h-fit place-items-center"
                 >
                     <div className="mb-4 rounded-full border border-white/10 bg-white/10 p-5 text-white">
@@ -110,10 +109,7 @@ export const CustomerDetails = () => {
                                     <Input onChange={handleChange}
                                         name="name" label="Name"
                                         value={customerData.name}
-                                        className=''
-                                        required
-
-                                    />
+                                        required />
 
                                      <Input
                                         label="Address"
@@ -164,7 +160,6 @@ export const CustomerDetails = () => {
                                     </div>
 
                                     <Button onClick={display}
-                                        // type="submit"
                                         className="mt-4 mx-10"
                                     >
                                         Add Customer
