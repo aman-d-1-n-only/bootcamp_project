@@ -31,7 +31,7 @@ export const CustomerDetails = () => {
     const navigate = useNavigate();
     const display = (event) => {
         if (customerData.name === "" || customerData.address === "" || customerData.email === "" || customerData.contact === "" || customerData.pincode === "" || customerData.city === "") {
-
+            toast.error("One or more fields are empty! ")
         }
         else {
             event.preventDefault();
