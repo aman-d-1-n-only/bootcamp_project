@@ -12,7 +12,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import Navbar from "./Navbar";
 import { MenuHandler } from '@material-tailwind/react';
 import { ClassNames } from '@emotion/react';
 import axios from 'axios';
@@ -104,21 +103,12 @@ const TransactionList = () => {
   
   return (
     <>
-      <Navbar />
+      <div className='flex items-center justify-center
+      ml-32 w-fit my-4 '>
       
-      <div >
-       
         <TextField
-          // label="Enter customerId"
           placeholder="Enter Sender's Account Number"
-          style={{
-            marginLeft: "130px",
-            marginRight: "-400px",
-            paddingRight: "-200px",
-            paddingLeft: "180px",
-            width: "800px",
-            marginTop: "20px"
-          }}
+          // className=' min-w-64'
           value={searchInput}
           onChange={handleChange}
           InputProps={{
@@ -151,7 +141,7 @@ const TransactionList = () => {
           {console.log(searchInput)}
           {(searchInput) ? (
             <><TableBody>
-              {t?.map((row) => (
+              {t?.slice(0,9).map((row)  => (
                 <StyledTableRow key={row.custId}>
                   <StyledTableCell align="right">{row.txnId}</StyledTableCell>
                 
@@ -171,7 +161,7 @@ const TransactionList = () => {
 
               <>
               <TableBody>
-              {transactions?.map((row) => (
+              {transactions?.slice(0,9).map((row) => (
                 <StyledTableRow key={row.txnId}>
                   <StyledTableCell align="right">{row.txnId}</StyledTableCell>
                   <StyledTableCell align="right">{row.status}</StyledTableCell>

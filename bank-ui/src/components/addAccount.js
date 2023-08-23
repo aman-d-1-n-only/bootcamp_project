@@ -1,6 +1,8 @@
 import react, { useState } from 'react'
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const AddAccount = () => {
     const accountInitialValues = {
@@ -17,25 +19,46 @@ export const AddAccount = () => {
 
     const display = (event, custId) => {
         if (accountData.accNo === "" || accountData.cardNo === "" || accountData.balance === "" || accountData.pin === 0) {
-
+                    toast.error("One or more fields are empty")
         }
         else {
             event.preventDefault();
-            try {
-                axios.post(`http://localhost:5165/api/customer/${location.state.data2}/account`, accountData)
-                    .then(res => {
+            const jwtToken=sessionStorage.getItem('jwtToken')
+            // try {
+                axios.post(`http://localhost:5165/api/customer/${location.state.data2}/account`, accountData, {
+                    headers: {
+                        'Authorization': 'bearer ' + jwtToken
+                    }
+
+                })
+                    .then((res) => {
                         console.log(res.data);
 
                         if (res.data) {
-                            alert(`Account Details Added successfully for ${location.state.data1}`);
+                            toast.success(`Account Details Added successfully for ${location.state.data1}`);
+                        }
+                    }).catch((error) => {
+                        console.log("hi");
+                        if(error.response.status === 404){
+                            toast.error(error.response.data)
+                        }
+                        else if(error.response.status === 400){
+                            Object.keys(error.response.data.errors).map((key, index) => {
+                                    // setErrors(error.response.data.errors[key])
+                                 error.response.data.errors[key].map((val, i) => {
+                                    console.log(val);
+                                    toast.error(val)
+                                 })  
+                             })  
                         }
                     })
 
-            } catch (error) {
-                console.log(error);
-                alert(error);
+            // } catch (error) {
+            //     console.log(error);
+            //     alert(error);
+            //     toast.error(error)
 
-            }
+            // }
             // console.log(accountData);
         }
     }

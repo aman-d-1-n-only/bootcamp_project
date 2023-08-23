@@ -30,9 +30,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import axios from "axios";
-import Navbar from "./Navbar";
 import { Button } from '@material-tailwind/react';
 import { useNavigate } from 'react-router';
+import IconButton from "@material-ui/core/IconButton";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import SearchIcon from "@material-ui/icons/Search";
+import TextField from "@mui/material/TextField";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -62,6 +65,26 @@ export default function CustomerList() {
   const [data, setData] = useState([]);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [searchInput, setSearchInput] = useState("");
+  const [t, setT] = useState([]);
+
+  const handleChange = (event) => {
+   event.preventDefault();
+   setSearchInput(event.target.value);
+   if(event.target.value){
+     filterList(event.target.value)   }
+
+  }
+  let transac;
+  const filterList = (searchInput) => {
+    transac = [...data]
+    transac = transac.filter(function (row) {
+      // console.log(typeof searchInput)
+      return parseInt(row.custId) === parseInt(searchInput)
+    })
+    setT([...transac])
+  }
+
 
 
 
@@ -84,7 +107,36 @@ export default function CustomerList() {
   }, []);
   return (
     <>
-      <Navbar />
+    <div className='flex items-center justify-start
+      ml-32 w-fit my-4'>
+    <TextField
+          // label="Enter customerId"
+          placeholder="Enter Customer Id"
+          // className=' min-w-fit'
+          style={{
+            marginLeft: "130px",
+            marginRight: "-400px",
+            paddingRight: "-200px",
+            paddingLeft: "180px",
+            width: "800px",
+            marginTop: "20px"
+          }}
+          value={searchInput}
+          onChange={handleChange}
+          InputProps={{
+
+            endAdornment: (
+              <InputAdornment>
+                <IconButton
+                 >
+                  <SearchIcon />
+                </IconButton>
+              </InputAdornment>
+            )
+          }}
+        />
+        </div>
+     
       <TableContainer component={Paper}>
         <Table style={{ width: '95%', borderRadius: '10px', margin: 30, borderBottom: "none" }} sx={{
           minWidth: 500,
@@ -92,7 +144,9 @@ export default function CustomerList() {
         }} aria-label="customized table" c className='p-6'>
           <TableHead>
             <TableRow>
-              <StyledTableCell> Name</StyledTableCell>
+            <StyledTableCell alig = "right"> Customer Id</StyledTableCell>
+
+              <StyledTableCell alig = "right"> Name</StyledTableCell>
               {/* <StyledTableCell align="right">Last Name</StyledTableCell> */}
               <StyledTableCell align="right">Address</StyledTableCell>
               <StyledTableCell align="right">City</StyledTableCell>
@@ -105,11 +159,13 @@ export default function CustomerList() {
 
             </TableRow>
           </TableHead>
-          <TableBody>
-            {data.map((row) => (
+          { (searchInput) ? <>  <TableBody>
+            {t?.map((row) => (
               <React.Fragment key={row.custId}>
                 <StyledTableRow key={row.custId}>
-                  <StyledTableCell component="th" scope="row">
+                <StyledTableCell >{row.custId}</StyledTableCell>
+
+                  <StyledTableCell component="th" scope="row" align="right">
                     {row.name}
                   </StyledTableCell>
                   <StyledTableCell align="right">{row.address}</StyledTableCell>
@@ -130,7 +186,34 @@ export default function CustomerList() {
                   {/* <StyledTableCell align="right">{row.Balance}</StyledTableCell> */}
                 </StyledTableRow>
               </React.Fragment>))}
-          </TableBody>
+          </TableBody></> : <>  <TableBody>
+            {data?.map((row) => (
+              <React.Fragment key={row.custId}>
+                <StyledTableRow key={row.custId}>
+                <StyledTableCell >{row.custId}</StyledTableCell>
+
+                  <StyledTableCell component="th" scope="row" align="right">
+                    {row.name}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">{row.address}</StyledTableCell>
+                  <StyledTableCell align="right">{row.city}</StyledTableCell>
+                  <StyledTableCell align="right">{row.contact}</StyledTableCell>
+                  <StyledTableCell align="right">{row.email}</StyledTableCell>
+                  <StyledTableCell align="right">{row.pincode}</StyledTableCell>
+                  <StyledTableCell align="right">
+                    <Button onClick={() => {
+                      navigate('/customer/customer-profile', {
+                        state: {
+                          data1: row
+                        }
+                      })
+                    }}>View</Button>
+                  </StyledTableCell>
+
+                  {/* <StyledTableCell align="right">{row.Balance}</StyledTableCell> */}
+                </StyledTableRow>
+              </React.Fragment>))}
+          </TableBody></>  }
         </Table>
       </TableContainer>
     </>

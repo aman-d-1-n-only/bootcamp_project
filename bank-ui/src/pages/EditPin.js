@@ -2,7 +2,8 @@ import { CurrencyRupeeIcon } from '@heroicons/react/24/solid'
 import { Button, Card, CardBody, CardHeader, Input, Typography } from '@material-tailwind/react'
 import axios from 'axios';
 import React, { useState } from 'react'
-import Navbar from './Navbar';
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function EditPin() {
 
@@ -32,9 +33,9 @@ export default function EditPin() {
     }
     const changePin=()=>{
         const jwtToken=sessionStorage.getItem("jwtToken")
-        if(pinDetails.newPin!==pinDetails.confirmNewPin)
-        {
-            alert("New pin and confirm new pin should be same")
+        if(pinDetails.newPin !== pinDetails.confirmNewPin)
+        { 
+            toast.error("New pin and confirm new pin should be same")
         }
         else{
         // delete pinDetails["confirmNewPin"];
@@ -48,7 +49,7 @@ export default function EditPin() {
         })
         .then((res) => {
           console.log(res.data);
-          alert(`Pin Changed successfully for Account Number : ${res.data.accId}`)
+          toast.success(`Pin Changed successfully for Account Number : ${res.data.accId}`)
           window.location.reload();
         }
         )
@@ -62,13 +63,24 @@ export default function EditPin() {
             // })
             // console.log(error.response.data.errors);
             console.log(error.response);
+        }
+        ).catch((error) => {
+            if(error.response.status === 404){
+                toast.error(error.response.data)
+            }
+            else if(error.response.status === 400){
+                Object.keys(error.response.data.errors).map((key, index) => {
+                        // setErrors(error.response.data.errors[key])
+                     error.response.data.errors[key].map((val, i) => {
+                        toast.error(val)
+                     })  
+                 })  
+            }
         })
     };
     }
   return (
     <>
-          
-          <Navbar/>
                                <div className="relative min-h-fit  h-full flex justify-center items-center pt-10"
              >
             <Card className="w-96 ">
@@ -127,6 +139,7 @@ export default function EditPin() {
                             </CardBody>
                
             </Card>
+            <ToastContainer/>
         </div>
                         </>
                   

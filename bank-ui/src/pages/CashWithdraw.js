@@ -16,9 +16,9 @@ import {
     TabPanel,
 } from "@material-tailwind/react";
 import axios from 'axios';
-import Navbar from './Navbar';
 import { BanknotesIcon, CurrencyRupeeIcon } from '@heroicons/react/24/solid';
-
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const CashWithdraw = () => {
@@ -69,6 +69,17 @@ const CashWithdraw = () => {
             })
             .catch(function(error) {
                 console.log(error)
+                if(error.response.status === 404){
+                    toast.error(error.response.data)
+                }
+                else if(error.response.status === 400){
+                    Object.keys(error.response.data.errors).map((key, index) => {
+                            // setErrors(error.response.data.errors[key])
+                         error.response.data.errors[key].map((val, i) => {
+                            toast.error(val)
+                         })  
+                     })  
+                }
             })
 
 
@@ -138,17 +149,23 @@ const CashWithdraw = () => {
             }
         }).catch((error) => {
             console.log(error)
+            if(error.response.status === 404){
+                toast.error(error.response.data)
+            }
+            else if(error.response.status === 400){
+                Object.keys(error.response.data.errors).map((key, index) => {
+                     error.response.data.errors[key].map((val, i) => {
+                        console.log(val)
+                        toast.error(val)
+                     })  
+                 })  
+            }
         })
     }
 
     // }
     // })
     return (<>
-    <Navbar/>
-        {/* <div className="relative min-h-screen  bg-center py-12 px-4 sm:px-6 lg:px-8 bg-gray-100 bg-no-repeat 
-        bg-cover h-full flex justify-center items-center "
-            style={{ backgroundImage: "url('https://images.pexels.com/photos/2117938/pexels-photo-2117938.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')", }}
-            > */}
              <div className="relative min-h-fit  h-full flex justify-center items-center pt-20"
              >
             <Card className="w-96 ">
@@ -258,6 +275,7 @@ const CashWithdraw = () => {
                             </CardBody>
                
             </Card>
+            <ToastContainer/>
         </div>
         
     </>)

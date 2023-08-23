@@ -1,8 +1,9 @@
 import { CurrencyRupeeIcon } from '@heroicons/react/24/solid'
 import { Button, Card, CardBody, CardHeader, Input, Option, Select, Typography } from '@material-tailwind/react'
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Navbar from './Navbar';
+
 export default function CurrencyChange() {
   const [symbols,setSymbols]=useState([]);
   const[result,setResult]=useState("");
@@ -48,7 +49,8 @@ const handleChange=(e)=>
     <>
           
           <Navbar/>
-                               <div className="relative min-h-fit  h-full flex justify-center items-center pt-16">
+                               <div className="relative min-h-fit  h-full flex justify-center items-center pt-16"
+             >
             <Card className="w-96 ">
                 <CardHeader
                     color="gray"

@@ -7,24 +7,16 @@ import {
     Input,
     Button,
     Typography,
-    Tabs,
-    TabsHeader,
-    TabsBody,
-    Tab,
-    TabPanel,
-    Select,
-    Option,
 } from "@material-tailwind/react";
 import {
     BanknotesIcon,
 } from "@heroicons/react/24/solid";
 import { useNavigate } from 'react-router';
-import Navbar from '../pages/Navbar';
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export const CustomerDetails = () => {
-
-
     const customerInitialValues = {
         name: "",
         address: "",
@@ -56,6 +48,19 @@ export const CustomerDetails = () => {
                         alert("Customer Details Added successfully");
                         navigate('/customer/view-customer');
                     }
+                }).catch((error) => {
+
+                    if(error.response.status === 404){
+                        toast.error(error.response.data)
+                    }
+                    else if(error.response.status === 400){
+                        Object.keys(error.response.data.errors).map((key, index) => {
+                                // setErrors(error.response.data.errors[key])
+                             error.response.data.errors[key].map((val, i) => {
+                                toast.error(val)
+                             })  
+                         })  
+                    }
                 })
 
             } catch (error) {
@@ -75,7 +80,6 @@ export const CustomerDetails = () => {
     const [type, setType] = useState("customer");
 
     return (<>
-    <Navbar/>
         <div className='h-full flex justify-center items-center pt-20'>
             <Card className="w-fit lg:w-fit
              ">
@@ -165,9 +169,8 @@ export const CustomerDetails = () => {
                            
                 </CardBody>
             </Card>
-
+    <ToastContainer/>
         </div>
     </>
     )
 }
-
