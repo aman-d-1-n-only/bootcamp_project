@@ -107,18 +107,12 @@ export default function CustomerList() {
   }, []);
   return (
     <>
-     <Navbar />
-    <TextField
-          // label="Enter customerId"
-          placeholder="Enter Sender's Account Number"
-          style={{
-            marginLeft: "130px",
-            marginRight: "-400px",
-            paddingRight: "-200px",
-            paddingLeft: "180px",
-            width: "800px",
-            marginTop: "20px"
-          }}
+    <div className='flex items-center justify-center
+     my-4 w-full'>
+       
+        <TextField
+          placeholder="Enter Customer ID"
+          className='w-fit lg:w-1/3'
           value={searchInput}
           onChange={handleChange}
           InputProps={{
@@ -133,6 +127,8 @@ export default function CustomerList() {
             )
           }}
         />
+      </div>
+
      
       <TableContainer component={Paper}>
         <Table style={{ width: '95%', borderRadius: '10px', margin: 30, borderBottom: "none" }} sx={{

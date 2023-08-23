@@ -30,9 +30,7 @@ export const Login = () => {
         }
     };
     const handleClick = (e) => {
-        if (e.target.value.length === 0) {
-            // console.log(e.target,"here")
-            setErrorMessage("Both username and password are required ")};
+        
         if (loginCredentials.username === "" || loginCredentials.password === "") {
 
         }
@@ -50,12 +48,19 @@ export const Login = () => {
 
                 if (response.data) {
                     navigate('customer');
+                    console.log(response.data,"here");
+                    // if (e.target.value.length === 0) {
+                        
+                    //     setErrorMessage("Both username and password are required ")};
                 }
             }).catch(function (error) {
                 if (error.response) {
                     if (error.response.status) {
                         // alert("Invalid Credentials. Please Try again");
                         setErrorMessage("Invalid Credentials. Please Try again");
+                        if (e.target.value.length === 0) {
+            // console.log(e.target,"here")
+            setErrorMessage("Both username and password are required ")};
                     }
                 }
             })

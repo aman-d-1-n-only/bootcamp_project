@@ -17,6 +17,7 @@ import LeftProfileCard from "./LeftProfileCard";
 import AccntTable from "./AccntTable";
 import {ClipboardDocumentListIcon, UserIcon } from "@heroicons/react/24/outline";
 import Info from "./Info";
+import { Nav } from "./Nav";
 // import AddAccnt2 from "../services/AddAccnt";
 
 export default function Profile() {
@@ -112,10 +113,8 @@ export default function Profile() {
 
   return (
     <>
+    {/* <Nav/> */}
       <div className="bg-gray-100">
-        <Navbar />
-        
-
         <div className="container mx-auto my-5 p-0">
           <div className="md:flex no-wrap md:-mx-2 ">
            

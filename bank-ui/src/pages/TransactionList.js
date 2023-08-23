@@ -103,14 +103,12 @@ const TransactionList = () => {
   
   return (
     <>
-      <div className='flex items-center justify-start
-      ml-32 w-fit my-4'>
+      <div className='flex items-center justify-center
+     my-4 w-full'>
        
-          
-          // label="Enter customerId"
         <TextField
           placeholder="Enter Sender's Account Number"
-          className=' min-w-fit'
+          className='w-fit lg:w-1/3'
           value={searchInput}
           onChange={handleChange}
           InputProps={{

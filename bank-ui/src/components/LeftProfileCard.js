@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import UserProfile from "../img/UserProfile.png";
-import { Button } from "@material-tailwind/react";
+import { Button, Switch, Tab, Typography } from "@material-tailwind/react";
 import axios from "axios";
 
 export default function LeftProfileCard(props) {
@@ -52,7 +52,7 @@ export default function LeftProfileCard(props) {
                   "
             />
           </div>
-          <ul className="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-5 mt-3 divide-y rounded shadow-sm">
+          <ul className="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-5 mt-3 divide-y rounded shadow-sm w-full">
             <li className=" py-3 flex flex-col">
               <Button  variant="gradient" onClick={() => setVisible(!visible)}>
                 {visible ? "Hide Bank Balance" : "Check Bank Balance"}{" "}
@@ -63,6 +63,11 @@ export default function LeftProfileCard(props) {
                   <span className="ml-auto text-sm">{total}</span>
                 </span>
               )}
+            </li>
+            <li className ="flex  items-center justify-center py-3 w-full" >
+              <Typography size="sm">Enable</Typography>
+            <Switch className="checked:bg-[#2ec946]" />
+            <Typography size="sm">Disable</Typography>
             </li>
             {/* <li className="flex items-center py-3">
               <span>Member since</span>
