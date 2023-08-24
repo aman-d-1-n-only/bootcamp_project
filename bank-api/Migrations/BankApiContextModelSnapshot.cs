@@ -40,6 +40,9 @@ namespace bank_api.Migrations
                     b.Property<int?>("CustomerCustId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool>("Enable")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Pin")
                         .IsRequired()
                         .HasColumnType("TEXT");

@@ -11,5 +11,7 @@ namespace BankApi.Models
         public string CardNo { get; set; }
 
         public string Pin { get; set; }
+
+        public bool Enable { get; set; }
     }
 }

@@ -69,6 +69,7 @@ namespace bank_api.Migrations
                     Balance = table.Column<double>(type: "REAL", nullable: false),
                     CardNo = table.Column<string>(type: "TEXT", nullable: false),
                     Pin = table.Column<string>(type: "TEXT", nullable: false),
+                    Enable = table.Column<bool>(type: "INTEGER", nullable: false),
                     CustId = table.Column<int>(type: "INTEGER", nullable: false),
                     CustomerCustId = table.Column<int>(type: "INTEGER", nullable: true)
                 },

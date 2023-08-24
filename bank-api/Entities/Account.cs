@@ -18,6 +18,8 @@ namespace BankApi.Entities
 
         public string Pin { get; set; }
 
+        public bool Enable { get; set; }
+
         [ForeignKey("CustId")]
         public int CustId { get; set; }
         public Customer? Customer { get; set; }

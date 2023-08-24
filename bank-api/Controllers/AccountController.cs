@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace BankApi.Controllers
 {
     [ApiController]
-    [Authorize]
+    // [Authorize]
     [Route("api/customer/{CustId:int}/account")]
 
     public class AccountController : ControllerBase
@@ -25,7 +25,7 @@ namespace BankApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AccountDTO>>> GetAccounts( [FromRoute] int CustId)
+        public async Task<ActionResult<IEnumerable<RespAccountDTO>>> GetAccounts( [FromRoute] int CustId)
         {   
             if( !await _bankRepository.CustomerExistsAsync(CustId)){
                 return NotFound($"There is no customer with customer id : {CustId}");
@@ -66,6 +66,8 @@ namespace BankApi.Controllers
             if (account == null)
             {
                 return NotFound($"There is no account with account number :{AccId}");
+            }else if( account.Enable == false ){
+                return NotFound($"The account with account number :{AccId} is disabled by bank.");
             }
             
             var respAccount = _mapper.Map<RespAccountDTO>(account);
@@ -87,6 +89,8 @@ namespace BankApi.Controllers
             if (account == null)
             {
                 return NotFound($"There is no account with account number :{AccId}");
+            }else if( account.Enable == false ){
+                return NotFound($"The account with account number :{AccId} is disabled by bank.");
             }
             _mapper.Map(updatedAccount, account);
             await _bankRepository.SaveChangesAsync();

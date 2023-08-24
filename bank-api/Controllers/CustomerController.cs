@@ -7,7 +7,7 @@ using AutoMapper;
 
 namespace BankApi.Controllers{
     [ApiController]
-    [Authorize]
+    // [Authorize]
     [Route("api/customer")]
 
     public class CustomerController : ControllerBase {

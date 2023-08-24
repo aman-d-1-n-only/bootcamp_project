@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace bank_api.Migrations
 {
     [DbContext(typeof(BankApiContext))]
-    [Migration("20230819080033_initialMigrations")]
+    [Migration("20230824061910_initialMigrations")]
     partial class initialMigrations
     {
         /// <inheritdoc />
@@ -41,6 +41,9 @@ namespace bank_api.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("CustomerCustId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Enable")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Pin")

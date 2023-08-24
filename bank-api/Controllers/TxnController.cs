@@ -55,11 +55,15 @@ namespace BankApi.Controllers
             var account1 = await _bankRepository.GetAccountAsync(transfer.AccNo1);
             if ( account1 == null ){
                 return NotFound($"There is no account with account number :{transfer.AccNo1}");
+            }else if( account1.Enable == false ){
+                return NotFound($"The account with account number :{transfer.AccNo1} is disabled by bank.");
             }
 
             var account2 = await _bankRepository.GetAccountAsync(transfer.AccNo2);
             if ( account2 == null ){
                 return NotFound($"There is no account with account number :{transfer.AccNo2}");
+            }else if( account2.Enable == false ){
+                return NotFound($"The account with account number :{transfer.AccNo2} is disabled by bank.");
             }
 
             if( account1.Pin == transfer.Pin ){
@@ -87,6 +91,8 @@ namespace BankApi.Controllers
             var account = await _bankRepository.GetAccountAsync(transfer.AccNo);
             if ( account == null ){
                 return NotFound($"There is no account with account number :{transfer.AccNo}");
+            }else if( account.Enable == false ){
+                return NotFound($"The account with account number :{transfer.AccNo} is disabled by bank.");
             }
 
             if( account.Pin == transfer.Pin ){
@@ -111,6 +117,8 @@ namespace BankApi.Controllers
             var account = await _bankRepository.GetAccountAsync( changePin.AccNo);
             if ( account == null ){
                 return NotFound($"There is no account with account number :{changePin.AccNo}");
+            }else if( account.Enable == false ){
+                return NotFound($"The account with account number :{changePin.AccNo} is disabled by bank.");
             }
 
             if( account.Pin == changePin.ExistingPin ){
