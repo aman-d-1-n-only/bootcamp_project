@@ -44,7 +44,6 @@ export const AddAccount = () => {
                         }
                         else if(error.response.status === 400){
                             Object.keys(error.response.data.errors).map((key, index) => {
-                                    // setErrors(error.response.data.errors[key])
                                  error.response.data.errors[key].map((val, i) => {
                                     console.log(val);
                                     toast.error(val)

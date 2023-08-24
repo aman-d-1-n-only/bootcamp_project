@@ -31,7 +31,7 @@ export const CustomerDetails = () => {
     const navigate = useNavigate();
     const display = (event) => {
         if (customerData.name === "" || customerData.address === "" || customerData.email === "" || customerData.contact === 0 || customerData.pincode === 0 || customerData.city === "") {
-
+     toast.error("one or more fields are empty")
         }
         else {
             // event.preventDefault();
@@ -45,7 +45,8 @@ export const CustomerDetails = () => {
                     console.log(res.data);
 
                     if (res.data) {
-                        alert("Customer Details Added successfully");
+                        // alert("Customer Details Added successfully");
+                        toast.success("Customer Details Added successfully");
                         navigate('/customer/view-customer');
                     }
                 }).catch((error) => {

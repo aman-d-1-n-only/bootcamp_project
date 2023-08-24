@@ -144,9 +144,9 @@ export default function CustomerList() {
         }} aria-label="customized table" c className='p-6'>
           <TableHead>
             <TableRow>
-            <StyledTableCell alig = "right"> Customer Id</StyledTableCell>
+            <StyledTableCell align = "right"> Customer Id</StyledTableCell>
 
-              <StyledTableCell alig = "right"> Name</StyledTableCell>
+              <StyledTableCell align = "right"> Name</StyledTableCell>
               {/* <StyledTableCell align="right">Last Name</StyledTableCell> */}
               <StyledTableCell align="right">Address</StyledTableCell>
               <StyledTableCell align="right">City</StyledTableCell>

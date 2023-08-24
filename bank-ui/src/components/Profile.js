@@ -17,6 +17,8 @@ import LeftProfileCard from "./LeftProfileCard";
 import AccntTable from "./AccntTable";
 import {ClipboardDocumentListIcon, UserIcon } from "@heroicons/react/24/outline";
 import Info from "./Info";
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // import AddAccnt2 from "../services/AddAccnt";
 
 export default function Profile() {
@@ -80,7 +82,7 @@ export default function Profile() {
     ) {
     } else {
       event.preventDefault();
-      try {
+      // try {
         axios
           .post(
             `http://localhost:5165/api/customer/${custId}/account`,
@@ -95,17 +97,27 @@ export default function Profile() {
             console.log(res.data);
 
             if (res.data) {
-              alert(
-                `Account Details Added successfully for ${customerData.name}`
-                
-              );
+              
+              toast.success( `Account Details Added successfully for ${customerData.name}`)
               toggleModal();
             }
-          });
-      } catch (error) {
-        console.log(error);
-        alert(error);
-      }
+          }).catch((error) => {
+            if(error.response.status === 404){
+              toast.error(error.response.data)
+          }
+          else if(error.response.status === 400){
+              Object.keys(error.response.data.errors).map((key, index) => {
+                   error.response.data.errors[key].map((val, i) => {
+                      console.log(val);
+                      toast.error(val)
+                   })  
+               })  
+          }
+          }) ;
+      // } catch (error) {
+      //   console.log(error);
+      //   alert(error);
+      // }
       // console.log(accountData);
     }
   };
@@ -420,6 +432,8 @@ custId={custId}
           </div>
         </div>
       </div>
+      <ToastContainer  style = {{zIndex : 7000}}/>
     </>
+
   );
 }
