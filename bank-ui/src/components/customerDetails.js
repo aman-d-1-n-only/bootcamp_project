@@ -16,6 +16,51 @@ import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 
 export const CustomerDetails = () => {
 
+    const [customerData, setcustomerData] = useState(customerInitialValues);
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const navigate = useNavigate();
+    const display = (event) => {
+        if (customerData.name === "" || customerData.address === "" || customerData.email === "" || customerData.contact === 0 || customerData.pincode === 0 || customerData.city === "") {
+     toast.error("one or more fields are empty")
+        }
+        else {
+            // event.preventDefault();
+            try {
+                axios.post('http://localhost:5165/api/Customer/', customerData, {
+                    headers: {
+                        'Authorization': 'bearer ' + jwtToken
+                    }
+
+                }).then(res => {
+                    console.log(res.data);
+
+                    if (res.data) {
+                        // alert("Customer Details Added successfully");
+                        toast.success("Customer Details Added successfully");
+                        navigate('/customer/view-customer');
+                    }
+                }).catch((error) => {
+
+                    if(error.response.status === 404){
+                        toast.error(error.response.data)
+                    }
+                    else if(error.response.status === 400){
+                        Object.keys(error.response.data.errors).map((key, index) => {
+                                // setErrors(error.response.data.errors[key])
+                             error.response.data.errors[key].map((val, i) => {
+                                toast.error(val)
+                             })  
+                         })  
+                    }
+                })
+
+            } catch (error) {
+                console.log(error);
+                alert(error);
+
+            }
+            console.log(customerData);
+        }
   const {
     control,
     handleSubmit,
@@ -286,3 +331,4 @@ export const CustomerDetails = () => {
     </>
   );
 };
+}
