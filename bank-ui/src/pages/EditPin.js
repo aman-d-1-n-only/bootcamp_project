@@ -2,6 +2,7 @@ import { CurrencyRupeeIcon } from '@heroicons/react/24/solid'
 import { Button, Card, CardBody, CardHeader, Input, Typography } from '@material-tailwind/react'
 import axios from 'axios';
 import React, { useState } from 'react'
+import { set } from 'react-hook-form';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -26,16 +27,26 @@ export default function EditPin() {
        NewPin:""
 
     })
-    const [pinDetails,setPinDetails]=useState(pinInitialValues)
+    const [pinDetails,setPinDetails]=useState(pinInitialValues);
+    
+  const [errorMessage, setErrorMessage] = useState("");
     const handleChange = (e) => {
-      
+        if ((e.target.name=== "existingPin")|| (e.target.name=== "newPin")||(e.target.name=== "confirmNewPin")) {
+            if (e.target.value.length > 4) {
+              setErrorMessage("Pin length should less than 4");
+            }
+        
+        else
+        setErrorMessage("");   }
+            
         setPinDetails({ ...pinDetails, [e.target.name]: e.target.value });
     }
     const changePin=()=>{
         const jwtToken=sessionStorage.getItem("jwtToken")
         if(pinDetails.newPin !== pinDetails.confirmNewPin)
         { 
-            toast.error("New pin and confirm new pin should be same")
+            // toast.error("New pin and confirm new pin should be same")
+            setErrorMessage("New pin and confirm new pin should be same");
         }
         else{
         // delete pinDetails["confirmNewPin"];
@@ -52,27 +63,30 @@ export default function EditPin() {
           toast.success(`Pin Changed successfully for Account Number : ${res.data.accId}`)
           window.location.reload();
         }
-        )
-        .catch((error)=>{
-            // console.log(Object.keys(error.response.data.errors));
-            // Object.keys(error.response.data.errors).map((item,index)=>{
-            //     // console.log(error.response.data.errors[item]);
-            //     setVisibility({ ...visibility, [item]: true })
-            //     setErrorMsg({...errorMsg,[item]:error.response.data.errors[item]})
-            //     console.log(item,visibility,errorMsg,index)
-            // })
-            // console.log(error.response.data.errors);
-            console.log(error.response);
-        }
+        // )
+        // .catch((error)=>{
+        //     // console.log(Object.keys(error.response.data.errors));
+        //     // Object.keys(error.response.data.errors).map((item,index)=>{
+        //     //     // console.log(error.response.data.errors[item]);
+        //     //     setVisibility({ ...visibility, [item]: true })
+        //     //     setErrorMsg({...errorMsg,[item]:error.response.data.errors[item]})
+        //     //     console.log(item,visibility,errorMsg,index)
+        //     // })
+        //     // console.log(error.response.data.errors);
+        //     console.log(error.response.data);
+        // }
         ).catch((error) => {
             if(error.response.status === 404){
-                toast.error(error.response.data)
+                // toast.error(error.response.data);
+                setErrorMessage(error.response.data);
+
             }
             else if(error.response.status === 400){
                 Object.keys(error.response.data.errors).map((key, index) => {
                         // setErrors(error.response.data.errors[key])
                      error.response.data.errors[key].map((val, i) => {
-                        toast.error(val)
+                        // toast.error(val)
+                        setErrorMessage(val);
                      })  
                  })  
             }
@@ -126,15 +140,16 @@ export default function EditPin() {
                         <Input onChange={handleChange} label="Confirm New Pin" size="lg" 
                            required 
                            name="confirmNewPin"/>
-
+<div className="text-red-600 mt-2 text-sm"> {errorMessage} </div>
                          <Button
-                     className="mt-4"
+                     className=""
                      onClick={changePin}   
                       >
                             Change Pin
                         </Button>
                     </form>
-                            
+                    
+          
                             </CardBody>
                
             </Card>
