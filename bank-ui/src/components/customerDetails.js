@@ -13,8 +13,17 @@ import {
 import { BanknotesIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
+import {ToastContainer, toast} from 'react-toastify';
 
 export const CustomerDetails = () => {
+    const customerInitialValues = {
+        name : "",
+        address:"",
+        email:"",
+        city : "",
+        contact : 0,
+        pincode :0,
+    }
 
     const [customerData, setcustomerData] = useState(customerInitialValues);
     const jwtToken = sessionStorage.getItem('jwtToken');
