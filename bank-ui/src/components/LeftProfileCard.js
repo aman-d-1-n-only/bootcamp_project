@@ -86,7 +86,7 @@ export default function LeftProfileCard(props) {
               )}
             </li>
             <li className=" md:text-sm ">
-              <UserDisable/>
+              
             </li>
           </ul>
         </div>
