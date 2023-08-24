@@ -101,12 +101,12 @@ const TransactionList = () => {
         <Table style={{ width: '95%', borderRadius: '10px', margin: 30 }} sx={{ manWidth: 1000 }} aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>Transaction Id</StyledTableCell>
-              <StyledTableCell>Status</StyledTableCell>
-              <StyledTableCell align="right">Amount</StyledTableCell>
-              <StyledTableCell align="right">Debited From </StyledTableCell>
-              <StyledTableCell align="right"> Credited To</StyledTableCell>
-              <StyledTableCell align="right">Date</StyledTableCell>
+              <StyledTableCell align="center">Transaction ID</StyledTableCell>
+              <StyledTableCell align="center">Status</StyledTableCell>
+              <StyledTableCell align="center">Amount</StyledTableCell>
+              <StyledTableCell align="center">Debited From </StyledTableCell>
+              <StyledTableCell align="center"> Credited To</StyledTableCell>
+              <StyledTableCell align="center">Date</StyledTableCell>
             </TableRow>
           </TableHead>
           {console.log(searchInput)}
@@ -114,16 +114,16 @@ const TransactionList = () => {
             <><TableBody>
               {t?.slice(0,9).map((row)  => (
                 <StyledTableRow key={row.custId}>
-                  <StyledTableCell align="right">{row.txnId}</StyledTableCell>
+                  <StyledTableCell align="center">{row.txnId}</StyledTableCell>
                 
-                  <StyledTableCell align="right">{row.status}</StyledTableCell>
-                  <StyledTableCell align="right">{row.amount}</StyledTableCell>
-                  <StyledTableCell align="right">{row.debitedFrom}</StyledTableCell>
-                  <StyledTableCell align="right">{row.creditTo}</StyledTableCell>
+                  <StyledTableCell align="center">{row.status}</StyledTableCell>
+                  <StyledTableCell align="center">{row.amount}</StyledTableCell>
+                  <StyledTableCell align="center">{row.debitedFrom}</StyledTableCell>
+                  <StyledTableCell align="center">{row.creditTo}</StyledTableCell>
 
-                  <StyledTableCell align="right">{row.date}</StyledTableCell>
+                  <StyledTableCell align="center">{row.date}</StyledTableCell>
 
-                  {/* <StyledTableCell align="right">{row.Balance}</StyledTableCell> */}
+                  {/* <StyledTableCell align="center">{row.Balance}</StyledTableCell> */}
                 </StyledTableRow>
               ))}
             </TableBody>
@@ -134,12 +134,12 @@ const TransactionList = () => {
               <TableBody>
               {transactions?.slice(0,9).map((row) => (
                 <StyledTableRow key={row.txnId}>
-                  <StyledTableCell align="right">{row.txnId}</StyledTableCell>
-                  <StyledTableCell align="right">{row.status}</StyledTableCell>
-                  <StyledTableCell align="right">{row.amount}</StyledTableCell>
-                  <StyledTableCell align="right">{row.debitedFrom}</StyledTableCell>
-                  <StyledTableCell align="right">{row.creditTo}</StyledTableCell>
-                  <StyledTableCell align="right">{row.date}</StyledTableCell>
+                  <StyledTableCell align="center">{row.txnId}</StyledTableCell>
+                  <StyledTableCell align="center">{row.status}</StyledTableCell>
+                  <StyledTableCell align="center">{row.amount}</StyledTableCell>
+                  <StyledTableCell align="center">{row.debitedFrom}</StyledTableCell>
+                  <StyledTableCell align="center">{row.creditTo}</StyledTableCell>
+                  <StyledTableCell align="center">{row.date}</StyledTableCell>
 
                 </StyledTableRow>
               ))}
