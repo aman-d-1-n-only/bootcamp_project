@@ -17,6 +17,7 @@ import AccntTable from "../components/AccntTable";
 import {ClipboardDocumentListIcon, UserIcon } from "@heroicons/react/24/outline";
 import Info from "../components/Info";
 import { Nav } from "../components/Nav";
+import ModalAccount from "../components/AddAccountModal";
 // import AddAccnt2 from "../services/AddAccnt";
 
 export default function Profile() {
@@ -309,106 +310,8 @@ export default function Profile() {
                   </Button>
                   <Info/>
                   </div>
-                  {showModal ? (
-                    <>
-                               <Dialog
-        size="xs"
-        open={showModal} handler={toggleModal}
-        className="bg-transparent shadow-none "
-      >
-        <Card>
-                          <CardHeader
-                            className=" grid place-items-center  py-8 px-4 text-center bg-gray-900 
-                            "
-                          >
-                            
-<div className=" text-white mb-4">
-<CurrencyRupeeIcon className="h-20 w-20" />
-                        {/* <CurrencyRupeeIcon className="h-20 w-20" /> */}
-                        
-                    </div>
 
-                            <Typography variant="h4" color="white">
-                              Add Account
-                            </Typography>
-                            
-                            </CardHeader>
-                          <CardBody className="px-20">
-                            {/* Add Account */}
-
-                            <form className="mt-8 flex flex-col gap-y-4 w-full ">
-                           <Typography
-                                variant="small"
-                                color="blue-gray"
-                                className="font-medium"
-                              >
-                                Account Details
-                              </Typography>
-
-{/* 
-                              <Input 
-                                onChange={handleAccountChange}
-                                name="accType"
-                                label="Account Type"
-                                placeholder="Current or Savings"
-                                value={accountData.name}
-                              /> */}
-      <select
-                      name="accType"
-                      label="Account Type"
-                      onChange={handleAccountChange}
-                      value={accountData.name}
-                      required
-                      className="p-2 border-2 border-blue-gray-100 rounded-lg w-full"
-                    >
-                      <option value="" selected hidden disabled>
-                        Account Type
-                      </option>
-                      {accntType.map((item, index) => {
-                        return <option value={item}>{item}</option>;
-                      })}
-                    </select>
-
-                              <Input className="w-fit"
-                                onChange={handleAccountChange}
-                                name="cardNo"
-                                label="Card Number"
-                                value={accountData.name}
-                              />
-
-                              <Input className="w-fit"
-                                onChange={handleAccountChange}
-                                name="balance"
-                                label="Balance"
-                                type="number"
-                                value={accountData.name}
-                              />
-
-                              <Input className="w-fit"
-                                onChange={handleAccountChange}
-                                name="pin"
-                                label="Pin"
-                                type="password"
-                                value={accountData.name}
-                              />
-                              <div className="flex items-center justify-center">
-                                <Button onClick={SubmitAccount } className="mt-4 mx-10 hover:scale-10 min-w-fit">
-                                  Add
-                                </Button>
-                                <Button
-                                  className="mt-4 mx-10 bg-gray-400   shadow-lowshade hover:scale-105 hover:bg-gray-500 cursor-pointer 
-              text-gray-900 min-w-fit"
-              onClick={toggleModal} 
-                                >
-                                  Close
-                                </Button>
-                                </div>
-                            </form>
-                            </CardBody>
-                            
-                        </Card> 
-                        </Dialog></>
-                  ) : null}
+                  <ModalAccount showModal={showModal} toggleModal={toggleModal} handleAccountChange={handleAccountChange} accountData={accountData} SubmitAccount={SubmitAccount} />
 
 {/* Start of account table */}
 
