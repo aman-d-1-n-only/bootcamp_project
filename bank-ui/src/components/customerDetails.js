@@ -100,6 +100,7 @@ export const CustomerDetails = () => {
       label="Name"
       {...field}
       error={errors.name?.message}
+      required
     />
     <Typography
         variant="small"
@@ -122,6 +123,7 @@ export const CustomerDetails = () => {
       label="Address"
       {...field}
       error={errors.address?.message}
+      required
     />
     <Typography
     variant="small"
@@ -144,6 +146,7 @@ export const CustomerDetails = () => {
     label="Email Address"
       {...field}
       error={errors.email?.message}
+      required
       onKeyUp={() => {
         trigger("email");
       }}
@@ -170,8 +173,10 @@ export const CustomerDetails = () => {
     <>
     <Input
     label="Contact Number"
+    type="number"
       {...field}
       error={errors.contact?.message}
+      required
       onKeyUp={() => {
         trigger("contact");
       }}
@@ -215,10 +220,13 @@ export const CustomerDetails = () => {
     <>
     <Input
     label="City"
+    type="text"
       {...field}
       error={errors.city?.message}
+      required
       onKeyUp={() => {
-        trigger("city");
+        trigger("city")
+       
       }}
     />
      <Typography
@@ -241,8 +249,10 @@ export const CustomerDetails = () => {
     <>
     <Input
     label="Pincode"
+    type="number"
       {...field}
       error={errors.pincode?.message}
+      required
       onKeyUp={() => {
         trigger("pincode");
       }}

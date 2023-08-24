@@ -29,7 +29,7 @@ const CashWithdraw = () => {
     const [amount, setAmount] = useState();
     const [pin, setPin] = useState("");
     
-  const [visible, setVisible] = React.useState(false);
+  const [visible, setVisible] = useState(false);
     
     const [type, setType] = useState("check balance");
 
@@ -200,7 +200,7 @@ const CashWithdraw = () => {
                         <Input label="Enter CustomerId" size="lg" id="customerId"
                             required
                             name="customerId"
-                            type="number"
+                            // type="number"
                             value = {customerId}
                             onChange = {handleCusId}
                             
@@ -208,7 +208,7 @@ const CashWithdraw = () => {
                         <Input label="Enter Account Number" size="lg" 
                             id="accountId"
                             name="accountId"
-                            type="number"
+                            // type="number"
                             value = {accountId}
                             onChange = {handleAccId}
                             required />
@@ -220,8 +220,8 @@ const CashWithdraw = () => {
                             Check Balance
                         </Button>
                         </form>
-                        {(visible && accountData) ? 
-                        (<Card className='mb-2 mt-6 outline-double shadow-lg mx-6 bg-gradient-to-t from-gray-300'>
+                        {(visible && accountData.accId!==0) ? 
+                        (<Card className='mb-2 mt-6 outline-double shadow-lg mx-4 bg-gradient-to-t from-gray-300'>
                             <CardBody>
                                 <Typography>
                                 Account Number : {accountData.accId}
@@ -239,11 +239,12 @@ const CashWithdraw = () => {
                         <Input label="Enter Account Number" size="lg" 
                             id="amount"
                             name="balance"
-                            type="number"
+                            // type="number"
                             value = {accountId}
                             onChange = {handleAccId}
                             required
                          />
+                         
                           <Input label="Enter Amount to withdraw" size="lg" 
                             id="amount"
                             name="balance"
@@ -251,11 +252,12 @@ const CashWithdraw = () => {
                             value = {amount}
                             onChange = {handleAmt}
                             required />
+                            
 
                          <Input label="Enter Pin" size="lg" 
                             id="amount"
                             name="balance"
-                            type="number"
+                            // type="number"
                             value = {pin}
                             onChange = {handlePin}
                             required />

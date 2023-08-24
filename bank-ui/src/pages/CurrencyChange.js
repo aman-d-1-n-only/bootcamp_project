@@ -1,8 +1,10 @@
-import { CurrencyRupeeIcon } from '@heroicons/react/24/solid'
+import { ArrowPathRoundedSquareIcon, ArrowsRightLeftIcon, CurrencyRupeeIcon } from '@heroicons/react/24/solid'
 import { Button, Card, CardBody, CardHeader, Input, Option, Select, Typography } from '@material-tailwind/react'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Nav } from '../components/Nav';
+import { ArrowPathIcon } from '@heroicons/react/24/outline';
+
 
 
 export default function CurrencyChange() {
@@ -55,7 +57,7 @@ const handleChange=(e)=>
             <Card className="w-96 ">
                 <CardHeader
                     color="gray"
-                    className="py-6 mb-8 grid place-items-center"
+                    className="py-6 mb-4 grid place-items-center"
                 >
                     <div className="text-white mb-4">
                         {/* <BanknotesIcon className="h-14 w-14" /> */}
@@ -68,7 +70,7 @@ const handleChange=(e)=>
               
                 <CardBody className='px-10'>
                             
-                            <form className="mt-12 flex flex-col gap-4">
+                            <form className="flex flex-col gap-y-6">
                             <Input 
                             onChange={handleChange} 
                             value={currency.amount}
@@ -76,51 +78,98 @@ const handleChange=(e)=>
                             type="number"
                             id="amount"
                             required />    
-
-<select
+<div className=' w-full flex  items-end justify-around'>
+{/* <Select
       id="from"
       label="From"
       onChange={handleChange}
       value={currency.from}
+      required 
         >
           {symbols.map((item,index)=>{
             return(
-              <option key={index} value={item}>{item}</option>
+              <Option key={index} value={item}>{item}</Option>
             )
           })}
+          
         {/* <Option value="dollar">Dollar</Option> */}
-      </select>
-      
+      {/* </Select> */} 
+<div >
+      <Typography
+        variant="small"
+        color="gray"
+        className="my-1  font-normal"
+      >From</Typography>
+
       <select
-      id="to"
-      label="To"
-      value={currency.to}
-      onChange={handleChange}
+       id="from"
+       label="From"
+       onChange={handleChange}
+       value={currency.from}
+      placeholder='From'
+      className='p-2 border-2 border-blue-gray-100 rounded-lg w-28'
         >
+           <option value="" hidden disabled>
+          From
+        </option>
         {symbols.map((item,index)=>{
             return(
               <option key={index} value={item}>{item}</option>
             )
           })}
       </select>
+      </div>
+
+     <ArrowsRightLeftIcon className='h-6 w-6 m-2 '/>     
+      {/* <Select
+      id="to"
+      label="To"
+      value={currency.to}
+      onChange={handleChange}
+      required 
+        >
+        {symbols.map((item,index)=>{
+            return(
+              <Option key={index} value={item}>{item}</Option>
+            )
+          })}
+      </Select> */}
+      <div><Typography
+        variant="small"
+        color="gray"
+        className="my-1 font-normal"
+      >To</Typography>
+      <select
+      id="to"
+      label="To"
+      value={currency.to}
+      onChange={handleChange}
+      className='p-2 border-2 border-blue-gray-100 rounded-lg w-28'
+        >
+          <option value="" hidden disabled>
+          To
+        </option>
+        {symbols.map((item,index)=>{
+            return(
+              <option key={index} value={item}>{item}</option>
+            )
+          })}
+      </select></div>
+      
     
+      </div>
 
                          <Button
-                     className="mt-4"
+                     className="my-2"
                      onClick={handleClick}                   
                       >
                             Convert
                         </Button>
                     </form>
-                            
-                            </CardBody>
-               
-            </Card>
-           
-        </div>
-        <div>
+                    <div>
+
         {(result!=="") ? 
-                        (<Card className='mb-2 mt-6 outline-single shadow-lg mx-6 bg-gradient-to-t from-gray-300'>
+                        (<Card className='mb-2 mt-6 outline-double shadow-lg mx-4 bg-gradient-to-t from-gray-300'>
                             <CardBody>
                                 <Typography className="place-items-center">
                                {result}
@@ -130,6 +179,12 @@ const handleChange=(e)=>
                         </Card>)
                         :(<></>) }
         </div>
+                            </CardBody>
+               
+            </Card>
+           
+        </div>
+       
 
                         </>
                   
