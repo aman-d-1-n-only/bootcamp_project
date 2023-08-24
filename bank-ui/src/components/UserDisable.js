@@ -3,10 +3,11 @@ import React, { useState } from 'react'
 
 export default function UserDisable() {
     const [isDisabled, setIsDisabled] = useState(false);
-  
     const handleSwitchChange = () => {
       setIsDisabled(!isDisabled);
     };
+    
+    localStorage.setItem('disabled',isDisabled);
   return (
     <div>
       <div className="flex flex-col items-center py-3 justify-evenly md:flex-row

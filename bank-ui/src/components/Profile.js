@@ -43,10 +43,11 @@ export default function Profile() {
   const toggleModal = () => {
     setShowModal(!showModal);
   };
-
-
   const jwtToken = sessionStorage.getItem("jwtToken");
+  console.log(localStorage.getItem('disabled'));
   useEffect(() => {
+    const custId = customerData.custId;
+
     axios
       .get(`http://localhost:5165/api/customer/${custId}/account`, {
         headers: {
