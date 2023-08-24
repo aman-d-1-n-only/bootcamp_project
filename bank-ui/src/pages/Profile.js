@@ -12,11 +12,11 @@ import {
 import { CurrencyRupeeIcon } from '@heroicons/react/24/solid';
 import { useLocation } from "react-router-dom";
 import DeleteCustomer from "../services/DeleteCustomer";
-import LeftProfileCard from "./LeftProfileCard";
-import AccntTable from "./AccntTable";
+import LeftProfileCard from "../components/LeftProfileCard";
+import AccntTable from "../components/AccntTable";
 import {ClipboardDocumentListIcon, UserIcon } from "@heroicons/react/24/outline";
-import Info from "./Info";
-import { Nav } from "./Nav";
+import Info from "../components/Info";
+import { Nav } from "../components/Nav";
 // import AddAccnt2 from "../services/AddAccnt";
 
 export default function Profile() {
@@ -26,7 +26,9 @@ export default function Profile() {
   const custId = customerData.custId;
 
   const [total, setTotal] = useState(0);
-
+  const accntType=[
+    "Current", "Savings"
+  ]
 
   const accountInitialValues = {
     accType: "",
@@ -60,7 +62,7 @@ export default function Profile() {
         // customerData = res.data;
         // setcustomerData(res.data);
       });
-  },[]);
+  });
 
   const [option,setOption]=useState();
   const handleAccountChange = (e) => {
@@ -343,23 +345,29 @@ export default function Profile() {
                                 Account Details
                               </Typography>
 
-
+{/* 
                               <Input 
                                 onChange={handleAccountChange}
                                 name="accType"
                                 label="Account Type"
                                 placeholder="Current or Savings"
                                 value={accountData.name}
-                              />
-      {/* <Select
-      onChange={handleAccountChange}
-      name="accType"
-      label="Account Type"
-      value={option}
-        >
-        <Option value="Current">Current</Option>
-        <Option value="Savings">Savings</Option>
-      </Select> */}
+                              /> */}
+      <select
+                      name="accType"
+                      label="Account Type"
+                      onChange={handleAccountChange}
+                      value={accountData.name}
+                      required
+                      className="p-2 border-2 border-blue-gray-100 rounded-lg w-full"
+                    >
+                      <option value="" selected hidden disabled>
+                        Account Type
+                      </option>
+                      {accntType.map((item, index) => {
+                        return <option value={item}>{item}</option>;
+                      })}
+                    </select>
 
                               <Input className="w-fit"
                                 onChange={handleAccountChange}
@@ -372,6 +380,7 @@ export default function Profile() {
                                 onChange={handleAccountChange}
                                 name="balance"
                                 label="Balance"
+                                type="number"
                                 value={accountData.name}
                               />
 
@@ -404,7 +413,7 @@ export default function Profile() {
 {/* Start of account table */}
 
 <AccntTable accountDetails={accountDetails} 
-custId={custId}
+custId={custId} setAccountDetails={setAccountDetails}
 />
                 
 

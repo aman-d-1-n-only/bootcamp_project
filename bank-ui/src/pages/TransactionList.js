@@ -41,36 +41,6 @@ const TransactionList = () => {
 
   const [searchInput, setSearchInput] = useState();
   const [t, setT] = useState([])
-  // const trns = [
-  //   {
-  //     "custId": 1,
-  //     "name": "abc",
-  //     "accountNo": 574598762345,
-  //     "credit": 120.00,
-  //     "debit": 0.00,
-  //     "time": "06/06/2012 09:10:19",
-  //     "balance": 1200120.00
-  //   },
-  //   {
-  //     "custId": 2,
-  //     "name": "def",
-  //     "accountNo": 574598762345,
-  //     "credit": 100.00,
-  //     "debit": 0.00,
-  //     "time": "06/06/2012 09:10:19",
-  //     "balance": 1200220.00
-
-  //   },
-  //   {
-  //     "custId": 3,
-  //     "name": "klm",
-  //     "accountNo": 574598762345,
-  //     "credit": 0.00,
-  //     "debit": 100.00,
-  //     "time": "06/06/2012 09:10:19",
-  //     "balance": 1200120.00
-  //   }
-  // ]
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -104,12 +74,13 @@ const TransactionList = () => {
   return (
     <>
       <div className='flex items-center justify-center
-      ml-32 w-fit my-4 '>
+     my-4 w-full'>
       
         <TextField
           placeholder="Enter Sender's Account Number"
           // className=' min-w-64'
           value={searchInput}
+          className='w-fit lg:w-1/3'
           onChange={handleChange}
           InputProps={{
 

@@ -4,8 +4,8 @@ import axios from "axios";
 import DisplayInput from "./DisplayInput";
 import { Button, Input } from "@material-tailwind/react";
 
-export default function About(props) {
-
+function AboutSection(props) {
+  
   const [disabled, setDisabled] = useState(true);
   const [name, setName] = useState("Edit");
 
@@ -14,7 +14,6 @@ export default function About(props) {
   const handleChange = (e) => {
     setUpdatedData({ ...updatedData, [e.target.name]: e.target.value });
   };
-
 
   return (
     <>
@@ -219,3 +218,6 @@ export default function About(props) {
     </>
   );
 }
+
+
+export default AboutSection;

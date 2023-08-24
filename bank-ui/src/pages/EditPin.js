@@ -101,7 +101,7 @@ export default function EditPin() {
                             
                             <form className="mt-12 flex flex-col gap-4">
                             <Input onChange={handleChange} label="Enter Account Number" size="lg" 
-                            type="number"
+                           
                             name="accNo"
                             pattern="[0-9]{1}"
                             required /> 
@@ -111,7 +111,6 @@ export default function EditPin() {
 
                             <Input onChange={handleChange} label="Enter Old Pin" size="lg" 
                            name="existingPin"
-                            type="number"
                             required />
                             <span className={`${visibility.ExistingPin? "block": "hidden"} `}>
                             {errorMsg.ExistingPin}
