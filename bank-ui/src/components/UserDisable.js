@@ -6,7 +6,15 @@ export default function UserDisable() {
     const handleSwitchChange = () => {
       setIsDisabled(!isDisabled);
     };
-    
+    const [isOpen, setIsOpen] = useState({});
+
+    const toggleOpen = (category) => {
+      setIsOpen({
+        ...isOpen,
+        [category]: !isOpen[category],
+      });
+    };
+
     localStorage.setItem('disabled',isDisabled);
   return (
     <div>
@@ -19,7 +27,7 @@ export default function UserDisable() {
          /></span>
               <span className="sm:px-2 lg:mx-0 ">Disable</span>
               </div>
-               <div className={` w-full text-center ${isDisabled ? "text-red-900":"text-blue-900"}`}>{isDisabled ? 'User Disabled' : 'User Enabled'}</div>
+               {/* <div className={` w-full text-center ${isDisabled ? "text-red-900":"text-blue-900"}`}>{isDisabled ? 'User Disabled' : 'User Enabled'}</div> */}
     </div>
   )
 }

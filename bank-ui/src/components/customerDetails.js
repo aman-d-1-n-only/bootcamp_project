@@ -16,51 +16,6 @@ import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 
 export const CustomerDetails = () => {
 
-    const [customerData, setcustomerData] = useState(customerInitialValues);
-    const jwtToken = sessionStorage.getItem('jwtToken');
-    const navigate = useNavigate();
-    const display = (event) => {
-        if (customerData.name === "" || customerData.address === "" || customerData.email === "" || customerData.contact === 0 || customerData.pincode === 0 || customerData.city === "") {
-     toast.error("one or more fields are empty")
-        }
-        else {
-            // event.preventDefault();
-            try {
-                axios.post('http://localhost:5165/api/Customer/', customerData, {
-                    headers: {
-                        'Authorization': 'bearer ' + jwtToken
-                    }
-
-                }).then(res => {
-                    console.log(res.data);
-
-                    if (res.data) {
-                        // alert("Customer Details Added successfully");
-                        toast.success("Customer Details Added successfully");
-                        navigate('/customer/view-customer');
-                    }
-                }).catch((error) => {
-
-                    if(error.response.status === 404){
-                        toast.error(error.response.data)
-                    }
-                    else if(error.response.status === 400){
-                        Object.keys(error.response.data.errors).map((key, index) => {
-                                // setErrors(error.response.data.errors[key])
-                             error.response.data.errors[key].map((val, i) => {
-                                toast.error(val)
-                             })  
-                         })  
-                    }
-                })
-
-            } catch (error) {
-                console.log(error);
-                alert(error);
-
-            }
-            console.log(customerData);
-        }
   const {
     control,
     handleSubmit,
@@ -145,7 +100,6 @@ export const CustomerDetails = () => {
       label="Name"
       {...field}
       error={errors.name?.message}
-      required
     />
     <Typography
         variant="small"
@@ -168,7 +122,6 @@ export const CustomerDetails = () => {
       label="Address"
       {...field}
       error={errors.address?.message}
-      required
     />
     <Typography
     variant="small"
@@ -191,7 +144,6 @@ export const CustomerDetails = () => {
     label="Email Address"
       {...field}
       error={errors.email?.message}
-      required
       onKeyUp={() => {
         trigger("email");
       }}
@@ -218,10 +170,8 @@ export const CustomerDetails = () => {
     <>
     <Input
     label="Contact Number"
-    type="number"
       {...field}
       error={errors.contact?.message}
-      required
       onKeyUp={() => {
         trigger("contact");
       }}
@@ -265,13 +215,10 @@ export const CustomerDetails = () => {
     <>
     <Input
     label="City"
-    type="text"
       {...field}
       error={errors.city?.message}
-      required
       onKeyUp={() => {
-        trigger("city")
-       
+        trigger("city");
       }}
     />
      <Typography
@@ -294,10 +241,8 @@ export const CustomerDetails = () => {
     <>
     <Input
     label="Pincode"
-    type="number"
       {...field}
       error={errors.pincode?.message}
-      required
       onKeyUp={() => {
         trigger("pincode");
       }}
@@ -331,4 +276,3 @@ export const CustomerDetails = () => {
     </>
   );
 };
-}

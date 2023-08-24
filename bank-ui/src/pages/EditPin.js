@@ -30,24 +30,24 @@ export default function EditPin() {
     const [pinError, setPinError] = useState(false);
     const [AccError, setAccError] = useState(false);
     // const [pwdError, setPwdError] = useState(false);
-    const validate = () => {
-       if (!/^(\d{4})$/.test(pinDetails.newPin)) {
-          setPinError(true);
-          console.log(pinDetails.newPin);
-       }
-       else{
-        setPinError(false)
-       }
-       if (!/^(\d)$/.test(pinDetails.accNo)) {
-        setAccError(true);
-        // console.log(validPin,pinDetails.newPin);
-     }
-       else
-       {
-        setAccError(false);
-        console.log("hi");}
+    // const validate = () => {
+    //    if (!/^(\d{4})$/.test(pinDetails.newPin)) {
+    //       setPinError(true);
+    //       console.log(pinDetails.newPin);
+    //    }
+    //    else{
+    //     setPinError(false)
+    //    }
+    //    if (!/^(\d)$/.test(pinDetails.accNo)) {
+    //     setAccError(true);
+    //     // console.log(validPin,pinDetails.newPin);
+    //  }
+    //    else
+    //    {
+    //     setAccError(false);
+    //     console.log("hi");}
       
-    };
+    // };
     const handleChange = (e) => {
       
         setPinDetails({ ...pinDetails, [e.target.name]: e.target.value });
@@ -150,7 +150,7 @@ export default function EditPin() {
 
                          <Button
                      className="mt-4"
-                     onClick={validate}   
+                     onClick={changePin}   
                       >
                             Change Pin
                         </Button>
@@ -158,9 +158,9 @@ export default function EditPin() {
                             
                             </CardBody>
                
-            </Card>
-            {pinError && <p>Your pin is invalid</p>}
-            {AccError && <p>Your Account Number is invalid</p>}
+             </Card>
+          {/*  {pinError && <p>Your pin is invalid</p>}
+            {AccError && <p>Your Account Number is invalid</p>} */}
             <ToastContainer/>
         </div>
                         </>

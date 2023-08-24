@@ -46,7 +46,7 @@ export default function Profile() {
     setShowModal(!showModal);
   };
   const jwtToken = sessionStorage.getItem("jwtToken");
-  console.log(localStorage.getItem('disabled'));
+  // console.log(localStorage.getItem('disabled'));
   useEffect(() => {
     const custId = customerData.custId;
 
@@ -57,13 +57,13 @@ export default function Profile() {
         },
       })
       .then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         setAccountDetails(res.data);
         // console.log(accountDetails)
         // customerData = res.data;
         // setcustomerData(res.data);
       });
-  });
+  },[setAccountDetails]);
 
   const [option,setOption]=useState();
   const handleAccountChange = (e) => {
