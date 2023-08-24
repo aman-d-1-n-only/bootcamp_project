@@ -1,5 +1,5 @@
-import React from "react";
-import { Card, Typography } from "@material-tailwind/react";
+import React, { useState } from "react";
+import { Card, Switch, Typography } from "@material-tailwind/react";
 
 import { useNavigate } from "react-router-dom";
 import {
@@ -9,6 +9,7 @@ import {
 } from "@heroicons/react/24/outline";
 import DeleteCustomer from "../services/DeleteCustomer";
 import DeleteAccnt from "../services/DeleteAccnt";
+import UserDisable from "./UserDisable";
 
 export default function AccntTable(props) {
   const navigate = useNavigate();
@@ -21,13 +22,20 @@ export default function AccntTable(props) {
     "Edit Pin",
     "Delete",
     "Withdraw Cash",
+    "Disable User"
   ];
+
+  const [isDisabled, setIsDisabled] = useState(false);
+  
+    const handleSwitchChange = () => {
+      setIsDisabled(!isDisabled);
+    };
   return (
     <div>
       {props.accountDetails.length > 0 ? (
         <>
           <Card className="h-full w-full overflow-auto mt-6">
-            <table className="w-full min-w-max table-auto text-center justify-center">
+            <table className="w-full min-w-max table-auto ">
               <thead>
                 <tr>
                   {TABLE_HEAD.map((head) => (
@@ -46,13 +54,13 @@ export default function AccntTable(props) {
                   ))}
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="">
                 {/* {console.log(props.accountDetails)} */}
                 {props.accountDetails.map((item, index) => {
                   return (
                     <>
                       <tr key={item.accId}>
-                        <td className="p-3 border-b border-blue-gray-50">
+                        <td className="p-3 border-b border-blue-gray-50 text-center justify-center">
                           <Typography
                             variant="small"
                             color="blue-gray"
@@ -61,7 +69,7 @@ export default function AccntTable(props) {
                             {item.accId}
                           </Typography>
                         </td>
-                        <td className="p-3 border-b border-blue-gray-50">
+                        <td className="p-3 border-b border-blue-gray-50 text-center justify-center">
                           <Typography
                             variant="small"
                             color="blue-gray"
@@ -70,7 +78,7 @@ export default function AccntTable(props) {
                             {item.accType}
                           </Typography>
                         </td>
-                        <td className="p-3 border-b border-blue-gray-50">
+                        <td className="p-3 border-b border-blue-gray-50 text-center justify-center">
                           <Typography
                             variant="small"
                             color="blue-gray"
@@ -79,7 +87,7 @@ export default function AccntTable(props) {
                             {item.cardNo}
                           </Typography>
                         </td>
-                        <td className="p-3 border-b border-blue-gray-50">
+                        <td className="p-3 border-b border-blue-gray-50 text-center justify-center">
                           <Typography
                             variant="small"
                             color="blue-gray"
@@ -89,7 +97,7 @@ export default function AccntTable(props) {
                           </Typography>
                         </td>
 
-                        <td className="p-3 border-b border-blue-gray-50">
+                        <td className="p-3 border-b border-blue-gray-50 text-center justify-center">
                           <Typography
                            
                             variant="small"
@@ -101,7 +109,7 @@ export default function AccntTable(props) {
                            
                           </Typography>
                         </td>
-                        <td className="p-3 border-b border-blue-gray-50">
+                        <td className="p-3 border-b border-blue-gray-50 text-center justify-center">
                           <Typography
                             
                             variant="small"
@@ -113,7 +121,7 @@ export default function AccntTable(props) {
                              />
                         </Typography>
                         </td>
-                        <td className="p-3">
+                        <td className="p-3 border-b border-blue-gray-50 text-center justify-center">
                           <Typography
                             as="a"
                             variant="small"
@@ -127,6 +135,24 @@ export default function AccntTable(props) {
                             >
                               <CurrencyRupeeIcon className="w-6 h-6 text-green-800" />{" "}
                             </button>
+                          </Typography>
+                          </td>
+                          <td className="p-3 border-b border-blue-gray-50 ">
+                            
+
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-medium w-full items-center ml-8"
+                          >
+                            {/* <UserDisable/> */}
+                            <Switch 
+                            id={`Switch${item.accId}`}
+                            className=""
+        checked={isDisabled}
+        onChange={handleSwitchChange}
+         />
+                              
                           </Typography>
                         </td>
                       </tr>

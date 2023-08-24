@@ -1,24 +1,3 @@
-// import React from "react";
-// import axios from "axios";
-
-// function createData(
-//   name: "",
-//   calories: number,
-//   fat: number,
-//   carbs: number,
-//   protein: number,
-// ) {
-//   return { name, calories, fat, carbs, protein };
-// }
-
-// const rows = [
-//   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-//   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-//   createData('Eclair', 262, 16.0, 24, 6.0),
-//   createData('Cupcake', 305, 3.7, 67, 4.3),
-//   createData('Gingerbread', 356, 16.0, 49, 3.9),
-// ];
-
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
@@ -107,20 +86,12 @@ export default function CustomerList() {
   }, []);
   return (
     <>
-    <div className='flex items-center justify-start
-      ml-32 w-fit my-4'>
-    <TextField
-          // label="Enter customerId"
-          placeholder="Enter Customer Id"
-          // className=' min-w-fit'
-          style={{
-            marginLeft: "130px",
-            marginRight: "-400px",
-            paddingRight: "-200px",
-            paddingLeft: "180px",
-            width: "800px",
-            marginTop: "20px"
-          }}
+    <div className='flex items-center justify-center
+     my-4 w-full'>
+       
+        <TextField
+          placeholder="Enter Customer ID"
+          className='w-fit lg:w-1/3'
           value={searchInput}
           onChange={handleChange}
           InputProps={{
@@ -135,7 +106,8 @@ export default function CustomerList() {
             )
           }}
         />
-        </div>
+      </div>
+
      
       <TableContainer component={Paper}>
         <Table style={{ width: '95%', borderRadius: '10px', margin: 30, borderBottom: "none" }} sx={{
@@ -163,7 +135,7 @@ export default function CustomerList() {
             {t?.map((row) => (
               <React.Fragment key={row.custId}>
                 <StyledTableRow key={row.custId}>
-                <StyledTableCell >{row.custId}</StyledTableCell>
+                <StyledTableCell align="right">{row.custId}</StyledTableCell>
 
                   <StyledTableCell component="th" scope="row" align="right">
                     {row.name}
@@ -190,7 +162,7 @@ export default function CustomerList() {
             {data?.map((row) => (
               <React.Fragment key={row.custId}>
                 <StyledTableRow key={row.custId}>
-                <StyledTableCell >{row.custId}</StyledTableCell>
+                <StyledTableCell align="right">{row.custId}</StyledTableCell>
 
                   <StyledTableCell component="th" scope="row" align="right">
                     {row.name}

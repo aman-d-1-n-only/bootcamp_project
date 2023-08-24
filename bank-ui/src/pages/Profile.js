@@ -10,15 +10,13 @@ import {
   Dialog,
 } from "@material-tailwind/react";
 import { CurrencyRupeeIcon } from '@heroicons/react/24/solid';
-import UserProfile from "../img/UserProfile.png";
 import { useLocation } from "react-router-dom";
 import DeleteCustomer from "../services/DeleteCustomer";
-import LeftProfileCard from "./LeftProfileCard";
-import AccntTable from "./AccntTable";
+import LeftProfileCard from "../components/LeftProfileCard";
+import AccntTable from "../components/AccntTable";
 import {ClipboardDocumentListIcon, UserIcon } from "@heroicons/react/24/outline";
-import Info from "./Info";
-import {ToastContainer, toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import Info from "../components/Info";
+import { Nav } from "../components/Nav";
 // import AddAccnt2 from "../services/AddAccnt";
 
 export default function Profile() {
@@ -28,7 +26,9 @@ export default function Profile() {
   const custId = customerData.custId;
 
   const [total, setTotal] = useState(0);
-
+  const accntType=[
+    "Current", "Savings"
+  ]
 
   const accountInitialValues = {
     accType: "",
@@ -62,7 +62,7 @@ export default function Profile() {
         // customerData = res.data;
         // setcustomerData(res.data);
       });
-  },[]);
+  });
 
   const [option,setOption]=useState();
   const handleAccountChange = (e) => {
@@ -82,7 +82,7 @@ export default function Profile() {
     ) {
     } else {
       event.preventDefault();
-      // try {
+      try {
         axios
           .post(
             `http://localhost:5165/api/customer/${custId}/account`,
@@ -97,37 +97,25 @@ export default function Profile() {
             console.log(res.data);
 
             if (res.data) {
-              
-              toast.success( `Account Details Added successfully for ${customerData.name}`)
+              alert(
+                `Account Details Added successfully for ${customerData.name}`
+                
+              );
               toggleModal();
             }
-          }).catch((error) => {
-            if(error.response.status === 404){
-              toast.error(error.response.data)
-          }
-          else if(error.response.status === 400){
-              Object.keys(error.response.data.errors).map((key, index) => {
-                   error.response.data.errors[key].map((val, i) => {
-                      console.log(val);
-                      toast.error(val)
-                   })  
-               })  
-          }
-          }) ;
-      // } catch (error) {
-      //   console.log(error);
-      //   alert(error);
-      // }
+          });
+      } catch (error) {
+        console.log(error);
+        alert(error);
+      }
       // console.log(accountData);
     }
   };
 
   return (
     <>
-      <div className="bg-gray-100">
-        
-        
-
+    {/* <Nav/> */}
+      <div className="bg-gray-100 h-screen">
         <div className="container mx-auto my-5 p-0">
           <div className="md:flex no-wrap md:-mx-2 ">
            
@@ -357,23 +345,29 @@ export default function Profile() {
                                 Account Details
                               </Typography>
 
-
+{/* 
                               <Input 
                                 onChange={handleAccountChange}
                                 name="accType"
                                 label="Account Type"
                                 placeholder="Current or Savings"
                                 value={accountData.name}
-                              />
-      {/* <Select
-      onChange={handleAccountChange}
-      name="accType"
-      label="Account Type"
-      value={option}
-        >
-        <Option value="Current">Current</Option>
-        <Option value="Savings">Savings</Option>
-      </Select> */}
+                              /> */}
+      <select
+                      name="accType"
+                      label="Account Type"
+                      onChange={handleAccountChange}
+                      value={accountData.name}
+                      required
+                      className="p-2 border-2 border-blue-gray-100 rounded-lg w-full"
+                    >
+                      <option value="" selected hidden disabled>
+                        Account Type
+                      </option>
+                      {accntType.map((item, index) => {
+                        return <option value={item}>{item}</option>;
+                      })}
+                    </select>
 
                               <Input className="w-fit"
                                 onChange={handleAccountChange}
@@ -386,6 +380,7 @@ export default function Profile() {
                                 onChange={handleAccountChange}
                                 name="balance"
                                 label="Balance"
+                                type="number"
                                 value={accountData.name}
                               />
 
@@ -418,7 +413,7 @@ export default function Profile() {
 {/* Start of account table */}
 
 <AccntTable accountDetails={accountDetails} 
-custId={custId}
+custId={custId} setAccountDetails={setAccountDetails}
 />
                 
 
@@ -432,8 +427,6 @@ custId={custId}
           </div>
         </div>
       </div>
-      <ToastContainer  style = {{zIndex : 7000}}/>
     </>
-
   );
 }

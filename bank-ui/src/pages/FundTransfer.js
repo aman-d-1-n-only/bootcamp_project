@@ -13,6 +13,7 @@ import {
 import axios from 'axios';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { CurrencyRupeeIcon } from '@heroicons/react/24/solid';
 
 const FundTransfer = () => {
     // toast.configure();
@@ -90,13 +91,16 @@ const FundTransfer = () => {
             <div className="relative min-h-fit  h-full flex justify-center items-center pt-20"
              >
             <Card className="w-96 ">
-                <CardHeader
-                    variant="gradient"
+            <CardHeader
                     color="gray"
-                    className=" mb-4 grid h-28 place-items-center"
+                    className="py-6 mb-4 grid place-items-center"
                 >
+                    <div className="text-white mb-4">
+                        {/* <BanknotesIcon className="h-14 w-14" /> */}
+                        <CurrencyRupeeIcon className="h-16 w-16" />
+                    </div>
                     <Typography variant="h3" color="white">
-                        Fund Transfer
+                      Fund Transfer
                     </Typography>
                 </CardHeader>
                 <form>
@@ -104,7 +108,7 @@ const FundTransfer = () => {
                         <Input label="Enter Sender's Account Number" size="lg" 
                             id="accNo1"
                             name="accNo1"
-                            type="number"
+                            // type="number"
                             // value = {accountNoOne}
                             onChange = {handleData}
                             required
@@ -113,7 +117,7 @@ const FundTransfer = () => {
                         <Input label="Enter Reciever's Account Number" size="lg" 
                             id="accNo2"
                             name="accNo2"
-                            type="number"
+                            // type="number"
                             // value = {accountNoTwo}
                             onChange = {handleData}
                             required />
@@ -135,6 +139,7 @@ const FundTransfer = () => {
                           
                      
                          <Button variant="gradient"
+                         className='mt-6'
                         //  type="reset"
                          fullWidth 
                           onClick = {handleTransfer}
