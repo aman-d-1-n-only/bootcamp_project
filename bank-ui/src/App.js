@@ -1,8 +1,8 @@
 import React from 'react'
-import { Login } from './pages/Login';
+import { Login } from './pages/login';
 import { Customer } from './components/Dashboard'
 import CustomerList from './pages/CustomerList';
-import { CustomerDetails } from './components/CustomerDetails'
+import { CustomerDetails } from './components/customerDetails'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TransactionList from './pages/TransactionList';
 import PrivateRoutes from './components/PrivateRoute';
