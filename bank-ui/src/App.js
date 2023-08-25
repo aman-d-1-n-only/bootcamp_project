@@ -1,8 +1,6 @@
 import React from 'react'
-import { Login } from './pages/login';
 import { Customer } from './components/Dashboard'
 import CustomerList from './pages/CustomerList';
-import { CustomerDetails } from './components/customerDetails'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TransactionList from './pages/TransactionList';
 import PrivateRoutes from './components/PrivateRoute';
@@ -14,6 +12,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import EditPin from './pages/EditPin';
 import CurrencyChange from './pages/CurrencyChange';
 import Profile from './pages/Profile';
+import { CustomerDetails } from './components/CustomerDetails';
+import { Login } from './pages/Login';
 
 function App() {
   return (
@@ -32,7 +32,7 @@ function App() {
               <Route path="/customer/customer-profile" element={<Profile />} />
               <Route path = "/customer/fund-transfer" element={<FundTransfer/>}/>
               <Route path = "/customer/currency-change" element={<CurrencyChange/>}/>
-              {/* <Route path="/customer/view-customer" element={<SeeCustomers />} /> */}
+              {/* <Route path="/customer/view-customer" element={<SeeCustomers />} /> */}s
               {/* <Route path="/customer/customer-profile" element={<CustomerProfile />} /> */}
               {/* <Route path="/customer/customer-profile" element={<CustomerProfile />} /> */}
              

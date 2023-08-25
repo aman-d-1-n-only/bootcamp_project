@@ -51,6 +51,9 @@ export default function EditPin() {
         else{
         // delete pinDetails["confirmNewPin"];
         setVisibility(visibilityInitialValues)
+        if (visibility.accNo === "" || visibility.ExistingPin  === "" || visibility.NewPin ==="") {
+            setErrorMessage("All the quatities are required ");
+          } 
           
         console.log(visibility);
         axios.post(`http://localhost:5165/changePin`,pinDetails,{
@@ -60,21 +63,10 @@ export default function EditPin() {
         })
         .then((res) => {
           console.log(res.data);
-          toast.success(`Pin Changed successfully for Account Number : ${res.data.accId}`)
+        //   toast.success(`Pin Changed successfully for Account Number : ${res.data.accId}`)
+        alert(`Pin Changed successfully for Account Number : ${res.data.accId}`)
           window.location.reload();
         }
-        // )
-        // .catch((error)=>{
-        //     // console.log(Object.keys(error.response.data.errors));
-        //     // Object.keys(error.response.data.errors).map((item,index)=>{
-        //     //     // console.log(error.response.data.errors[item]);
-        //     //     setVisibility({ ...visibility, [item]: true })
-        //     //     setErrorMsg({...errorMsg,[item]:error.response.data.errors[item]})
-        //     //     console.log(item,visibility,errorMsg,index)
-        //     // })
-        //     // console.log(error.response.data.errors);
-        //     console.log(error.response.data);
-        // }
         ).catch((error) => {
             if(error.response.status === 404){
                 // toast.error(error.response.data);
@@ -124,7 +116,8 @@ export default function EditPin() {
                             </span>
 
                             <Input onChange={handleChange} label="Enter Old Pin" size="lg" 
-                           name="existingPin"
+                           name="existingPin" 
+                        //    type="password"
                             required />
                             <span className={`${visibility.ExistingPin? "block": "hidden"} `}>
                             {errorMsg.ExistingPin}
