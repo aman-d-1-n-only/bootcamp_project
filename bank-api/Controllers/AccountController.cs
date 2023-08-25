@@ -66,8 +66,6 @@ namespace BankApi.Controllers
             if (account == null)
             {
                 return NotFound($"There is no account with account number :{AccId}");
-            }else if( account.Enable == false ){
-                return NotFound($"The account with account number :{AccId} is disabled by bank.");
             }
             
             var respAccount = _mapper.Map<RespAccountDTO>(account);
@@ -89,7 +87,7 @@ namespace BankApi.Controllers
             if (account == null)
             {
                 return NotFound($"There is no account with account number :{AccId}");
-            }else if( account.Enable == false ){
+            }else if( account.Enable ==  updatedAccount.Enable ){
                 return NotFound($"The account with account number :{AccId} is disabled by bank.");
             }
             _mapper.Map(updatedAccount, account);
