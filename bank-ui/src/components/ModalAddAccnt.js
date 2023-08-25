@@ -31,10 +31,10 @@ export default function ModalAccount({
 
     const onSubmit = async (data) => {
       console.log(data);
-          alert("Account added successfully");
-          reset(); 
+          
           SubmitAccount(data); 
           toggleModal();
+          reset(); 
        
     };
     
@@ -117,7 +117,7 @@ export default function ModalAccount({
                     validate: {
                       onlyNumbers: value => /^\d+$/.test(value) || "Card number must contain only numbers",
                       validLength: (value) =>
-          value.length === 10 || "Card number must be 10 digits"
+          value.length === 8 || "Card number must be 8 digits"
       }}
                     }
         

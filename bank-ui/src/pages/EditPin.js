@@ -81,7 +81,7 @@ export default function EditPin() {
     }
   return (
     <>
-                               <div className="relative min-h-fit  h-full flex justify-center items-center pt-10"
+                               <div className=" min-h-fit  h-full flex justify-center items-center "
              >
             <Card className="w-96 ">
                 <CardHeader
@@ -99,7 +99,7 @@ export default function EditPin() {
               
                 <CardBody className='px-10'>
                             
-                            <form className="mt-12 flex flex-col gap-4">
+                            <form className=" flex flex-col gap-4">
                             <Input onChange={handleChange} label="Enter Account Number" size="lg" 
                            
                             name="accNo"

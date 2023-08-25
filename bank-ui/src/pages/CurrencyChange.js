@@ -52,7 +52,7 @@ const handleChange=(e)=>
     <>
           
           {/* <Nav/> */}
-                               <div className="relative min-h-fit  h-full flex justify-center items-center pt-16"
+          <div className=" min-h-fit  h-full flex justify-center items-center "
              >
             <Card className="w-96 ">
                 <CardHeader

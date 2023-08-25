@@ -49,13 +49,15 @@ const CashWithdraw = () => {
           
     })
     
+  const [errorMessage, setErrorMessage] = useState("");
     // const handleChange = (e) => {
     //     setloginCredentials({ ...loginCredentials, [e.target.name]: e.target.value });
     // };
     const handleBalance = (e) => {
         if (customerId === 0 || accountId === 0) {
-
+            setErrorMessage("Both CustomerId and Account No. are required ");
         }
+        
         else {
             e.preventDefault();
             
@@ -66,17 +68,22 @@ const CashWithdraw = () => {
             }).then(res => {
                 console.log(res.data);
                 setAccountData(res.data);
+                setErrorMessage("");
             })
             .catch(function(error) {
                 console.log(error)
                 if(error.response.status === 404){
-                    toast.error(error.response.data)
+                    // toast.error(error.response.data)
+                    
+                setErrorMessage(error.response.data);
                 }
                 else if(error.response.status === 400){
                     Object.keys(error.response.data.errors).map((key, index) => {
                             // setErrors(error.response.data.errors[key])
                          error.response.data.errors[key].map((val, i) => {
-                            toast.error(val)
+                            // toast.error(val)
+                            
+                setErrorMessage(val);
                          })  
                      })  
                 }
@@ -98,7 +105,9 @@ const CashWithdraw = () => {
     }
         const handleAccId = (e) => {
             setAccountId(e.target.value)
-        }
+            
+              }
+        
         const handleCusId = (e) =>{
              setCustomerId(e.target.value)
         }
@@ -106,28 +115,11 @@ const CashWithdraw = () => {
             setAmount(e.target.value)
         }
         const handlePin = (e) => {
-            setPin(e.target.value)
+            setPin(e.targe121ue)
         }
 
     const handleWithdraw = () => {
-        // setUpdatedAccount({...accountData , [balance]:(accountData.balance - amount)})
-        // console.log("amount:" + amount)
-        // if(amount > accountData.balance){
-        //     alert("Insufficient Balance")
-        // }
-        // let temp =;
-        // accountData.balance=accountData.balance - amount;
-    
-    // setAccountData({[e.target.name]:accountData.balance-amount})
 
-    //    setAccountData (accountData => ({
-    //     ...accountData,
-    //     ...temp
-
-    //    }))
-    // accountData[balance] = (accountData[balance] - amount)
-    // delete accountData['accId']
-    // console.log(accountData);
     const withData = {
         accNo: parseInt(accountId),
         amount: parseInt(amount),
@@ -150,13 +142,15 @@ const CashWithdraw = () => {
         }).catch((error) => {
             console.log(error)
             if(error.response.status === 404){
-                toast.error(error.response.data)
+                // toast.error(error.response.data)
+                setErrorMessage(error.response.data);
             }
             else if(error.response.status === 400){
                 Object.keys(error.response.data.errors).map((key, index) => {
                      error.response.data.errors[key].map((val, i) => {
                         console.log(val)
-                        toast.error(val)
+                        // toast.error(val)
+                        setErrorMessage(val);
                      })  
                  })  
             }
@@ -166,7 +160,7 @@ const CashWithdraw = () => {
     // }
     // })
     return (<>
-             <div className="relative min-h-fit  h-full flex justify-center items-center pt-20"
+             <div className=" min-h-fit  h-full flex justify-center items-center "
              >
             <Card className="w-96 ">
                 <CardHeader
@@ -200,7 +194,7 @@ const CashWithdraw = () => {
                         <Input label="Enter CustomerId" size="lg" id="customerId"
                             required
                             name="customerId"
-                            // type="number"
+                            type="number"
                             value = {customerId}
                             onChange = {handleCusId}
                             
@@ -208,19 +202,21 @@ const CashWithdraw = () => {
                         <Input label="Enter Account Number" size="lg" 
                             id="accountId"
                             name="accountId"
-                            // type="number"
+                            type="number"
                             value = {accountId}
                             onChange = {handleAccId}
                             required />
-                       
+                       <div className="text-red-600 text-sm"> {errorMessage} </div>
+                     {/* { {errorMessage}!=="" ? <div className="text-red-600 mt-3 text-sm"> {errorMessage} </div>:""} */}
+           
                        <Button 
                         // type="submit"
                          fullWidth 
-                         onClick = {handleBalance} className="mt-4 ">
+                         onClick = {handleBalance} className="my-4">
                             Check Balance
                         </Button>
                         </form>
-                        {(visible && accountData.accId!==0) ? 
+                        {(visible && errorMessage==="") ? 
                         (<Card className='mb-2 mt-6 outline-double shadow-lg mx-4 bg-gradient-to-t from-gray-300'>
                             <CardBody>
                                 <Typography>

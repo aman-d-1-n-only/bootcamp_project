@@ -54,6 +54,7 @@ export default function Profile() {
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => {
     setShowModal(!showModal);
+    reset(accountInitialValues);
   };
 
 
@@ -101,7 +102,7 @@ export default function Profile() {
                 `Account Details Added successfully for ${customerData.name}`);
                 
               toggleModal();
-              reset(accountInitialValues);
+             
 
             }
           
@@ -386,7 +387,7 @@ export default function Profile() {
                     validate: {
                       onlyNumbers: value => /^\d+$/.test(value) || "Card number must contain only numbers",
                       validLength: (value) =>
-          value.length === 10 || "Card number must be 10 digits"
+          value.length === 8 || "Card number must be 8 digits"
       }}
                     }
         
