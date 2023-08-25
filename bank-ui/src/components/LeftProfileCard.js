@@ -57,7 +57,7 @@ export default function LeftProfileCard(props) {
 
   return (
     <>
-      <div className="w-full md:w-3/12 md:mx-2">
+      <div className="w-full mx-2 my-4 md:w-3/12 md:mx-2">
         <div className="bg-white p-3 border-t-4 border-gray-800 py-8">
           <h1 class="text-lg md:text-xl text-gray-800 font-semibold tracking-wide uppercase  w-full text-center">
             Customer Profile

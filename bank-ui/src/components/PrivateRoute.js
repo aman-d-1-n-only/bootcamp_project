@@ -8,7 +8,7 @@ const PrivateRoutes = () => {
     (auth) ? <>
     
      <Nav/>
-     <div className="">
+     <div className="w-[100vw] h-[90.5vh] bg-gray-100">
      <Outlet /> 
     </div>
     </>: <Navigate to="/" /> 

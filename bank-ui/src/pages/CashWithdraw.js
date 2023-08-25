@@ -40,14 +40,14 @@ const CashWithdraw = () => {
         "cardNo": "",
         "pin": ""
     });
-    const [updatedAccount, setUpdatedAccount] = useState({
+    // const [updatedAccount, setUpdatedAccount] = useState({
         
-            "accNo": 0,
-            "balance": 0,
-            "cardNo": 0,
-            "pin": 0
+    //         "accNo": 0,
+    //         "balance": 0,
+    //         "cardNo": 0,
+    //         "pin": 0
           
-    })
+    // })
     
     // const handleChange = (e) => {
     //     setloginCredentials({ ...loginCredentials, [e.target.name]: e.target.value });
