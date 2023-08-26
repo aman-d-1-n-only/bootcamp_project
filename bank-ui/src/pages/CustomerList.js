@@ -109,25 +109,25 @@ export default function CustomerList() {
       </div>
 
      
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} className='text-'>
         <Table style={{ width: '95%', borderRadius: '10px', margin: 30, borderBottom: "none" }} sx={{
           minWidth: 500,
           borderBottom: "none"
         }} aria-label="customized table" c className='p-6'>
           <TableHead>
             <TableRow>
-            <StyledTableCell align = "right"> Customer Id</StyledTableCell>
+            <StyledTableCell align = "center"> Customer Id</StyledTableCell>
 
-              <StyledTableCell align = "right"> Name</StyledTableCell>
-              {/* <StyledTableCell align="right">Last Name</StyledTableCell> */}
-              <StyledTableCell align="right">Address</StyledTableCell>
-              <StyledTableCell align="right">City</StyledTableCell>
-              <StyledTableCell align="right">Email</StyledTableCell>
-              <StyledTableCell align="right">Contact</StyledTableCell>
-              {/* <StyledTableCell align="right">Card Number</StyledTableCell> */}
-              <StyledTableCell align="right">Pin Code</StyledTableCell>
-              <StyledTableCell align="right">Profile</StyledTableCell>
-              {/* <StyledTableCell align="right">Balance</StyledTableCell> */}
+              <StyledTableCell align = "center"> Name</StyledTableCell>
+              {/* <StyledTableCell align="center">Last Name</StyledTableCell> */}
+              <StyledTableCell align="center">Address</StyledTableCell>
+              <StyledTableCell align="center">City</StyledTableCell>
+              <StyledTableCell align="center">Email</StyledTableCell>
+              <StyledTableCell align="center">Contact</StyledTableCell>
+              {/* <StyledTableCell align="center">Card Number</StyledTableCell> */}
+              <StyledTableCell align="center">Pin Code</StyledTableCell>
+              <StyledTableCell align="center">View Profile</StyledTableCell>
+              {/* <StyledTableCell align="center">Balance</StyledTableCell> */}
 
             </TableRow>
           </TableHead>
@@ -135,17 +135,17 @@ export default function CustomerList() {
             {t?.map((row) => (
               <React.Fragment key={row.custId}>
                 <StyledTableRow key={row.custId}>
-                <StyledTableCell align="right">{row.custId}</StyledTableCell>
+                <StyledTableCell align="center">{row.custId}</StyledTableCell>
 
-                  <StyledTableCell component="th" scope="row" align="right">
+                  <StyledTableCell component="th" scope="row" align="center">
                     {row.name}
                   </StyledTableCell>
-                  <StyledTableCell align="right">{row.address}</StyledTableCell>
-                  <StyledTableCell align="right">{row.city}</StyledTableCell>
-                  <StyledTableCell align="right">{row.contact}</StyledTableCell>
-                  <StyledTableCell align="right">{row.email}</StyledTableCell>
-                  <StyledTableCell align="right">{row.pincode}</StyledTableCell>
-                  <StyledTableCell align="right">
+                  <StyledTableCell align="center">{row.address}</StyledTableCell>
+                  <StyledTableCell align="center">{row.city}</StyledTableCell>
+                  <StyledTableCell align="center">{row.contact}</StyledTableCell>
+                  <StyledTableCell align="center">{row.email}</StyledTableCell>
+                  <StyledTableCell align="center">{row.pincode}</StyledTableCell>
+                  <StyledTableCell align="center">
                     <Button onClick={() => {
                       navigate('/customer/customer-profile', {
                         state: {
@@ -155,24 +155,24 @@ export default function CustomerList() {
                     }}>View</Button>
                   </StyledTableCell>
 
-                  {/* <StyledTableCell align="right">{row.Balance}</StyledTableCell> */}
+                  {/* <StyledTableCell align="center">{row.Balance}</StyledTableCell> */}
                 </StyledTableRow>
               </React.Fragment>))}
           </TableBody></> : <>  <TableBody>
             {data?.map((row) => (
               <React.Fragment key={row.custId}>
                 <StyledTableRow key={row.custId}>
-                <StyledTableCell align="right">{row.custId}</StyledTableCell>
+                <StyledTableCell align="center">{row.custId}</StyledTableCell>
 
-                  <StyledTableCell component="th" scope="row" align="right">
+                  <StyledTableCell component="th" scope="row" align="center">
                     {row.name}
                   </StyledTableCell>
-                  <StyledTableCell align="right">{row.address}</StyledTableCell>
-                  <StyledTableCell align="right">{row.city}</StyledTableCell>
-                  <StyledTableCell align="right">{row.contact}</StyledTableCell>
-                  <StyledTableCell align="right">{row.email}</StyledTableCell>
-                  <StyledTableCell align="right">{row.pincode}</StyledTableCell>
-                  <StyledTableCell align="right">
+                  <StyledTableCell align="center">{row.address}</StyledTableCell>
+                  <StyledTableCell align="center">{row.city}</StyledTableCell>
+                  <StyledTableCell align="center">{row.contact}</StyledTableCell>
+                  <StyledTableCell align="center">{row.email}</StyledTableCell>
+                  <StyledTableCell align="center">{row.pincode}</StyledTableCell>
+                  <StyledTableCell align="center">
                     <Button onClick={() => {
                       navigate('/customer/customer-profile', {
                         state: {
@@ -182,7 +182,7 @@ export default function CustomerList() {
                     }}>View</Button>
                   </StyledTableCell>
 
-                  {/* <StyledTableCell align="right">{row.Balance}</StyledTableCell> */}
+                  {/* <StyledTableCell align="center">{row.Balance}</StyledTableCell> */}
                 </StyledTableRow>
               </React.Fragment>))}
           </TableBody></>  }

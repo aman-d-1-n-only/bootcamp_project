@@ -14,16 +14,19 @@ import 'react-toastify/dist/ReactToastify.css';
 import EditPin from './pages/EditPin';
 import CurrencyChange from './pages/CurrencyChange';
 import Profile from './pages/Profile';
+import { AddCustomer } from './pages/AddCustomer';
 
 function App() {
   return (
     <>
-      <div className="App bg-gray-100 min-h-screen">
+      <div className=" bg-gray-100 min-h-screen">
         <BrowserRouter>
           <Routes>
             <Route element={<PrivateRoutes />}>
               <Route path="/customer" element={<Customer />} />
-              <Route path="/customer/add-customer" element={<CustomerDetails />} />
+              {/* <Route path="/customer/add-customer" element={<CustomerDetails />} /> */}
+              <Route path="/customer/add-customer" element={<AddCustomer />} />
+              
               <Route path="/customer/view-customer" element={<CustomerList />} />
               <Route path="/customer/transactions" element={<TransactionList />} />
               <Route path="/customer/cash-withdraw" element={<CashWithdraw />} />
@@ -32,13 +35,7 @@ function App() {
               <Route path="/customer/customer-profile" element={<Profile />} />
               <Route path = "/customer/fund-transfer" element={<FundTransfer/>}/>
               <Route path = "/customer/currency-change" element={<CurrencyChange/>}/>
-              {/* <Route path="/customer/view-customer" element={<SeeCustomers />} /> */}
-              {/* <Route path="/customer/customer-profile" element={<CustomerProfile />} /> */}
-              {/* <Route path="/customer/customer-profile" element={<CustomerProfile />} /> */}
-             
             </Route>
-
-
             <Route path="/" element={<Login />} />
 
           </Routes>

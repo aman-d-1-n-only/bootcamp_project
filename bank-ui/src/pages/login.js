@@ -11,6 +11,7 @@ import {
 } from "@material-tailwind/react";
 import axios from "axios";
 import LoginImage from "../img/LoginImage.png";
+import Profile1 from "../img/Profile1.png"
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -67,7 +68,7 @@ export const Login = () => {
     <>
       <div
         className="relative min-h-screen flex items-center justify-center bg-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8  bg-no-repeat bg-cover"
-        style={{ backgroundImage: `url(${LoginImage})` }}
+        style={{ backgroundImage: `url(${Profile1})` }}
       >
         <div className="absolute bg-black opacity-60 inset-0 z-0"></div>
         <Card className="w-96 ">

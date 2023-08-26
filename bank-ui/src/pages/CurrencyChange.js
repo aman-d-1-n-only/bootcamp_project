@@ -16,6 +16,14 @@ export default function CurrencyChange() {
     to:""
   }
   const [currency,setCurrency]=useState(currencyInitialValues)
+  
+  const flip=()=> {
+    
+    var temp = currency.from;
+    currency.from=currency.to;
+    currency.to=temp;
+    console.log(currency);
+}
  
   useEffect(() => {
     const API_KEY='1ffa00d5eeb5f22671e4cdeb120dca07'
@@ -120,7 +128,7 @@ const handleChange=(e)=>
       </select>
       </div>
 
-     <ArrowsRightLeftIcon className='h-6 w-6 m-2 '/>     
+     <ArrowsRightLeftIcon onClick={() => { flip() }} className='h-6 w-6 m-2 '/>     
       {/* <Select
       id="to"
       label="To"
