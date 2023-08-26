@@ -12,6 +12,7 @@ import {
 } from "@material-tailwind/react";
 import { BanknotesIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 export const AddCustomer = () => {
 
@@ -39,6 +40,8 @@ export const AddCustomer = () => {
   
       if (response.data) {
         alert("Customer Details Added successfully");
+        // toast.success("Customer add successfully");
+       
         navigate('/customer/view-customer');
         reset(); // Reset the form
       }
@@ -51,7 +54,7 @@ export const AddCustomer = () => {
  
   return (
     <>
-      <div className="h-full flex justify-center items-center pt-10">
+      <div className="bg-gray-100 flex justify-center items-center pt-10">
         <Card
           className="
              "
@@ -83,6 +86,8 @@ export const AddCustomer = () => {
   render={({ field }) => (
    <> <Input
       label="Name"
+      
+      required
       {...field}
       error={errors.name?.message}
     />
@@ -107,6 +112,8 @@ export const AddCustomer = () => {
       label="Address"
       {...field}
       error={errors.address?.message}
+      
+      required
     />
     <Typography
     variant="small"
@@ -128,6 +135,7 @@ export const AddCustomer = () => {
     <Input
     label="Email Address"
       {...field}
+      required
       error={errors.email?.message}
       onKeyUp={() => {
         trigger("email");
@@ -155,6 +163,8 @@ export const AddCustomer = () => {
     <>
     <Input
     label="Contact Number"
+    
+    required
       {...field}
       error={errors.contact?.message}
       onKeyUp={() => {
@@ -202,6 +212,8 @@ export const AddCustomer = () => {
     label="City"
       {...field}
       error={errors.city?.message}
+      
+      required
       onKeyUp={() => {
         trigger("city");
       }}
@@ -228,6 +240,8 @@ export const AddCustomer = () => {
     label="Pincode"
       {...field}
       error={errors.pincode?.message}
+      
+      required
       onKeyUp={() => {
         trigger("pincode");
       }}
@@ -241,10 +255,16 @@ export const AddCustomer = () => {
 </>
   )}
   rules={{ required: 'Pincode is required',
-  pattern: {
-    value: /^\d{6}$/
-    ,   message: 'Pincode should be exactly 6 digits long',
-  }, }}
+  validate: {
+    isANumber: (value) =>
+      /^[0-9]/.test(value) ||
+      "Pincode can only be numbers",
+    validLength: (value) =>
+      value.length === 6 || "Pincode should be exactly 6 digits long",
+  },
+ }}
+
+ 
 />
 
 {/* </div> */}

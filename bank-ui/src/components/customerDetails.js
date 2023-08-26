@@ -26,9 +26,32 @@ export const CustomerDetails = () => {
         city: ""
     };
 
-    const [customerData, setcustomerData] = useState(customerInitialValues);
-    const jwtToken = sessionStorage.getItem('jwtToken');
+  
+    const jwtToken = sessionStorage.getItem("jwtToken");
     const navigate = useNavigate();
+    const {
+      control,
+      handleSubmit,
+      formState: { errors },
+      reset,
+      trigger
+    } = useForm({
+      // // Contact number validation rules
+      // defaultValues: {
+      //   contact: "", // Set the default value as an empty string
+      // },
+      // resolver: (data) => {
+      //   return {
+      //     values: data,
+      //     errors: {
+      //       contact:
+      //         !/^[6-9]\d{9}$/.test(data.contact) &&
+      //         "Contact number should be 10 digits starting from 6 to 9",
+      //     },
+      //   };
+      // },
+    });
+    const [customerData, setcustomerData] = useState(customerInitialValues);
     const display = (event) => {
         if (customerData.name === "" || customerData.address === "" || customerData.email === "" || customerData.contact === "" || customerData.pincode === "" || customerData.city === "") {
             toast.error("One or more fields are empty! ")

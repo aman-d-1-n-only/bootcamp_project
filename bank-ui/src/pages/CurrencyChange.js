@@ -16,6 +16,14 @@ export default function CurrencyChange() {
     to:""
   }
   const [currency,setCurrency]=useState(currencyInitialValues)
+  
+//   const flip=()=> {
+    
+//     var temp = currency.from;
+//     currency.from=currency.to;
+//     currency.to=temp;
+//     console.log(currency);
+// }
  
   useEffect(() => {
     const API_KEY='1ffa00d5eeb5f22671e4cdeb120dca07'
@@ -44,9 +52,15 @@ const handleClick=()=>{
 const handleChange=(e)=>
 {
   setCurrency({ ...currency, [e.target.id]: e.target.value });
-
-
 }
+
+const handleSwap = () => {
+  setCurrency({
+    ...currency,
+    from: currency.to,
+    to: currency.from
+  });
+};
 
   return (
     <>
@@ -120,7 +134,7 @@ const handleChange=(e)=>
       </select>
       </div>
 
-     <ArrowsRightLeftIcon className='h-6 w-6 m-2 '/>     
+     <ArrowsRightLeftIcon className='h-8 w-8 mb-1 p-1 cursor-pointer hover:scale-110 rounded-lg hover:shadow hover:bg-gray-50' onClick={handleSwap}/>     
       {/* <Select
       id="to"
       label="To"

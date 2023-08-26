@@ -10,6 +10,7 @@ import {
 import DeleteCustomer from "../services/DeleteCustomer";
 import DeleteAccnt from "../services/DeleteAccnt";
 import UserDisable from "./UserDisable";
+import axios from "axios";
 
 export default function AccntTable(props) {
   const navigate = useNavigate();
@@ -22,14 +23,24 @@ export default function AccntTable(props) {
     "Edit Pin",
     "Delete",
     "Withdraw Cash",
-    "Disable User"
+    "Enable User"
   ];
 
-  const [isDisabled, setIsDisabled] = useState(false);
+  // const [isDisabled, setIsDisabled] = useState(true);
   
-    const handleSwitchChange = () => {
-      setIsDisabled(!isDisabled);
-    };
+    const handleSwitchChange = (account) => {
+      account.enable=!(account.enable)
+      const jwtToken=sessionStorage.getItem('jwtToken')
+      axios.post(`/api/customer/${props.custId}/account/${account.accId}/`, account, {
+        headers: {
+            'Authorization': 'bearer ' + jwtToken
+        }
+
+    }).then(res => {
+        console.log(res.data);
+      // setIsDisabled(!isDisabled);
+    });
+  }
   return (
     <div>
       {props.accountDetails.length > 0 ? (
@@ -105,7 +116,7 @@ export default function AccntTable(props) {
                             className="font-medium flex items-center justify-center" 
                           >
                            
-                              <PencilSquareIcon className="w-6 h-6 hover:scale-105 text-blue-900 " onClick={() => navigate("/customer/changepin")}/>
+                              <PencilSquareIcon className="w-6 h-6 hover:scale-1 text-blue-900 cursor-pointer" onClick={() => navigate("/customer/changepin")}/>
                            
                           </Typography>
                         </td>
@@ -133,7 +144,7 @@ export default function AccntTable(props) {
                                 navigate("/customer/cash-withdraw")
                               }
                             >
-                              <CurrencyRupeeIcon className="w-6 h-6 text-green-800" />{" "}
+                              <CurrencyRupeeIcon className="w-6 h-6 hover:scale-110 cursor-pointer text-green-800" />{" "}
                             </button>
                           </Typography>
                           </td>
@@ -149,8 +160,24 @@ export default function AccntTable(props) {
                             <Switch 
                             id={`Switch${item.accId}`}
                             className=""
-        checked={isDisabled}
-        onChange={handleSwitchChange}
+        checked={item.enable}
+        onChange={()=>{
+          item.enable=!(item.enable)
+          const jwtToken=sessionStorage.getItem('jwtToken')
+          console.log(item);
+          axios.put(`http://localhost:5165/api/customer/${props.custId}/account/${item.accId}/`, item, {
+            headers: {
+                'Authorization': 'bearer ' + jwtToken
+            }
+    
+        }).then(res => {
+            console.log(res.data);
+          // setIsDisabled(!isDisabled);
+        })
+        .catch((e)=>{
+          console.log(e.response);
+        })
+        }}
          />
                               
                           </Typography>

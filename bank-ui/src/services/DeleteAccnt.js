@@ -39,7 +39,7 @@ export default function DeleteAccnt(props) {
   return (
     <>
     <TrashIcon
-                                className="w-6 h-6 text-red-900 hover:scale-105"
+                                className="w-6 h-6 text-red-900 hover:scale-110 cursor-pointer"
                                 fill="none"
                                 onClick={handleOpen} 
                               />

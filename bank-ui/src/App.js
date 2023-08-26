@@ -3,6 +3,7 @@ import { Login } from './pages/login';
 import { Customer } from './components/Dashboard'
 import CustomerList from './pages/CustomerList';
 import { CustomerDetails } from './components/customerDetails'
+// import { CustomerDetails } from './components/CustomerDetails's
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TransactionList from './pages/TransactionList';
 import PrivateRoutes from './components/PrivateRoute';
@@ -16,6 +17,7 @@ import EditPin from './pages/EditPin';
 import CurrencyChange from './pages/CurrencyChange';
 import Profile from './pages/Profile';
 import { AddCustomer } from './pages/AddCustomer';
+import ViewCustomer from './pages/ViewCustomer';
 
 function App() {
   return (
@@ -29,6 +31,9 @@ function App() {
               <Route path="/customer/add-customer" element={<AddCustomer />} />
               
               <Route path="/customer/view-customer" element={<CustomerList />} />
+              
+                {/* <Route path="/customer/view-customer" element={<ViewCustomer />} />
+             */}
               <Route path="/customer/transactions" element={<TransactionList />} />
               <Route path="/customer/cash-withdraw" element={<CashWithdraw />} />
               <Route path="/customer/customer-profile" element={<Profile />} />

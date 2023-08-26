@@ -40,13 +40,13 @@ export default function Profile() {
     "Current", "Savings"
   ]
 
-  const accountInitialValues = {
-    accType: "",
-    cardNo: 0,
-    balance: 0,
-    pin: 0,
-  };
-  const [accountData, setaccountData] = useState(accountInitialValues);
+  // const accountInitialValues = {
+  //   accType: "",
+  //   cardNo: 0,
+  //   balance: 0,
+  //   pin: 0,
+  // };
+  // const [accountData, setaccountData] = useState(accountInitialValues);
   const [accountDetails, setAccountDetails] = useState([]);
   const [disabled, setDisabled] = useState(true);
   const [name, setName] = useState("Edit");
@@ -54,12 +54,13 @@ export default function Profile() {
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => {
     setShowModal(!showModal);
-    reset(accountInitialValues);
+    reset();
   };
-
-
   const jwtToken = sessionStorage.getItem("jwtToken");
+  // console.log(localStorage.getItem('disabled'));
   useEffect(() => {
+    const custId = customerData.custId;
+    // const jwtToken = sessionStorage.getItem("jwtToken");
     axios
       .get(`http://localhost:5165/api/customer/${custId}/account`, {
         headers: {
@@ -67,35 +68,36 @@ export default function Profile() {
         },
       })
       .then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         setAccountDetails(res.data);
         // console.log(accountDetails)
         // customerData = res.data;
         // setcustomerData(res.data);
       });
-  });
+  },[]);
 
-  const [option,setOption]=useState();
-  const handleAccountChange = (e) => {
-    setOption(e);
-    setaccountData({ ...accountData, [e.target.name]: e.target.value });
-      };
+  // const [option,setOption]=useState();
+  // const handleAccountChange = (e) => {
+  //   setOption(e);
+  //   setaccountData({ ...accountData, [e.target.name]: e.target.value });
+  //     };
 
   const handleChange = (e) => {
     setUpdatedData({ ...updatedData, [e.target.name]: e.target.value });
   };
   const SubmitAccount = async (data) => {
     try {
+        data.enable=true
       const response = await  axios.post(`http://localhost:5165/api/customer/${custId}/account`,
             data,
             {
               headers: {
-                Authorization: "bearer " + jwtToken,
+                'Authorization': "bearer " + jwtToken,
               },
             }
           )
           // .then((response) => {
-          //   console.log(res.data);
+            console.log(response.data);
 
             if (response.data) {
               alert(
@@ -323,8 +325,7 @@ export default function Profile() {
           >
             <Card className="">
               <CardHeader
-                className=" grid place-items-center  py-8 px-4 text-center bg-gray-900 
-                            "
+                className=" grid place-items-center  py-8 px-4 text-center bg-gray-900 "
               >
                 <div className=" text-white mb-4">
                   <CurrencyRupeeIcon className="h-20 w-20" />
@@ -397,7 +398,7 @@ export default function Profile() {
                           label="Card Number"
                           {...field}
                           error={errors.cardNo?.message}
-                          required
+                          // required
                           onKeyUp={() => {
                             trigger("cardNo");
                           }}
@@ -414,15 +415,15 @@ export default function Profile() {
                         )}
                       </>
                     )}
-                  />
-<Controller
+                  />    
+                  <Controller
                     name="balance"
                     control={control}
                     rules={{
                       required: "Balance is required",
                       pattern: {
                         value: /^[0-9]+$/,
-                        message: "Balance must be a positive number"
+                        message: "Enter a valid balance"
                         } , // },
                       min: {
                         value: 5000,
@@ -437,7 +438,7 @@ export default function Profile() {
                           label="Balance"
                           {...field}
                           error={errors.balance?.message}
-                          required
+                          // required
                     onKeyUp={() => {
                       trigger("balance");
                           }}
@@ -477,7 +478,7 @@ export default function Profile() {
                           onKeyUp={() => {
                             trigger("pin");
                           }}
-                          required
+                          // required
                         />
 
 {errors.pin && (
