@@ -40,13 +40,13 @@ export default function Profile() {
     "Current", "Savings"
   ]
 
-  const accountInitialValues = {
-    accType: "",
-    cardNo: 0,
-    balance: 0,
-    pin: 0,
-  };
-  const [accountData, setaccountData] = useState(accountInitialValues);
+  // const accountInitialValues = {
+  //   accType: "",
+  //   cardNo: 0,
+  //   balance: 0,
+  //   pin: 0,
+  // };
+  // const [accountData, setaccountData] = useState(accountInitialValues);
   const [accountDetails, setAccountDetails] = useState([]);
   const [disabled, setDisabled] = useState(true);
   const [name, setName] = useState("Edit");
@@ -54,6 +54,7 @@ export default function Profile() {
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => {
     setShowModal(!showModal);
+    reset();
   };
   const jwtToken = sessionStorage.getItem("jwtToken");
   // console.log(localStorage.getItem('disabled'));
@@ -75,11 +76,11 @@ export default function Profile() {
       });
   },[]);
 
-  const [option,setOption]=useState();
-  const handleAccountChange = (e) => {
-    setOption(e);
-    setaccountData({ ...accountData, [e.target.name]: e.target.value });
-      };
+  // const [option,setOption]=useState();
+  // const handleAccountChange = (e) => {
+  //   setOption(e);
+  //   setaccountData({ ...accountData, [e.target.name]: e.target.value });
+  //     };
 
   const handleChange = (e) => {
     setUpdatedData({ ...updatedData, [e.target.name]: e.target.value });
@@ -91,7 +92,7 @@ export default function Profile() {
             data,
             {
               headers: {
-                Authorization: "bearer " + jwtToken,
+                'Authorization': "bearer " + jwtToken,
               },
             }
           )
@@ -103,7 +104,7 @@ export default function Profile() {
                 `Account Details Added successfully for ${customerData.name}`);
                 
               toggleModal();
-              reset(accountInitialValues);
+             
 
             }
           
@@ -397,7 +398,7 @@ export default function Profile() {
                           label="Card Number"
                           {...field}
                           error={errors.cardNo?.message}
-                          required
+                          // required
                           onKeyUp={() => {
                             trigger("cardNo");
                           }}
@@ -437,7 +438,7 @@ export default function Profile() {
                           label="Balance"
                           {...field}
                           error={errors.balance?.message}
-                          required
+                          // required
                     onKeyUp={() => {
                       trigger("balance");
                           }}
@@ -477,7 +478,7 @@ export default function Profile() {
                           onKeyUp={() => {
                             trigger("pin");
                           }}
-                          required
+                          // required
                         />
 
 {errors.pin && (

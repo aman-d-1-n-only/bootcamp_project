@@ -2,7 +2,7 @@ import React from 'react'
 import { Login } from './pages/login';
 import { Customer } from './components/Dashboard'
 import CustomerList from './pages/CustomerList';
-import { CustomerDetails } from './components/customerDetails'
+// import { CustomerDetails } from './components/CustomerDetails's
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TransactionList from './pages/TransactionList';
 import PrivateRoutes from './components/PrivateRoute';
@@ -19,7 +19,7 @@ import { AddCustomer } from './pages/AddCustomer';
 function App() {
   return (
     <>
-      <div className=" bg-gray-100 min-h-screen">
+      <div className=" bg-gray-100 min-h-screen w-full h-full">
         <BrowserRouter>
           <Routes>
             <Route element={<PrivateRoutes />}>
