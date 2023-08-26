@@ -116,7 +116,7 @@ export default function AccntTable(props) {
                             className="font-medium flex items-center justify-center" 
                           >
                            
-                              <PencilSquareIcon className="w-6 h-6 hover:scale-110 text-blue-900 cursor-pointer" onClick={() => navigate("/customer/changepin")}/>
+                              <PencilSquareIcon className="w-6 h-6 hover:scale-1 text-blue-900 cursor-pointer" onClick={() => navigate("/customer/changepin")}/>
                            
                           </Typography>
                         </td>

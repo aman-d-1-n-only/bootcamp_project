@@ -12,6 +12,7 @@ import {
 } from "@material-tailwind/react";
 import axios from "axios";
 // import LoginImage from "../img/LoginImage.png";
+// import Profile1 from "../img/Profile1.png"
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -51,6 +52,7 @@ export const Login = () => {
         // style={{ backgroundImage: `url(${LoginImage})` }}
         style={{ backgroundImage: "url('https://images.unsplash.com/photo-1532423622396-10a3f979251a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1500&q=80')", }}>
            
+
       
         <div className="absolute bg-black opacity-60 inset-0 z-0"></div>
          <Card className="w-96">
