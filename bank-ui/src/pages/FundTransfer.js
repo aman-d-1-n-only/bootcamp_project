@@ -31,7 +31,7 @@ const FundTransfer = () => {
         "amount": 0,
         "pin": ""
       })
-      
+    
     // const [accountNoOne , setAccountNoOne] = useState(0);
     // const [accountNoTwo , setAccountNoTwo] = useState(0);
     // const [amount, setAmount] = useState(0);

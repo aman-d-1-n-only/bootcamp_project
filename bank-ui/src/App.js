@@ -1,12 +1,13 @@
 import React from 'react'
-import { Login } from './pages/Login';
+import { Login } from './pages/login';
 import { Customer } from './components/Dashboard'
 import CustomerList from './pages/CustomerList';
-import { CustomerDetails } from './components/CustomerDetails'
+import { CustomerDetails } from './components/customerDetails'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TransactionList from './pages/TransactionList';
 import PrivateRoutes from './components/PrivateRoute';
 import  CashWithdraw  from './pages/CashWithdraw';
+import ChequeDeposit from './pages/chequeDeposit';
 
 import FundTransfer from './pages/FundTransfer';
 import {toast} from 'react-toastify';
@@ -35,6 +36,8 @@ function App() {
               <Route path="/customer/customer-profile" element={<Profile />} />
               <Route path = "/customer/fund-transfer" element={<FundTransfer/>}/>
               <Route path = "/customer/currency-change" element={<CurrencyChange/>}/>
+              <Route path = "/customer/cheque-deposit" element={<ChequeDeposit/>}/>
+
             </Route>
             <Route path="/" element={<Login />} />
 
