@@ -145,7 +145,9 @@ export default function EditPin() {
           
                             </CardBody>
                
-            </Card>
+             </Card>
+          {/*  {pinError && <p>Your pin is invalid</p>}
+            {AccError && <p>Your Account Number is invalid</p>} */}
             <ToastContainer/>
         </div>
                         </>

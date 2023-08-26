@@ -1,5 +1,5 @@
 import React from 'react'
-import { Login } from './pages/Login';
+import { Login } from './pages/login';
 import { Customer } from './components/Dashboard'
 import CustomerList from './pages/CustomerList';
 // import { CustomerDetails } from './components/CustomerDetails's

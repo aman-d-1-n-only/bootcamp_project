@@ -56,10 +56,11 @@ export default function Profile() {
     setShowModal(!showModal);
     reset();
   };
-
-
   const jwtToken = sessionStorage.getItem("jwtToken");
+  // console.log(localStorage.getItem('disabled'));
   useEffect(() => {
+    const custId = customerData.custId;
+    // const jwtToken = sessionStorage.getItem("jwtToken");
     axios
       .get(`http://localhost:5165/api/customer/${custId}/account`, {
         headers: {
@@ -67,13 +68,13 @@ export default function Profile() {
         },
       })
       .then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         setAccountDetails(res.data);
         // console.log(accountDetails)
         // customerData = res.data;
         // setcustomerData(res.data);
       });
-  });
+  },[]);
 
   // const [option,setOption]=useState();
   // const handleAccountChange = (e) => {
@@ -86,6 +87,7 @@ export default function Profile() {
   };
   const SubmitAccount = async (data) => {
     try {
+        data.enable=true
       const response = await  axios.post(`http://localhost:5165/api/customer/${custId}/account`,
             data,
             {
@@ -95,7 +97,7 @@ export default function Profile() {
             }
           )
           // .then((response) => {
-          //   console.log(res.data);
+            console.log(response.data);
 
             if (response.data) {
               alert(
@@ -323,8 +325,7 @@ export default function Profile() {
           >
             <Card className="">
               <CardHeader
-                className=" grid place-items-center  py-8 px-4 text-center bg-gray-900 
-                            "
+                className=" grid place-items-center  py-8 px-4 text-center bg-gray-900 "
               >
                 <div className=" text-white mb-4">
                   <CurrencyRupeeIcon className="h-20 w-20" />
@@ -414,8 +415,8 @@ export default function Profile() {
                         )}
                       </>
                     )}
-                  />
-<Controller
+                  />    
+                  <Controller
                     name="balance"
                     control={control}
                     rules={{
