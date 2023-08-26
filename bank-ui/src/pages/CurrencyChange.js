@@ -4,7 +4,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Nav } from '../components/Nav';
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
-import {ToastContainer, toast} from 'react-toastify';
+
 
 
 export default function CurrencyChange() {
@@ -17,9 +17,6 @@ export default function CurrencyChange() {
   }
   const [currency,setCurrency]=useState(currencyInitialValues)
  
-  const [errorMessage, setErrorMessage] = useState("");
-  const [symbolFrom, setSymbolFrom] = useState("");
-  const [symbolTo, setSymbolTo] = useState("");
   useEffect(() => {
     const API_KEY='1ffa00d5eeb5f22671e4cdeb120dca07'
     axios.post(`http://data.fixer.io/api/symbols?access_key=${API_KEY}`)
@@ -29,49 +26,33 @@ export default function CurrencyChange() {
   
   })
 }, []);
-
-const handleExchange=()=>{
-  console.log("inside exchange");
-  setSymbolFrom =currency.from;
-  setSymbolTo=currency.to;
-}
-
 const handleClick=()=>{
-  if ((currency.amount === "") || (currency.from 
-    === "") || (currency.to === ""))
-    {
-setErrorMessage("All quatities are required");
-    }
-    else {
-  console.log("currency",currency);
+  console.log(currency);
   const API_KEY='1ffa00d5eeb5f22671e4cdeb120dca07'
   axios.post(`http://data.fixer.io/api/latest?access_key=${API_KEY}&base =${currency.from}`) 
   .then(res => {
     let temp=currency.amount+' '+currency.from+' = '+(currency.amount*(res.data.rates[currency.to]/res.data.rates[currency.from]))+' '+currency.to
     setResult(temp);
     console.log(temp);
-    
-setErrorMessage("");
 //  axios.post(`http://data.fixer.io/api/convert?access_key=${API_KEY}& from = ${currency.from}& to = ${currency.to}& amount = ${currency.amount}`)
 // axios.post(`http://data.fixer.io/api/latest?access_key=${API_KEY}&base=${currency.from}&symbols=${currency.to}`)
   // alert(`${currency.amount} ${currency.from} = ${currency.amount*(res.data.rates[currency.to]/res.data.rates[currency.from])} ${currency.to}`);
   // alert(res.data.error.info)
   // result=`${currency.amount} ${currency.from} = ${currency.amount*(res.data.rates[currency.to]/res.data.rates[currency.from])} ${currency.to}`;
+})
 }
-  )
- .catch(function(error) {
-                console.log(error)
-                // alert(error.response.data)
-                    // toast.error(error.response.data)
-                
-              })
-}}
 const handleChange=(e)=>
 {
   setCurrency({ ...currency, [e.target.id]: e.target.value });
-
-
 }
+
+const handleSwap = () => {
+  setCurrency({
+    ...currency,
+    from: currency.to,
+    to: currency.from
+  });
+};
 
   return (
     <>
@@ -95,7 +76,7 @@ const handleChange=(e)=>
               
                 <CardBody className='px-10'>
                             
-                            <form className="flex flex-col gap-y-6 my-4">
+                            <form className="flex flex-col gap-y-6">
                             <Input 
                             onChange={handleChange} 
                             value={currency.amount}
@@ -130,7 +111,7 @@ const handleChange=(e)=>
        id="from"
        label="From"
        onChange={handleChange}
-       value={symbolFrom}
+       value={currency.from}
       placeholder='From'
       className='p-2 border-2 border-blue-gray-100 rounded-lg w-28'
         >
@@ -145,7 +126,7 @@ const handleChange=(e)=>
       </select>
       </div>
 
-     <ArrowsRightLeftIcon className='h-6 w-6 m-2 '  onClick={handleExchange}   />     
+     <ArrowsRightLeftIcon className='h-8 w-8 mb-1 p-1 cursor-pointer hover:scale-110 rounded-lg hover:shadow hover:bg-gray-50' onClick={handleSwap}/>     
       {/* <Select
       id="to"
       label="To"
@@ -167,7 +148,7 @@ const handleChange=(e)=>
       <select
       id="to"
       label="To"
-      value={symbolTo}
+      value={currency.to}
       onChange={handleChange}
       className='p-2 border-2 border-blue-gray-100 rounded-lg w-28'
         >
@@ -184,9 +165,8 @@ const handleChange=(e)=>
     
       </div>
 
-      <div className="text-red-600 text-sm ml-2"> {errorMessage} </div>
                          <Button
-                     className=""
+                     className="my-2"
                      onClick={handleClick}                   
                       >
                             Convert
@@ -194,8 +174,7 @@ const handleChange=(e)=>
                     </form>
                     <div>
 
-        {((result!=="") && (currency.amount!=="") && (currency.from 
-        !== "") && (currency.to!=="")) ? 
+        {(result!=="") ? 
                         (<Card className='mb-2 mt-6 outline-double shadow-lg mx-4 bg-gradient-to-t from-gray-300'>
                             <CardBody>
                                 <Typography className="place-items-center">

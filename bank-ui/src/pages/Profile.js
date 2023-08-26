@@ -422,7 +422,7 @@ export default function Profile() {
                       required: "Balance is required",
                       pattern: {
                         value: /^[0-9]+$/,
-                        message: "Balance must be a positive number"
+                        message: "Enter a valid balance"
                         } , // },
                       min: {
                         value: 5000,
