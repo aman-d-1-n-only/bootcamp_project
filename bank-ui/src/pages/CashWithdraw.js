@@ -1,120 +1,141 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import {
   Card,
   CardHeader,
   CardBody,
-  CardFooter,
   Typography,
   Input,
-  Checkbox,
   Button,
   Tabs,
   TabsHeader,
   TabsBody,
   Tab,
   TabPanel,
-} from "@material-tailwind/react";
-import axios from "axios";
-import { BanknotesIcon, CurrencyRupeeIcon } from "@heroicons/react/24/solid";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+} from '@material-tailwind/react';
+import axios from 'axios';
+import { CurrencyRupeeIcon } from '@heroicons/react/24/outline';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
-const CashWithdraw = () => {
-  const jwtToken = sessionStorage.getItem("jwtToken");
-  const navigate = useNavigate();
-    const [customerId, setCustomerId] = useState(0);
-    const [accountId, setAccountId] = useState(0);
-    const [amount, setAmount] = useState();
-    const [pin, setPin] = useState("");
-
-  const [visible, setVisible] = useState(false);
-
-  const [type, setType] = useState("check balance");
-
-  const [accountData, setAccountData] = useState({
+const CheckBalanceForm = (props) => {
+  const { handleSubmit, control, formState: { errors }, reset,trigger } = useForm();
+  
+  const accountInitalValues=({
     accId: 0,
-    accType: "",
     balance: 0,
-    cardNo: "",
-    pin: "",
+    cardNo: '',
+    pin: '',
   });
-  const [updatedAccount, setUpdatedAccount] = useState({
-    accNo: 0,
-    balance: 0,
-    cardNo: 0,
-    pin: 0,
+  const [accountData, setAccountData] = useState({
+    accountInitalValues
   });
+  const [visible, setVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const [errorMessage, setErrorMessage] = useState("");
-  // const handleChange = (e) => {
-  //     setloginCredentials({ ...loginCredentials, [e.target.name]: e.target.value });
-  // };
-  const handleBalance = (e) => {
-    if (customerId === 0 || accountId === 0) {
-      setErrorMessage("Both CustomerId and Account No. are required ");
-    } else {
-      e.preventDefault();
-
-      axios
-        .get(
-          `http://localhost:5165/api/customer/${customerId}/account/${accountId}`,
-          {
-            headers: {
-              Authorization: "bearer " + jwtToken,
-            },
-          }
-        )
-        .then((res) => {
-          console.log(res.data);
-          setAccountData(res.data);
-          setErrorMessage("");
-        })
-        .catch(function (error) {
-          console.log(error);
-          if (error.response.status === 404) {
-            toast.error(error.response.data)
-
-            setErrorMessage(error.response.data);
-          } else if (error.response.status === 400) {
-            Object.keys(error.response.data.errors).map((key, index) => {
-              // setErrors(error.response.data.errors[key])
-              error.response.data.errors[key].map((val, i) => {
-                toast.error(val)
-
-                setErrorMessage(val);
-              });
-            });
-          }
+  const handleBalance = async (data) => {
+    console.log("this is data", data)
+    // console.log(errors)
+    const { customerId, accountId } = data;
+    try {
+      const response = await axios.get(
+        `http://localhost:5165/api/customer/${customerId}/account/${accountId}`,
+        {
+          headers: {
+            Authorization: 'bearer ' + props.jwtToken,
+          },
+        }
+      );
+      setAccountData(response.data);
+      setVisible(true);
+     reset({
+        customerId:"",
+        accountId: "",
+      });
+      
+      setErrorMessage("");
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        // toast.error(error.response.data);
+        setErrorMessage(error.response.data);
+        setVisible(false);
+        console.log(error.response.data);
+      
+               
+      } else if (error.response && error.response.status === 400) {
+        Object.keys(error.response.data.errors).forEach((key) => {
+            console.log(error.response.data.errors);
+          error.response.data.errors[key].forEach((val) => {
+            setVisible(false);
+            toast.error(val);
+            setErrorMessage(val);
+      
+          });
         });
-
-      //     }
-      // }).catch(function (error) {
-      //     if (error.response) {
-      //         if (error.response.status) {
-      //             alert("Invalid Credentials. Please Try again");
-      //         }
-      //     }
-      // })
+      }
     }
+  };
+  return (
+    <TabPanel value="check balance" className="p-0">
+      <form
+        className="mt-8 mb-4 flex flex-col gap-y-4"
+        onSubmit={handleSubmit(handleBalance)}
+      >
+        <Controller
+                      name="customerId"
+                      control={control}
+                      rules={{ required: 'Customer ID is required' }}
+                      render={({ field }) => (
+                        <>
+                          <Input label="Enter CustomerId" size="lg" id="customerId" {...field}  type="number" error={errors.customerId?.message} required onKeyUp={() => {
+                      trigger("customerId");}}
+                          />
+                          {errors.customerId && <span         className="-mt-3 flex items-center gap-1 font-normal text-red-600 text-sm"
+   > {errors.customerId?.message}</span>}
+                        </>
+                      )}
+                    />
 
-    setVisible(!visible);
-  };
-  const handleAccId = (e) => {
-    setAccountId(e.target.value);
-  };
+                    <Controller
+                      name="accountId"
+                      control={control}
+                      rules={{ required: 'Account ID is required' }}
+                      render={({ field }) => (
+                        <>
+                          <Input label="Enter Account Number" size="lg" id="accountId" {...field} type="number" error={errors.accountId?.message} required
+                          onKeyUp={() => {
+                            trigger("accountId");}}/>
+                          {errors.accountId && <span         className="-mt-3 flex items-center gap-1 font-normal text-red-600 text-sm">{errors.accountId?.message}</span>}
+                        </>
+                      )}
+                    />
+        {errorMessage && (
+          <div className="text-red-600 text-sm">{errorMessage}</div>
+        )}
+        <Button type="submit" fullWidth className="mt-4">
+          Check Balance
+        </Button>
+      </form>
+      {visible && (
+                    <Card className="mb-2 mt-6 outline-double shadow-lg mx-4 bg-gradient-to-t from-gray-300">
+                      <CardBody>
+                        <Typography>Account Number: {accountData.accId}</Typography>
+                        <Typography>Balance: {accountData.balance}</Typography>
+                      </CardBody>
+                    </Card>
+                  )}
+    </TabPanel>
+  );
+};
 
-  const handleCusId = (e) => {
-    setCustomerId(e.target.value);
-  };
-  const handleAmt = (e) => {
-    setAmount(e.target.value);
-  };
-  const handlePin = (e) => {
-    setPin(e.targe121ue);
-  };
+const WithdrawMoneyForm = (props) => {
+  const { handleSubmit, control, formState: { errors }, reset, trigger} = useForm();
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleWithdraw = () => {
+  const handleWithdraw = async (data) => {
+    const { accountId, amount, pin } = data;
+
     const withData = {
       accNo: parseInt(accountId),
       amount: parseInt(amount),
@@ -122,171 +143,157 @@ const CashWithdraw = () => {
     };
 
     console.log("withData");
-    console.log(typeof withData.accNo);
-    axios
-      .post(`http://localhost:5165/cashWithdrawal`, withData, {
-        headers: {
-          Authorization: "bearer " + jwtToken,
-        },
-      })
-      .then((response) => {
-        console.log("response");
-        console.log(response.data);
-        alert(
-          `Withdrawal Successful Updated balance = ${response.data.balance}`
-        );
-        if (response.data) {
-          window.location.reload();
+    try {
+      const response = await axios.post(
+        'http://localhost:5165/cashWithdrawal',
+        withData,
+        {
+          headers: {
+            Authorization: 'bearer ' + props.jwtToken,
+          },
         }
-      })
-      .catch((error) => {
-        console.log(error);
-        if (error.response.status === 404) {
-          // toast.error(error.response.data)
-          setErrorMessage(error.response.data);
-        } else if (error.response.status === 400) {
-          Object.keys(error.response.data.errors).map((key, index) => {
-            error.response.data.errors[key].map((val, i) => {
-              console.log(val);
-              // toast.error(val)
-              setErrorMessage(val);
-            });
-          });
-        }
+      );
+      console.log("response");
+      toast.success(
+     <>
+        Withdrawal Successful.
+        <br />
+        Updated balance: {response.data.balance}
+     </>);
+      
+      setErrorMessage("");
+      reset({
+        accountId: "",
+        amount: "",
+        pin: "",
       });
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        // toast.error(error.response.data);
+        setErrorMessage(error.response.data);
+      
+      } else if (error.response && error.response.status === 400) {
+        Object.keys(error.response.data.errors).forEach((key) => {
+          error.response.data.errors[key].forEach((val) => {
+            // toast.error(val);
+            setErrorMessage(val);
+      
+          });
+        });
+      }
+    }
   };
 
-  // }
-  // })
+  return (
+    <TabPanel value="money withdraw" className="p-0">
+      <form
+        className="mt-8 mb-4 flex flex-col gap-4"
+        onSubmit={handleSubmit(handleWithdraw)}
+      >
+         <Controller
+                      name="accountId"
+                      control={control}
+                      rules={{ required: 'Account ID is required' }}
+                      render={({ field }) => (
+                        <>
+                          <Input label="Enter Account Number" size="lg" id="accountId" {...field} type="number" error={errors.accountId?.message} required
+                          onKeyUp={() => {
+                            trigger("accountId");}}/>
+                          {errors.accountId && <span className="-mt-3 flex items-center gap-1 font-normal text-red-600 text-sm">{errors.accountId?.message}</span>}
+                        </>
+                      )}
+                    />
+
+                    <Controller
+                      name="amount"
+                      control={control}
+                      rules={{
+                        required: "Balance is required",
+                        pattern: {
+                          value: /^[1-9]+$/,
+                          message: "Enter a valid amount"
+                          } , 
+                       }}
+                    
+                      render={({ field }) => (
+                        <>
+                          <Input label="Enter Amount to withdraw" size="lg" id="amount" type="number" {...field} error={errors.amount?.message} required  onKeyUp={() => {
+                      trigger("amount");
+                          }}/>
+                          {errors.amount && <span className="-mt-3 flex items-center gap-1 font-normal text-red-600 text-sm">{errors.amount?.message}</span>}
+                        </>
+                      )}
+                    />
+
+                    <Controller
+                      name="pin"
+                      control={control}
+                      rules={{
+                        required: "PIN is required",
+                        validate: {
+                          onlyNumbers: value => /^\d+$/.test(value) || "PIN must contain only numbers",
+                          validLength: (value) =>
+              value.length === 4 || "PIN must be 4 digits"
+          }
+                      }}
+                      render={({ field }) => (
+                        <>
+                          <Input label="Enter PIN" size="lg" id="pin" {...field} type="password" required onKeyUp={() => {
+                            trigger("pin");
+                          }}/>
+                          {errors.pin && <span className="-mt-3 flex items-center gap-1 font-normal text-red-600 text-sm">{errors.pin?.message}</span>}
+                        </>
+                      )}
+                    />
+        {errorMessage && (
+          <div className="text-red-600 text-sm">{errorMessage}</div>
+        )}
+        <Button type="submit" className="mt-4" fullWidth>
+          Withdraw
+        </Button>
+      </form>
+    </TabPanel>
+  );
+};
+
+const CashWithdraw = () => {
+  const jwtToken = sessionStorage.getItem('jwtToken');
+  const [ type, setType ] = useState('check balance');
+
   return (
     <>
-      <div className=" min-h-fit  h-full flex justify-center items-center ">
-        <Card className="w-96 ">
+      <div className="bg-gray-100t h-full flex justify-center items-center ">
+        <Card className="w-96">
           <CardHeader
             color="gray"
             className="py-6 mb-4 grid place-items-center"
           >
             <div className="text-white mb-4">
-              {/* <BanknotesIcon className="h-14 w-14" /> */}
               <CurrencyRupeeIcon className="h-16 w-16" />
             </div>
             <Typography variant="h3" color="white">
               Withdraw Money
             </Typography>
           </CardHeader>
-
           <CardBody className="px-10">
             <Tabs value={type} className="overflow-visible">
               <TabsHeader className="relative z-0 ">
                 <Tab
                   value="check balance"
-                  onClick={() => setType("check balance")}
+                  onClick={() => setType('check balance')}
                 >
                   Check Balance
                 </Tab>
                 <Tab
                   value="money withdraw"
-                  onClick={() => setType("money withdraw")}
+                  onClick={() => setType('money withdraw')}
                 >
                   Withdraw Money
                 </Tab>
               </TabsHeader>
               <TabsBody>
-                <TabPanel value="check balance" className="p-0">
-                  <form className="mt-8 flex flex-col gap-y-4 ">
-                    <Input
-                      label="Enter CustomerId"
-                      size="lg"
-                      id="customerId"
-                      required
-                      name="customerId"
-                      type="number"
-                      value={customerId}
-                      onChange={handleCusId}
-                    />
-                    <Input
-                      label="Enter Account Number"
-                      size="lg"
-                      id="accountId"
-                      name="accountId"
-                      type="number"
-                      value={accountId}
-                      onChange={handleAccId}
-                      required
-                    />
-                    <div className="text-red-600 text-sm"> {errorMessage} </div>
-                    {/* { {errorMessage}!=="" ? <div className="text-red-600 mt-3 text-sm"> {errorMessage} </div>:""} */}
-
-                    <Button
-                      // type="submit"
-                      fullWidth
-                      onClick={handleBalance}
-                      className="my-4"
-                    >
-                      Check Balance
-                    </Button>
-                  </form>
-                  {visible && errorMessage === "" ? (
-                    <Card className="mb-2 mt-6 outline-double shadow-lg mx-4 bg-gradient-to-t from-gray-300">
-                      <CardBody>
-                        <Typography>
-                          Account Number : {accountData.accId}
-                        </Typography>
-                        <Typography>
-                          {" "}
-                          Balance : {accountData.balance}
-                        </Typography>
-                      </CardBody>
-                    </Card>
-                  ) : (
-                    <></>
-                  )}
-                </TabPanel>
-
-                <TabPanel value="money withdraw" className="p-0">
-                  <form className="mt-12 flex flex-col gap-4">
-                    <Input
-                      label="Enter Account Number"
-                      size="lg"
-                      id="amount"
-                      name="balance"
-                      // type="number"
-                      value={accountId}
-                      onChange={handleAccId}
-                      required
-                    />
-
-                    <Input
-                      label="Enter Amount to withdraw"
-                      size="lg"
-                      id="amount"
-                      name="balance"
-                      type="number"
-                      value={amount}
-                      onChange={handleAmt}
-                      required
-                    />
-
-                    <Input
-                      label="Enter Pin"
-                      size="lg"
-                      id="amount"
-                      name="balance"
-                      // type="number"
-                      value={pin}
-                      onChange={handlePin}
-                      required
-                    />
-                    <Button
-                      className="mt-4 "
-                      //  type="submit"
-                      fullWidth
-                      onClick={handleWithdraw}
-                    >
-                      Withdraw
-                    </Button>
-                  </form>
-                </TabPanel>
+                <CheckBalanceForm jwtToken={jwtToken}/>
+                <WithdrawMoneyForm jwtToken={jwtToken}/>
               </TabsBody>
             </Tabs>
           </CardBody>
@@ -296,4 +303,5 @@ const CashWithdraw = () => {
     </>
   );
 };
+
 export default CashWithdraw;

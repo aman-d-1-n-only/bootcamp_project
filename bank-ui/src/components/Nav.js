@@ -80,7 +80,7 @@ export function Nav() {
       <Link to="/customer/changepin" className="p-2  text-blue-gray-800 flex items-center  hover:bg-gradient-to-b from-gray-300 rounded-2xl hover:scale-105 ">Change Pin</Link>
       <Link to="/customer/fund-transfer" className="p-2  text-blue-gray-800 flex items-center  hover:bg-gradient-to-b from-gray-300 rounded-2xl hover:scale-105 ">Fund Transfer</Link>
       <Link to="/customer/currency-change" className="p-2  text-blue-gray-800 flex items-center  hover:bg-gradient-to-b from-gray-300 rounded-2xl hover:scale-105 ">Change Currency</Link>
-      <Link to="/customer/cheque-deposit" className="p-2  text-blue-gray-800 flex items-center  hover:bg-gradient-to-b from-gray-300 rounded-2xl hover:scale-105 ">Deposit Check</Link>
+      <Link to="/customer/cheque-deposit" className="p-2  text-blue-gray-800 flex items-center  hover:bg-gradient-to-b from-gray-300 rounded-2xl hover:scale-105 ">Deposit Cheque</Link>
     </ul>
 );
   return (

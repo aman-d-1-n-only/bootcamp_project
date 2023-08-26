@@ -116,7 +116,7 @@ export default function AccntTable(props) {
                             className="font-medium flex items-center justify-center" 
                           >
                            
-                              <PencilSquareIcon className="w-6 h-6 hover:scale-105 text-blue-900 " onClick={() => navigate("/customer/changepin")}/>
+                              <PencilSquareIcon className="w-6 h-6 hover:scale-110 text-blue-900 cursor-pointer" onClick={() => navigate("/customer/changepin")}/>
                            
                           </Typography>
                         </td>
@@ -144,7 +144,7 @@ export default function AccntTable(props) {
                                 navigate("/customer/cash-withdraw")
                               }
                             >
-                              <CurrencyRupeeIcon className="w-6 h-6 text-green-800" />{" "}
+                              <CurrencyRupeeIcon className="w-6 h-6 hover:scale-110 cursor-pointer text-green-800" />{" "}
                             </button>
                           </Typography>
                           </td>

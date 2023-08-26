@@ -1,12 +1,12 @@
 import React from 'react'
-import { Login } from './pages/login';
+import { Login } from './pages/Login';
 import { Customer } from './components/Dashboard'
 import CustomerList from './pages/CustomerList';
 // import { CustomerDetails } from './components/CustomerDetails's
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TransactionList from './pages/TransactionList';
 import PrivateRoutes from './components/PrivateRoute';
-import  CashWithdraw  from './pages/CashWithdraw2';
+import  CashWithdraw  from './pages/CashWithdraw';
 
 import FundTransfer from './pages/FundTransfer';
 import {toast} from 'react-toastify';
