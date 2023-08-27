@@ -1,188 +1,214 @@
-import {
-    Card,
-    Input,
-    Checkbox,
-    Button,
-    Typography,
-  } from "@material-tailwind/react";
-  import * as React from 'react';
-  import { useState , useEffect } from 'react';
-  import Table from '@mui/material/Table';
-  import TableBody from '@mui/material/TableBody';
-  import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-  import TableContainer from '@mui/material/TableContainer';
-  import TableHead from '@mui/material/TableHead';
-  import TableRow from '@mui/material/TableRow';
-  import Paper from '@mui/material/Paper';
-  import axios from 'axios';
-  import { styled } from '@mui/material/styles';
-  import {useForm , Controller} from "react-hook-form";
+import { Card, Input, Button, Typography } from "@material-tailwind/react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { useForm, Controller } from "react-hook-form";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-  const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.common.black,
-      color: theme.palette.common.white,
-    },
-    [`&.${tableCellClasses.body}`]: {
-      fontSize: 14,
-    },
-  }));
-  
-  const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    },
-    // hide last border
-    '&:last-child td, &:last-child th': {
-      border: 0,
-    },
-  }));
-  export default function ChequeDeposit() {
+export default function ChequeDeposit() {
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+    reset,
+    trigger,
+  } = useForm();
+ 
+  const [chequeTransactions, setChequeTransactions] = useState([]);
+  const TABLE_HEAD = ["Cheque Number", "Account Number", "Amount", "Date"];
 
-    const { handleSubmit, control, formState: { errors }, reset,trigger } = useForm();
-
-    const [accNo, setAccNo] = useState("");
-    const [amount, setAmount] = useState();
-    const [allTransaction, setAllTransaction] = useState([]);
-    const [chequeTransactions , setChequeTransactions] = useState([]);
-   
-    
-  
-    const handleAccNo = (event) => {
-      setAccNo(event.target.value);
-    }
-    const handleAmount = (event) => {
-      setAmount(event.target.value);
-    }
-
-    const handleDeposit = () => {
-      const txnData = {
-        "status": "Success",
-        "amount": parseInt(amount),
-        "debitedFrom": -1,
-        "creditTo": accNo
-      }
-      axios.post('http://localhost:5165/api/txns' , txnData)
+  const handleDeposit = (data) => {
+    console.log(chequeTransactions);
+    console.log("data",data)
+    const txnData = {
+      status: "Success",
+      amount: parseInt(data.amount),
+      debitedFrom: -1,
+      creditTo: data.accNo,
+    };
+    axios
+      .post("http://localhost:5165/api/txns", txnData)
       .then((response) => {
         console.log(response.data);
-        setAmount("");
-        setAccNo("");
-      }).catch((error) => {
-        console.log(error)
-      })
-
-      const chequeData = {
-        "accNo" : accNo,
-        "amount" : parseInt(amount)
-      }
-      axios.post('http://localhost:5165/chequeDeposit' , chequeData)
-      .then((response) => {
-        console.log(response.data)
+        toast.success( <>
+            Cheque deposited successfully<br/>Click on 'View Cheque History' to view the details.
+          </>
+        );
+        reset({
+            accNo: "",
+            amount: "",
+          });
       })
       .catch((error) => {
-        console.log(error)
-      })
+        console.log(error);
+      });
 
-      reset({
-        accNo : "",
-        amount:0
-      })
-    }
-    const handleHistory = () => {
-        axios.get('http://localhost:5165/api/txns')
-        .then((response) => {
-           setAllTransaction(response.data)
-           filterList(response.data)
-           console.log(response.data);
-        }).catch((error) => {
-          console.log(error)
-        })
-    }
-    const filterList = (txns) => {
-      let transac = [...txns]
-      transac = transac.filter(function (transaction) {
-      
-        return parseInt(transaction.debitedFrom) === parseInt(-1)
-      })
-      setChequeTransactions([...transac])
-    }
+    // const chequeData = {
+    //   accNo: data.accNo,
+    //   amount: parseInt(data.amount),
+    // };
+    // axios
+    //   .post("http://localhost:5165/chequeDeposit", chequeData)
+    //   .then((response) => {
+    //     console.log(response.data);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
 
-    return (
-      <>
-      <Card color="transparent" shadow={false} className="w-full flex justify-center items-center my-4">
-        <Typography variant="h4" color="blue-gray">
+  };
+  const handleHistory = () => {
+    console.log("history")
+    axios
+      .get("http://localhost:5165/api/txns")
+      .then((response) => {
+        filterList(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const filterList = (txns) => {
+    let transac = [...txns];
+    transac = transac.filter(function (transaction) {
+      return parseInt(transaction.debitedFrom) === parseInt(-1);
+    });
+    setChequeTransactions([...transac]);
+  };
+
+  return (
+    <>
+    
+    <ToastContainer position="top-center"/>
+      <Card
+        color="transparent"
+        shadow={false}
+        className="w-full flex justify-center items-center my-4"
+      >
+        <div className="p-1 border-b-2 border-gray-800 mb-4">
+        <Typography variant="h4" className="text-gray-800">
           Cheque Status
         </Typography>
-       
-        <form className="mt-4 mb-2 w-80 max-w-screen-lg sm:w-96" 
-           onSubmit = {handleSubmit(handleDeposit)}>
-          <div className="mb-4 flex flex-col gap-6">
-          <Controller
-                      name="accNo"
-                      control={control}
-                      rules={{ required: 'Account number is required' }}
-                      render={({ field }) => (
-                        <>
-                          <Input size="lg" label="Enter Account Number" id = "accNo" name = "accNo" value={accNo} onChange = {handleAccNo} error = {errors.accNo?.message} onKeyUp = {() =>{
-              trigger("accNo");}
-            }/>
-                          {errors.accNo && <span className="-mt-3 flex items-center gap-1 font-normal text-red-600 text-sm"
-   > {errors.accNo?.message}</span>}
-                        </>
-                      )}
-                    />
-                    <Controller
-                      name="amount"
-                      control={control}
-                      rules={{ required: 'Amount is required' }}
-                      render={({ field }) => (
-                        <>
-                            <Input size="lg" label="Enter Amount" id = "amount" name = "amount"  value={amount} onChange={handleAmount} error = {errors.amount?.message} onKeyUp = {() => {
-              trigger("amount");}}/>
-                          {errors.amount && <span className="-mt-3 flex items-center gap-1 font-normal text-red-600 text-sm"
-   > {errors.amount?.message}</span>}
-                        </>
-                      )}
-                    />
-           
-          
-          </div>
-          
-            <div className="flex flex-row space-x-2 items-center justify-center">
-          <Button className="w-1/2" onClick = {handleDeposit} >
-            Deposit Cheque
-          </Button>
-          <Button className = "w-1/2 whitespace-nowrap" onClick = {handleHistory} >
-            View Cheque History
+        </div>
+        <form
+          className="mt-4 mb-2 w-80 max-w-screen-lg sm:w-96 gap-y-8 flex flex-col"
+          onSubmit={handleSubmit(handleDeposit)}
+        >
+            <Controller
+              name="accNo"
+              control={control}
+              rules={{ required: "Account number is required",
+              pattern: {
+                value: /^[1-9]+$/,
+                message: "Enter a valid account number",
+              }, }}
+              render={({ field }) => (
+                <>
+                  <Input
+                    size="lg"
+                    label="Enter Account Number"
+                    error={errors.accNo?.message}
+                    onKeyUp={() => {
+                      trigger("accNo");
+                    }}
+                    required
+                    {...field}
+                  />
+                  {errors.accNo && (
+                    <span className="-mt-3 flex items-center gap-1 font-normal text-red-600 text-sm">
+                      {" "}
+                      {errors.accNo?.message}
+                    </span>
+                  )}
+                </>
+              )}
+            />
+            <Controller
+              name="amount"
+              control={control}
+              rules={{ required: "Amount is required",
+              pattern: {
+                value: /^[1-9][0-9]*$/,
+                message: "Enter a valid amount",
+              } }}
+              render={({ field }) => (
+                <>
+                  <Input
+                    size="lg"
+                    label="Enter Amount"
+                    type="number" 
+                    min="0"         
+                    error={errors.amount?.message}
+                    onKeyUp={() => {
+                      trigger("amount");
+                    }}
+                    required
+                    {...field}
+                  />
+                  {errors.amount && (
+                    <span className="-mt-3 flex items-center gap-1 font-normal text-red-600 text-sm">
+                      {" "}
+                      {errors.amount?.message}
+                    </span>
+                  )}
+                </>
+              )}
+            />
+
+          <div className="flex flex-row space-x-4 items-center justify-center  whitespace-nowrap">
+            <Button
+              className="w-1/2"
+              variant="gradient"
+              type="submit"
+            >
+              Deposit Cheque
             </Button>
-            </div>
+            <Button
+              className="w-1/2"
+              type="button"
+              onClick={handleHistory}
+              variant="gradient"
+            >
+              View Cheque History
+            </Button>
+          </div>
         </form>
       </Card>
-            <TableContainer component={Paper}>
-            <Table style={{ width: '95%', borderRadius: '10px', margin: 30 }} sx={{ manWidth: 1000 }} aria-label="customized table">
-              <TableHead >
-                <TableRow >
-                  <StyledTableCell style={{height: '2px'}}>Cheque Number</StyledTableCell>
-                  <StyledTableCell>Account Number</StyledTableCell>
-                  <StyledTableCell align="right">Amount</StyledTableCell>
-                  <StyledTableCell align="right">Date</StyledTableCell>
-           </TableRow>
-              </TableHead>
-              <TableBody>
-                  {chequeTransactions?.slice(0,9).map((row) => (
-                    <StyledTableRow key={row.txnId}>
-                      <StyledTableCell align="right">{row.txnId}</StyledTableCell>
-                      <StyledTableCell align="right">{row.creditTo}</StyledTableCell>
-                      <StyledTableCell align="right">{row.amount}</StyledTableCell>
-                      <StyledTableCell align="right">{row.date}</StyledTableCell>
 
-    
-                    </StyledTableRow>
-                  ))}
-                </TableBody>
-                
-            </Table>
-          </TableContainer>
-          </>
-    );
-  }
+ 
+    <div className="w-full h-fit bg-white py-5 px-10">
+        <Card className="h-full w-full overflow-auto rounded-none">
+          <table className="w-full min-w-max table-auto text-center ">
+            <thead>
+              <tr>
+                {TABLE_HEAD.map((head) => (
+                  <th
+                    key={head}
+                    varian="gradient"
+                    className="border-b border-gray-300 bg-gray-900 p-5 font-normal leading-none  text-gray-50 text-center"
+                  >
+                    {head}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="text-center text-sm">
+              {chequeTransactions?.slice(0, 9).map((row) => (
+                <tr
+                  key={row.txnId}
+                  className="even:bg-gray-100/100 border-b border-blue-gray-50"
+                >
+                  <td className="p-3 ">{row.txnId}</td>
+                  <td className="p-3 ">{row.creditTo}</td>
+                  <td className="p-3 ">{row.amount}</td>
+                  <td className="p-3 ">{row.date}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </Card>
+      </div>
+    </>
+  );
+}

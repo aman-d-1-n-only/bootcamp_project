@@ -19,6 +19,7 @@ function Profile() {
     formState: { errors },
     reset,
     trigger,
+    register
   } = useForm({});
 
   const location = useLocation();
@@ -50,7 +51,8 @@ function Profile() {
       }
     };
     fetchAccountDetails();
-  }, [custId, jwtToken]);
+  // }, [custId, jwtToken, accountDetails]);
+}, [accountDetails]);
 
   const SubmitAccount = async (data) => {
     try {
@@ -119,13 +121,10 @@ function Profile() {
                       showModal={showModal}
                       toggleModal={toggleModal}
                       control={control}
+                      register={register}
                       errors={errors}
                       handleSubmit={handleSubmit}
-                      reset={reset}
                       trigger={trigger}
-                      customerData={customerData}
-                      custId={custId}
-                      jwtToken={jwtToken}
                       accntType={accntType}
                       SubmitAccount={SubmitAccount}
                     />

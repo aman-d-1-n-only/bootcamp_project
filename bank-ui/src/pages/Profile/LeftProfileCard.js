@@ -4,9 +4,8 @@ import Profile2 from "../../img/Profile2.png";
 import Profile3 from "../../img/Profile3.png";
 import Profile4 from "../../img/Profile4.png";
 import UserProfile from "../../img/UserProfile.png";
-import { Button, Switch, Tab, Typography } from "@material-tailwind/react";
+import { Button} from "@material-tailwind/react";
 import axios from "axios";
-import UserDisable from "./UserDisable";
 
 export default function LeftProfileCard(props) {
   const [total, setTotal] = useState(0);
@@ -44,14 +43,8 @@ export default function LeftProfileCard(props) {
         })
         setTotal(sum);
         getRandomImage();
-        // setAccountDetails(res.data);
-        // customerData = res.data;
-        // setcustomerData(res.data);
       });
 
-    // accountDetails.map((item) => {
-    //   setTotal(total + item.balance)
-    // })
   },[]);
 
   return (
@@ -72,21 +65,23 @@ export default function LeftProfileCard(props) {
                   "
             />
           </div>
-          <ul className="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-5 mt-3 divide-y rounded shadow-sm w-full">
+          <ul className="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-5 mt-3 divide-y rounded shadow-sm ">
             <li className=" py-3 flex flex-col">
               <Button  variant="gradient" onClick={() => setVisible(!visible)}>
                 {visible ? "Hide Bank Balance" : "Check Bank Balance"}{" "}
               </Button>
               {visible && (
-                <span className="pt-4 grid grid-cols-2 ">
+                <span className="flex items-center pt-4 gap-y-4">
                   <span>Bank Balance</span>
-                  <span className="ml-auto text-sm">{total}</span>
+                  <span className="ml-auto ">{total}</span>
                 </span>
               )}
             </li>
-            <li className=" md:text-sm ">
-              
-            </li>
+            
+                        <li class="flex items-center py-3 gap-x-4">
+                            <span>Member since</span>
+                            <span class="ml-auto ">July xx, 20xx</span>
+                        </li>
           </ul>
         </div>
         </div>

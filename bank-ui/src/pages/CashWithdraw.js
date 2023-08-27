@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import React, { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
 import {
   Card,
   CardHeader,
@@ -12,30 +12,36 @@ import {
   TabsBody,
   Tab,
   TabPanel,
-} from '@material-tailwind/react';
-import axios from 'axios';
-import { CurrencyRupeeIcon } from '@heroicons/react/24/outline';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import PinInput from '../components/PinInput';
+} from "@material-tailwind/react";
+import axios from "axios";
+import { CurrencyRupeeIcon } from "@heroicons/react/24/outline";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import PinInput from "../components/PinInput";
 
 const CheckBalanceForm = (props) => {
-  const { handleSubmit, control, formState: { errors }, reset,trigger } = useForm();
-  
-  const accountInitalValues=({
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+    reset,
+    trigger,
+  } = useForm();
+
+  const accountInitalValues = {
     accId: 0,
     balance: 0,
-    cardNo: '',
-    pin: '',
-  });
+    cardNo: "",
+    pin: "",
+  };
   const [accountData, setAccountData] = useState({
-    accountInitalValues
+    accountInitalValues,
   });
   const [visible, setVisible] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleBalance = async (data) => {
-    console.log("this is data", data)
+    console.log("this is data", data);
     // console.log(errors)
     const { customerId, accountId } = data;
     try {
@@ -43,17 +49,17 @@ const CheckBalanceForm = (props) => {
         `http://localhost:5165/api/customer/${customerId}/account/${accountId}`,
         {
           headers: {
-            Authorization: 'bearer ' + props.jwtToken,
+            Authorization: "bearer " + props.jwtToken,
           },
         }
       );
       setAccountData(response.data);
       setVisible(true);
-     reset({
-        customerId:"",
+      reset({
+        customerId: "",
         accountId: "",
       });
-      
+
       setErrorMessage("");
     } catch (error) {
       if (error.response && error.response.status === 404) {
@@ -61,16 +67,13 @@ const CheckBalanceForm = (props) => {
         setErrorMessage(error.response.data);
         setVisible(false);
         console.log(error.response.data);
-      
-               
       } else if (error.response && error.response.status === 400) {
         Object.keys(error.response.data.errors).forEach((key) => {
-            console.log(error.response.data.errors);
+          console.log(error.response.data.errors);
           error.response.data.errors[key].forEach((val) => {
             setVisible(false);
             toast.error(val);
             setErrorMessage(val);
-      
           });
         });
       }
@@ -83,33 +86,63 @@ const CheckBalanceForm = (props) => {
         onSubmit={handleSubmit(handleBalance)}
       >
         <Controller
-                      name="customerId"
-                      control={control}
-                      rules={{ required: 'Customer ID is required' }}
-                      render={({ field }) => (
-                        <>
-                          <Input label="Enter CustomerId" size="lg" id="customerId" {...field}  type="number" error={errors.customerId?.message} required onKeyUp={() => {
-                      trigger("customerId");}}
-                          />
-                          {errors.customerId && <span         className="-mt-3 flex items-center gap-1 font-normal text-red-600 text-sm"
-   > {errors.customerId?.message}</span>}
-                        </>
-                      )}
-                    />
+          name="customerId"
+          control={control}
+          rules={{ required: "Customer ID is required" }}
+          render={({ field }) => (
+            <>
+              <Input
+                label="Enter CustomerId"
+                size="lg"
+                id="customerId"
+                {...field}
+                type="number"
+                error={errors.customerId?.message}
+                required
+                onKeyUp={() => {
+                  trigger("customerId");
+                }}
+              />
+              {errors.customerId && (
+                <span className="-mt-3 flex items-center gap-1 font-normal text-red-600 text-sm">
+                  {" "}
+                  {errors.customerId?.message}
+                </span>
+              )}
+            </>
+          )}
+        />
 
-                    <Controller
-                      name="accountId"
-                      control={control}
-                      rules={{ required: 'Account ID is required' }}
-                      render={({ field }) => (
-                        <>
-                          <Input label="Enter Account Number" size="lg" id="accountId" {...field} type="number" error={errors.accountId?.message} required
-                          onKeyUp={() => {
-                            trigger("accountId");}}/>
-                          {errors.accountId && <span         className="-mt-3 flex items-center gap-1 font-normal text-red-600 text-sm">{errors.accountId?.message}</span>}
-                        </>
-                      )}
-                    />
+        <Controller
+          name="accountId"
+          control={control}
+          rules={{ required: "Account ID is required",
+          pattern: {
+            value: /^[1-9]+$/,
+            message: "Enter a valid account number",
+          }, }}
+          render={({ field }) => (
+            <>
+              <Input
+                label="Enter Account Number"
+                size="lg"
+                id="accountId"
+                {...field}
+                type="number"
+                error={errors.accountId?.message}
+                required
+                onKeyUp={() => {
+                  trigger("accountId");
+                }}
+              />
+              {errors.accountId && (
+                <span className="-mt-3 flex items-center gap-1 font-normal text-red-600 text-sm">
+                  {errors.accountId?.message}
+                </span>
+              )}
+            </>
+          )}
+        />
         {errorMessage && (
           <div className="text-red-600 text-sm">{errorMessage}</div>
         )}
@@ -118,20 +151,26 @@ const CheckBalanceForm = (props) => {
         </Button>
       </form>
       {visible && (
-                    <Card className="mb-2 mt-6 outline-double shadow-lg mx-4 bg-gradient-to-t from-gray-300">
-                      <CardBody>
-                        <Typography>Account Number: {accountData.accId}</Typography>
-                        <Typography>Balance: {accountData.balance}</Typography>
-                      </CardBody>
-                    </Card>
-                  )}
+        <Card className="mb-2 mt-6 outline-double shadow-lg mx-4 bg-gradient-to-t from-gray-300">
+          <CardBody>
+            <Typography>Account Number: {accountData.accId}</Typography>
+            <Typography>Balance: {accountData.balance}</Typography>
+          </CardBody>
+        </Card>
+      )}
     </TabPanel>
   );
 };
 
 const WithdrawMoneyForm = (props) => {
-  const { handleSubmit, control, formState: { errors }, reset, trigger} = useForm();
-  const [errorMessage, setErrorMessage] = useState('');
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+    reset,
+    trigger,
+  } = useForm();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleWithdraw = async (data) => {
     const { accountId, amount, pin } = data;
@@ -145,22 +184,23 @@ const WithdrawMoneyForm = (props) => {
     console.log("withData");
     try {
       const response = await axios.post(
-        'http://localhost:5165/cashWithdrawal',
+        "http://localhost:5165/cashWithdrawal",
         withData,
         {
           headers: {
-            Authorization: 'bearer ' + props.jwtToken,
+            Authorization: "bearer " + props.jwtToken,
           },
         }
       );
       console.log("response");
       toast.success(
-     <>
-        Withdrawal Successful.
-        <br />
-        Updated balance: {response.data.balance}
-     </>);
-      
+        <>
+          Withdrawal Successful.
+          <br />
+          Updated balance: {response.data.balance}
+        </>
+      );
+
       setErrorMessage("");
       reset({
         accountId: "",
@@ -171,13 +211,11 @@ const WithdrawMoneyForm = (props) => {
       if (error.response && error.response.status === 404) {
         // toast.error(error.response.data);
         setErrorMessage(error.response.data);
-      
       } else if (error.response && error.response.status === 400) {
         Object.keys(error.response.data.errors).forEach((key) => {
           error.response.data.errors[key].forEach((val) => {
             // toast.error(val);
             setErrorMessage(val);
-      
           });
         });
       }
@@ -190,42 +228,77 @@ const WithdrawMoneyForm = (props) => {
         className="mt-8 mb-4 flex flex-col gap-4"
         onSubmit={handleSubmit(handleWithdraw)}
       >
-         <Controller
-                      name="accountId"
-                      control={control}
-                      rules={{ required: 'Account ID is required' }}
-                      render={({ field }) => (
-                        <>
-                          <Input label="Enter Account Number" size="lg" id="accountId" {...field} type="number" error={errors.accountId?.message} required
-                          onKeyUp={() => {
-                            trigger("accountId");}}/>
-                          {errors.accountId && <span className="-mt-3 flex items-center gap-1 font-normal text-red-600 text-sm">{errors.accountId?.message}</span>}
-                        </>
-                      )}
-                    />
+        <Controller
+          name="accountId"
+          control={control}
+          rules={{ required: "Account ID is required",
+          pattern: {
+            value: /^[1-9]+$/,
+            message: "Enter a valid Account ID",
+          }, }}
+          render={({ field }) => (
+            <>
+              <Input
+                label="Enter Account Number"
+                size="lg"
+                id="accountId"
+                {...field}
+                type="number"
+                error={errors.accountId?.message}
+                required
+                onKeyUp={() => {
+                  trigger("accountId");
+                }}
+              />
+              {errors.accountId && (
+                <span className="-mt-3 flex items-center gap-1 font-normal text-red-600 text-sm">
+                  {errors.accountId?.message}
+                </span>
+              )}
+            </>
+          )}
+        />
 
-                    <Controller
-                      name="amount"
-                      control={control}
-                      rules={{
-                        required: "Balance is required",
-                        pattern: {
-                          value: /^[1-9]+$/,
-                          message: "Enter a valid amount"
-                          } , 
-                       }}
-                    
-                      render={({ field }) => (
-                        <>
-                          <Input label="Enter Amount to withdraw" size="lg" id="amount" type="number" {...field} error={errors.amount?.message} required  onKeyUp={() => {
-                      trigger("amount");
-                          }}/>
-                          {errors.amount && <span className="-mt-3 flex items-center gap-1 font-normal text-red-600 text-sm">{errors.amount?.message}</span>}
-                        </>
-                      )}
-                    />
+        <Controller
+          name="amount"
+          control={control}
+          rules={{
+            required: "Balance is required",
+            pattern: {
+              value: /^[1-9]+$/,
+              message: "Enter a valid amount",
+            },
+          }}
+          render={({ field }) => (
+            <>
+              <Input
+                label="Enter Amount to withdraw"
+                size="lg"
+                id="amount"
+                type="number"
+                {...field}
+                error={errors.amount?.message}
+                required
+                onKeyUp={() => {
+                  trigger("amount");
+                }}
+              />
+              {errors.amount && (
+                <span className="-mt-3 flex items-center gap-1 font-normal text-red-600 text-sm">
+                  {errors.amount?.message}
+                </span>
+              )}
+            </>
+          )}
+        />
 
-                   <PinInput control={control} trigger={trigger} errors={errors} name="pin" label="Enter PIN"/>
+        <PinInput
+          control={control}
+          trigger={trigger}
+          errors={errors}
+          name="pin"
+          label="Enter PIN"
+        />
         {errorMessage && (
           <div className="text-red-600 text-sm">{errorMessage}</div>
         )}
@@ -238,8 +311,8 @@ const WithdrawMoneyForm = (props) => {
 };
 
 const CashWithdraw = () => {
-  const jwtToken = sessionStorage.getItem('jwtToken');
-  const [ type, setType ] = useState('check balance');
+  const jwtToken = sessionStorage.getItem("jwtToken");
+  const [type, setType] = useState("check balance");
 
   return (
     <>
@@ -261,25 +334,25 @@ const CashWithdraw = () => {
               <TabsHeader className="relative z-0 ">
                 <Tab
                   value="check balance"
-                  onClick={() => setType('check balance')}
+                  onClick={() => setType("check balance")}
                 >
                   Check Balance
                 </Tab>
                 <Tab
                   value="money withdraw"
-                  onClick={() => setType('money withdraw')}
+                  onClick={() => setType("money withdraw")}
                 >
                   Withdraw Money
                 </Tab>
               </TabsHeader>
               <TabsBody>
-                <CheckBalanceForm jwtToken={jwtToken}/>
-                <WithdrawMoneyForm jwtToken={jwtToken}/>
+                <CheckBalanceForm jwtToken={jwtToken} />
+                <WithdrawMoneyForm jwtToken={jwtToken} />
               </TabsBody>
             </Tabs>
           </CardBody>
         </Card>
-    <ToastContainer position="top-center"/>
+        <ToastContainer position="top-center" />
       </div>
     </>
   );
