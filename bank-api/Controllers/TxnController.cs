@@ -129,5 +129,30 @@ namespace BankApi.Controllers
             }
             return NotFound("Existing Pin doesn't matches !");
         }
+
+        [HttpPost, Route("/chequeDeposit")]
+        public async Task<ActionResult<AccountDTO>> ChequeDeposit([FromBody] ChequeDepositDTO transfer)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var account = await _bankRepository.GetAccountAsync(transfer.AccNo);
+            if (account == null)
+            {
+                return NotFound($"There is no account with account number :{transfer.AccNo}");
+            }
+            else if (account.Enable == false)
+            {
+                return NotFound($"The account with account number :{transfer.AccNo} is disabled by bank.");
+            }
+            account.Balance = account.Balance + transfer.Amount;
+            await _bankRepository.SaveChangesAsync();
+            var respAccount = _mapper.Map<RespAccountDTO>(account);
+            return Ok(respAccount);
+        }
+
+
     }
 }
