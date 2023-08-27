@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import {
   Card,
   CardHeader,
@@ -15,10 +14,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import { CurrencyRupeeIcon } from '@heroicons/react/24/solid';
 
 const FundTransfer = () => {
-  const { register, handleSubmit, setError, formState: { errors }, trigger, reset } = useForm();
+  const { register, handleSubmit, formState: { errors }, trigger, reset } = useForm();
   
   const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const jwtToken = sessionStorage.getItem('jwtToken');
 
   const handleTransfer = (data) => {

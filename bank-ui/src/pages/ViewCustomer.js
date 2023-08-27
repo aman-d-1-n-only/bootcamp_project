@@ -11,7 +11,6 @@ import { useNavigate } from "react-router";
 export default function ViewCustomer() {
   const jwtToken = sessionStorage.getItem("jwtToken");
   const [data, setData] = useState([]);
-  const [error, setError] = useState("");
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState("");
   const [t, setT] = useState([]);
@@ -57,7 +56,6 @@ export default function ViewCustomer() {
         console.log(response.data);
       })
       .catch((error) => {
-        setError(error);
         console.log(error);
       });
   }, []);

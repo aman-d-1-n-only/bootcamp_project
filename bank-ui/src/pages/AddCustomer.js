@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 import {
@@ -20,7 +20,6 @@ export const AddCustomer = () => {
     control,
     handleSubmit,
     formState: { errors },
-    reset,
     trigger
   } = useForm({
   });

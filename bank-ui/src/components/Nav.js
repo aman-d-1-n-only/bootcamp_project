@@ -26,14 +26,27 @@ import { Link } from "react-router-dom";
 export function Nav() {
   const [openNav, setOpenNav] = useState(false);
   const [openMenu, setOpenMenu] = React.useState(false);
+  
+  // const [expanded, setExpanded] = useState(false);
+  const [loginName,setLoginName]=useState(sessionStorage.getItem('jwtToken'));
   const navigate = useNavigate();
   const navRef = useRef(null);
   
   const handleClick = () => {
-    sessionStorage.removeItem("jwtToken");
-    sessionStorage.setItem("token", false);
-    navigate("/");
-  };
+    console.log(loginName);
+    if(loginName)
+    {
+      sessionStorage.removeItem('jwtToken');
+      sessionStorage.setItem('token', false);
+      setLoginName("")
+      // window.location.reload();
+      navigate('/')
+    }
+    else{
+      console.log("hi");
+      navigate('/login')
+    }
+  }
 
   useEffect(() => {
     window.addEventListener(
@@ -156,7 +169,7 @@ export function Nav() {
     >
       <div className="flex items-center justify-between text-blue-gray-900 ">
         <Link
-          to="/customer/"
+          to="/"
           className="lg:text-lg mr-4 py-1.5 font-medium flex items-center justify-center gap-x-4  hover:scale-105"
         >
           <HomeIcon
@@ -167,7 +180,7 @@ export function Nav() {
           Dashboard
         </Link>
 
-        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4">
           <div className="flex items-center justify-center">
             {window.innerWidth > 960 && window.innerWidth < 1410 ? (
               openMenu ? (
@@ -238,17 +251,15 @@ export function Nav() {
               </>
             )}
           </div>
-          <Button
-            variant="gradient"
-            onClick={handleClick}
-            size="sm"
-            className="hidden lg:inline-block"
-          >
-            <span className=" flex items-center justify-center ">
-              <UserIcon className="w-6 h-6 mr-2" />
-              Logout
-            </span>
-          </Button>
+            <Button
+              variant="gradient"
+              onClick={handleClick}
+              size="sm"
+              className="hidden lg:inline-block"
+            >
+               <span className=" flex items-center justify-center "><UserIcon className="w-6 h-6 mr-2"/>{(loginName)?"Logout":"Login"}</span>
+            </Button>
+           
           <IconButton
             variant="text"
             className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
@@ -263,22 +274,16 @@ export function Nav() {
             )}
           </IconButton>
         </div>
-      </div>
-      <Collapse open={openNav}>
-        {expandedNavList}
-        <Button
-          variant="gradient"
-          size="sm"
-          fullWidth
-          className="mb-2"
-          onClick={handleClick}
-        >
-          <span className=" flex items-center justify-center ">
-            <UserIcon className="w-5 h-5 mr-2" />
-            Logout
-          </span>
-        </Button>
-      </Collapse>
-    </Navbar>
+        </div>
+        <Collapse open={openNav}>
+{expandedNavList}
+          <Button variant="gradient" size="sm" fullWidth className="mb-2"
+           onClick={handleClick}>
+          <span className=" flex items-center justify-center "><UserIcon className="w-5 h-5 mr-2"/>{(loginName)?"Logout":"Login"}</span>
+          </Button> 
+          
+        </Collapse>
+      </Navbar>
+      
   );
 }

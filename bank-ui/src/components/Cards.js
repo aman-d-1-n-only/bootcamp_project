@@ -13,7 +13,7 @@ export const CustomerCard = (props) => {
   const navigate = useNavigate();
   return (
     <Button
-      onClick={() => navigate(`${props.cardName}`)}
+      onClick={() => navigate(`/customer/${props.cardName}`)}
       className="shadow-none bg-transparent "
     >
       <Card className="mt-6 max-w-[12rem] lg:max-w-[16rem] bg-gradient-to-t from-gray-800">

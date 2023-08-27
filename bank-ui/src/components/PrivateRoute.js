@@ -11,8 +11,19 @@ const PrivateRoutes = () => {
      <div className="w-[100vw] h-[90.5vh] bg-gray-100">
      <Outlet /> 
     </div>
-    </>: <Navigate to="/" /> 
+    </>: <Navigate to="/login" /> 
     )
 }
+export const NormalRoutes=()=>{
+    return(
+        <>
+        <Nav/>
+        <div className="w-[100vw] h-[90.5vh] bg-gray-100">
+        <Outlet /> 
+       </div>
+       </>
+        )
+}
+
 
 export default PrivateRoutes;

@@ -1,33 +1,27 @@
 import React, { useEffect, useState } from "react";
-import Profile1 from "../../img/Profile1.png";
-import Profile2 from "../../img/Profile2.png";
-import Profile3 from "../../img/Profile3.png";
-import Profile4 from "../../img/Profile4.png";
-import UserProfile from "../../img/UserProfile.png";
-import { Button} from "@material-tailwind/react";
+import Profile1 from "../../img/ProfileImage/Profile1.png";
+import Profile2 from "../../img/ProfileImage/Profile2.png";
+import Profile3 from "../../img/ProfileImage/Profile3.png";
+import Profile4 from "../../img/ProfileImage/Profile4.png";
+import { Button } from "@material-tailwind/react";
 import axios from "axios";
 
 export default function LeftProfileCard(props) {
   const [total, setTotal] = useState(0);
-  const [visible, setVisible] = React.useState(false);
-  const jwtToken=sessionStorage.getItem('jwtToken');
-  const image = [
-
-   {Profile1},
-   {Profile2},
-   {Profile3},
-   {Profile4}
-  ];
+  const [visible, setVisible] = useState(false);
+  const jwtToken = sessionStorage.getItem("jwtToken");
+  const image = [Profile1, Profile2, Profile3, Profile4];
 
   const [randomImage, setRandomImage] = useState("");
 
   const getRandomImage = () => {
     const randomIndex = Math.floor(Math.random() * image.length);
+    console.log(randomIndex);
     setRandomImage(image[randomIndex]);
   };
 
   useEffect(() => {
-    let sum=0;
+    let sum = 0;
     axios
       .get(`http://localhost:5165/api/customer/${props.custId}/account`, {
         headers: {
@@ -35,17 +29,15 @@ export default function LeftProfileCard(props) {
         },
       })
       .then((res) => {
-        console.log("Inside left profile",res.data);
-        res.data.map((item)=>{
+        console.log("Inside left profile", res.data);
+        res.data.map((item) => {
           // console.log(item);
-          sum+=item.balance;
-         
-        })
+          sum += item.balance;
+        });
         setTotal(sum);
         getRandomImage();
       });
-
-  },[]);
+  }, []);
 
   return (
     <>
@@ -59,15 +51,15 @@ export default function LeftProfileCard(props) {
 
           <div className="w-full flex items-center justify-center p-8 md:p-4">
             <img
-              src={Profile1}
-              alt="user_profile_icon"
+              src={randomImage}
+              alt="user_profile_avatar"
               className="rounded-full 
                   "
             />
           </div>
           <ul className="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-5 mt-3 divide-y rounded shadow-sm ">
             <li className=" py-3 flex flex-col">
-              <Button  variant="gradient" onClick={() => setVisible(!visible)}>
+              <Button variant="gradient" onClick={() => setVisible(!visible)}>
                 {visible ? "Hide Bank Balance" : "Check Bank Balance"}{" "}
               </Button>
               {visible && (
@@ -77,14 +69,14 @@ export default function LeftProfileCard(props) {
                 </span>
               )}
             </li>
-            
-                        <li class="flex items-center py-3 gap-x-4">
-                            <span>Member since</span>
-                            <span class="ml-auto ">July xx, 20xx</span>
-                        </li>
+
+            <li class="flex items-center py-3 gap-x-4">
+              <span>Member since</span>
+              <span class="ml-auto ">July xx, 20xx</span>
+            </li>
           </ul>
         </div>
-        </div>
-      </>
+      </div>
+    </>
   );
 }
