@@ -124,7 +124,6 @@ export const AddCustomer = () => {
   rules={{ required: 'Address is required' }}
 />
 
-
 <Controller
   control={control}
   name="email"
@@ -144,6 +143,7 @@ export const AddCustomer = () => {
     color="gray"
     className="my-2 flex items-center gap-1 font-normal text-red-600"
   >{errors.email?.message}</Typography>
+
 
 </>
   )}
@@ -175,18 +175,6 @@ export const AddCustomer = () => {
     color="gray"
     className="my-2 flex items-center gap-1 font-normal text-red-600"
   >{errors.contact?.message}</Typography>
-{/* 
-{errors.contact && (
-        <div className="my-1 flex items-center gap-1 font-normal text-red-600">
-          <ExclamationCircleIcon className="h-4 w-4" />
-          <Typography
-    variant="small"
-    color="gray"
-    className="flex items-center gap-1 font-normal text-red-600"
-  >{errors.contact?.message}</Typography>
-        </div>
-      )} */}
-
 </>
   )}
   rules={{ required: 'Contact Number is required',

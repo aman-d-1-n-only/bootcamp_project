@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Button, Input, Card } from "@material-tailwind/react";
+import { Input, Card } from "@material-tailwind/react";
 import SearchIcon from "@material-ui/icons/Search";
-import { useNavigate } from "react-router";
 
 export default function TransactionTable() {
   const [transactions, setTransactions] = useState([]);
@@ -74,13 +73,13 @@ export default function TransactionTable() {
 
         <div className="w-full h-full bg-white py-5 px-10">
           <Card className="h-full w-full overflow-auto rounded-none">
-            <table className="w-full min-w-max table-auto text-left">
+            <table className="w-full min-w-max table-auto text-center">
               <thead>
                 <tr>
                   {TABLE_HEAD.map((head) => (
                     <th
                       key={head}
-                      varian="gradient"
+                      variant="gradient"
                       className="border-b border-gray-300 bg-gray-900 p-5 font-normal leading-none  text-gray-50 text-center"
                     >
                       {head}
@@ -88,7 +87,7 @@ export default function TransactionTable() {
                   ))}
                 </tr>
               </thead>
-              <tbody className="text-center">
+              <tbody className="text-center text-sm">
                 {(searchInput ? t : transactions).slice(0, 9).map((row) => (
                  <tr key={row.txnId} className="even:bg-gray-100/100 border-b border-blue-gray-50">
                  <td className="p-3">

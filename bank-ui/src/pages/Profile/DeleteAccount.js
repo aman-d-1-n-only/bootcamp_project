@@ -8,9 +8,11 @@ import {
 } from "@material-tailwind/react";
 import axios from "axios";
 import { TrashIcon } from "@heroicons/react/24/outline";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
  
 
-export default function DeleteAccnt(props) {
+export default function DeleteAccount(props) {
   const [open, setOpen] = useState(false);
  
   const handleOpen = () => setOpen(!open);
@@ -26,7 +28,8 @@ export default function DeleteAccnt(props) {
       console.log(res.data);
       if(res)
       {
-        alert("Customer has been deleted successfully");
+        
+        toast.success("Account has been deleted successfully");
         handleOpen();
       }
     });
@@ -36,20 +39,13 @@ export default function DeleteAccnt(props) {
  
   return (
     <>
+    
+    <ToastContainer position="top-center"/>
     <TrashIcon
                                 className="w-6 h-6 text-red-900 hover:scale-110 cursor-pointer"
                                 fill="none"
                                 onClick={handleOpen} 
                               />
-{/* 
-      <Button
-         className="mt-4 mx-10 hover:scale-105 bg-[#aa0000] 
-         text-gray-200 cursor-pointer"
-        type="button"
-        onClick={handleOpen} 
-      >
-        Delete
-      </Button> */}
       <Dialog open={open} handler={handleOpen}>
         <DialogHeader className="flex items-center justify-center text-center">Delete Confirmation</DialogHeader>
         

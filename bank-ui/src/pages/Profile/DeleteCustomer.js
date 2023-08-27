@@ -8,6 +8,8 @@ import {
 } from "@material-tailwind/react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
  
 
 export default function DeleteCustomer(props) {
@@ -27,7 +29,7 @@ export default function DeleteCustomer(props) {
       console.log(res.data);
       if(res)
       {
-        alert("Customer has been deleted successfully");
+        toast.success("Customer has been deleted successfully");
         navigate("/customer/view-customer");
       }
     });
@@ -37,8 +39,10 @@ export default function DeleteCustomer(props) {
  
   return (
     <>
+    
+    <ToastContainer position="top-center"/>
       <Button
-         className="mt-4 mx-10 hover:scale-105 bg-[#aa0000] 
+         className="mt-4 mx-10 w-24 hover:scale-105 bg-[#aa0000] 
          text-gray-200 cursor-pointer"
         type="button"
         onClick={handleOpen} 

@@ -13,7 +13,7 @@ import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function EditPin() {
+export default function ChangePin() {
   const {
     register,
     handleSubmit,

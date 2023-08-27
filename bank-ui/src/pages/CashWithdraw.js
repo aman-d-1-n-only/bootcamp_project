@@ -17,7 +17,6 @@ import axios from 'axios';
 import { CurrencyRupeeIcon } from '@heroicons/react/24/outline';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router-dom';
 import PinInput from '../components/PinInput';
 
 const CheckBalanceForm = (props) => {

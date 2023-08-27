@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-
-import Profile1 from "../img/Profile1.png";
-import Profile2 from "../img/Profile2.png";
-import Profile3 from "../img/Profile3.png";
-import Profile4 from "../img/Profile4.png";
-import UserProfile from "../img/UserProfile.png";
+import Profile1 from "../../img/Profile1.png";
+import Profile2 from "../../img/Profile2.png";
+import Profile3 from "../../img/Profile3.png";
+import Profile4 from "../../img/Profile4.png";
+import UserProfile from "../../img/UserProfile.png";
 import { Button, Switch, Tab, Typography } from "@material-tailwind/react";
 import axios from "axios";
 import UserDisable from "./UserDisable";
