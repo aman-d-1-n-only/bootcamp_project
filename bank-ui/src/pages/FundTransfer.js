@@ -52,7 +52,7 @@ const FundTransfer = () => {
            ).then((response) => {
             console.log("fund transfer response")
             console.log(response.data)
-            alert("Fund Transfer is Successful")
+            toast.success("Fund Transfer is Successful")
            }).catch((error) => {
             console.log(error)
             if(error.response.status === 404){

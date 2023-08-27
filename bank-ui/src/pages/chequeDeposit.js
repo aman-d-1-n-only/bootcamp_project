@@ -16,6 +16,7 @@ import {
   import Paper from '@mui/material/Paper';
   import axios from 'axios';
   import { styled } from '@mui/material/styles';
+  import {useForm , Controller} from "react-hook-form";
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -38,47 +39,54 @@ import {
   }));
   export default function ChequeDeposit() {
 
-    const [chequeDetails, setChequeDetails] = useState({
-      accNo : "",
-      amount: ""
-    })
-    // const transac = [
-    //   {
-    //     chequeNo : "101",
-    //     accNo : "1",
-    //     amount : 500
-    //   },
+    const { handleSubmit, control, formState: { errors }, reset,trigger } = useForm();
 
-    // ]
+    const [accNo, setAccNo] = useState("");
+    const [amount, setAmount] = useState();
     const [allTransaction, setAllTransaction] = useState([]);
     const [chequeTransactions , setChequeTransactions] = useState([]);
    
-    const handleChange = (event) => {
-      setChequeDetails({...chequeDetails , [event.target.name]:event.target.value});
+    
+  
+    const handleAccNo = (event) => {
+      setAccNo(event.target.value);
+    }
+    const handleAmount = (event) => {
+      setAmount(event.target.value);
     }
 
     const handleDeposit = () => {
-      // const withdrawData = {
+      const txnData = {
+        "status": "Success",
+        "amount": parseInt(amount),
+        "debitedFrom": -1,
+        "creditTo": accNo
+      }
+      axios.post('http://localhost:5165/api/txns' , txnData)
+      .then((response) => {
+        console.log(response.data);
+        setAmount("");
+        setAccNo("");
+      }).catch((error) => {
+        console.log(error)
+      })
 
-      // }
-      console.log("chequeDetails")
-      console.log(typeof chequeDetails.accNo, typeof chequeDetails.amount);
-      // const txnData = {
-      //   "status": "Success",
-      //   "amount": parseInt(chequeDetails.amount),
-      //   "debitedFrom": -1,
-      //   "creditTo": chequeDetails.accNo
-      // }
-      // axios.post('http://localhost:5165/api/txns' , txnData)
-      // .then((response) => {
-      //   console.log(response.data);
-        chequeDetails.accNo="";
-        chequeDetails.amount="";
-     
-      // }).catch((error) => {
-      //   console.log(error)
-      // })
-      
+      const chequeData = {
+        "accNo" : accNo,
+        "amount" : parseInt(amount)
+      }
+      axios.post('http://localhost:5165/chequeDeposit' , chequeData)
+      .then((response) => {
+        console.log(response.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+
+      reset({
+        accNo : "",
+        amount:0
+      })
     }
     const handleHistory = () => {
         axios.get('http://localhost:5165/api/txns')
@@ -106,10 +114,38 @@ import {
           Cheque Status
         </Typography>
        
-        <form className="mt-4 mb-2 w-80 max-w-screen-lg sm:w-96">
+        <form className="mt-4 mb-2 w-80 max-w-screen-lg sm:w-96" 
+           onSubmit = {handleSubmit(handleDeposit)}>
           <div className="mb-4 flex flex-col gap-6">
-            <Input size="lg" label="Enter Account Number" name = "accNo" value={chequeDetails.accNo} onChange = {handleChange}/>
-            <Input size="lg" label="Enter Amount" name = "amount"  value={chequeDetails.amount} onChange={handleChange} />
+          <Controller
+                      name="accNo"
+                      control={control}
+                      rules={{ required: 'Account number is required' }}
+                      render={({ field }) => (
+                        <>
+                          <Input size="lg" label="Enter Account Number" id = "accNo" name = "accNo" value={accNo} onChange = {handleAccNo} error = {errors.accNo?.message} onKeyUp = {() =>{
+              trigger("accNo");}
+            }/>
+                          {errors.accNo && <span className="-mt-3 flex items-center gap-1 font-normal text-red-600 text-sm"
+   > {errors.accNo?.message}</span>}
+                        </>
+                      )}
+                    />
+                    <Controller
+                      name="amount"
+                      control={control}
+                      rules={{ required: 'Amount is required' }}
+                      render={({ field }) => (
+                        <>
+                            <Input size="lg" label="Enter Amount" id = "amount" name = "amount"  value={amount} onChange={handleAmount} error = {errors.amount?.message} onKeyUp = {() => {
+              trigger("amount");}}/>
+                          {errors.amount && <span className="-mt-3 flex items-center gap-1 font-normal text-red-600 text-sm"
+   > {errors.amount?.message}</span>}
+                        </>
+                      )}
+                    />
+           
+          
           </div>
           
             <div className="flex flex-row space-x-2 items-center justify-center">
