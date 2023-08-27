@@ -39,14 +39,12 @@ export const AddCustomer = () => {
       });
   
       if (response.data) {
-        // alert("Customer Details Added successfully");
         toast.success("Customer add successfully");
        console.log("Customer add successfully");
-        // navigate('/customer/view-customer');
+        navigate('/customer/view-customer');
         // reset(); 
       }
     } catch (error) {
-      // Handle errors
     }
   };
 

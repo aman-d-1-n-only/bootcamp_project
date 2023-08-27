@@ -23,7 +23,7 @@ export default function AccntTable(props) {
     "Edit Pin",
     "Delete",
     "Withdraw Cash",
-    "Enable User"
+    "Disable User"
   ];
 
   // const [isDisabled, setIsDisabled] = useState(true);
@@ -161,7 +161,7 @@ export default function AccntTable(props) {
                             <Switch 
                             id={`Switch${item.accId}`}
                             className=""
-        checked={item.enable}
+        checked={!item.enable}
         onChange={()=>{
           item.enable=!(item.enable)
           const jwtToken=sessionStorage.getItem('jwtToken')

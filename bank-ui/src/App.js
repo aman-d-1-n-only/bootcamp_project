@@ -3,11 +3,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Login } from './pages/Login';
 import { Customer } from './components/Dashboard'
 import CustomerTable from './pages/CustomerTable';
-import CustomerList from './pages/CustomerList';
+// import CustomerList from './pages/CustomerList';
 import TransactionTable from './pages/TransactionTable';
-import TransactionList from './pages/TransactionList';
+// import TransactionList from './pages/TransactionList';
 import PrivateRoutes from './components/PrivateRoute';
 import  CashWithdraw  from './pages/CashWithdraw';
+import ChequeDeposit from './pages/chequeDeposit';
 import FundTransfer from './pages/FundTransfer';
 import 'react-toastify/dist/ReactToastify.css';
 import EditPin from './pages/EditPin';
@@ -38,6 +39,8 @@ function App() {
               <Route path="/customer/customer-profile" element={<Profile />} />
               <Route path = "/customer/fund-transfer" element={<FundTransfer/>}/>
               <Route path = "/customer/currency-change" element={<CurrencyChange/>}/>
+              <Route path = "/customer/cheque-deposit" element={<ChequeDeposit/>}/>
+
             </Route>
             <Route path="/" element={<Login />} />
 
