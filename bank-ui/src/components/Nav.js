@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
   Navbar,
-  MobileNav,
-  Typography,
   Button,
   IconButton,
   Collapse,
