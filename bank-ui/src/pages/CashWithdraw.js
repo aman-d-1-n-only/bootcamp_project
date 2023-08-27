@@ -18,6 +18,7 @@ import { CurrencyRupeeIcon } from '@heroicons/react/24/outline';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import PinInput from '../components/PinInput';
 
 const CheckBalanceForm = (props) => {
   const { handleSubmit, control, formState: { errors }, reset,trigger } = useForm();
@@ -225,26 +226,7 @@ const WithdrawMoneyForm = (props) => {
                       )}
                     />
 
-                    <Controller
-                      name="pin"
-                      control={control}
-                      rules={{
-                        required: "PIN is required",
-                        validate: {
-                          onlyNumbers: value => /^\d+$/.test(value) || "PIN must contain only numbers",
-                          validLength: (value) =>
-              value.length === 4 || "PIN must be 4 digits"
-          }
-                      }}
-                      render={({ field }) => (
-                        <>
-                          <Input label="Enter PIN" size="lg" id="pin" {...field} type="password" required onKeyUp={() => {
-                            trigger("pin");
-                          }}/>
-                          {errors.pin && <span className="-mt-3 flex items-center gap-1 font-normal text-red-600 text-sm">{errors.pin?.message}</span>}
-                        </>
-                      )}
-                    />
+                   <PinInput control={control} trigger={trigger} errors={errors} name="pin" label="Enter PIN"/>
         {errorMessage && (
           <div className="text-red-600 text-sm">{errorMessage}</div>
         )}
@@ -298,7 +280,7 @@ const CashWithdraw = () => {
             </Tabs>
           </CardBody>
         </Card>
-        <ToastContainer />
+    <ToastContainer position="top-center"/>
       </div>
     </>
   );

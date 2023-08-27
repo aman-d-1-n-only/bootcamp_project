@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-
 import axios from "axios";
 import {
   Card,
@@ -12,7 +11,8 @@ import {
 } from "@material-tailwind/react";
 import { BanknotesIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const AddCustomer = () => {
 
@@ -39,11 +39,11 @@ export const AddCustomer = () => {
       });
   
       if (response.data) {
-        alert("Customer Details Added successfully");
-        // toast.success("Customer add successfully");
-       
-        navigate('/customer/view-customer');
-        reset(); // Reset the form
+        // alert("Customer Details Added successfully");
+        toast.success("Customer add successfully");
+       console.log("Customer add successfully");
+        // navigate('/customer/view-customer');
+        // reset(); 
       }
     } catch (error) {
       // Handle errors
@@ -277,6 +277,8 @@ export const AddCustomer = () => {
             </form>
           </CardBody>
         </Card>
+        
+    <ToastContainer position="top-center"/>
       </div>
     </>
   );

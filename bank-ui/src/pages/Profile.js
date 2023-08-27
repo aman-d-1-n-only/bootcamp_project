@@ -18,6 +18,8 @@ import {ClipboardDocumentListIcon, UserIcon } from "@heroicons/react/24/outline"
 import Info from "../components/Info";
 import { Nav } from "../components/Nav";
 import ModalAccount from "../components/ModalAddAccnt";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // import AddAccnt2 from "../services/AddAccnt";
 
 import { useForm, Controller } from "react-hook-form";
@@ -100,9 +102,10 @@ export default function Profile() {
             console.log(response.data);
 
             if (response.data) {
-              alert(
-                `Account Details Added successfully for ${customerData.name}`);
-                
+              // alert(
+                // `Account Details Added successfully for ${customerData.name}`);
+                toast.success("Account Details add successfully");
+                console.log("success")
               toggleModal();
              
 
@@ -118,7 +121,6 @@ export default function Profile() {
 
   return (
     <>
-    {/* <Nav/> */}
       <div className="bg-gray-100 min-h-screen ">
         <div className="container mx-auto my-5 p-0">
           <div className="md:flex no-wrap md:-mx-2 ">
@@ -321,9 +323,9 @@ export default function Profile() {
             size="xs"
             open={showModal}
             handler={toggleModal}
-            className="bg-transparent shadow-none "
+            className="bg-transparent shadow-none min-w-fit"
           >
-            <Card className="">
+            <Card className="min-w-fit">
               <CardHeader
                 className=" grid place-items-center  py-8 px-4 text-center bg-gray-900 "
               >
@@ -340,9 +342,11 @@ export default function Profile() {
                 {/* Add Account */}
 
                 <form
-                  className="mt-8 flex flex-col gap-y-4 w-full "
+                  className="mt-8 flex flex-col gap-y-4  "
                   onSubmit={handleSubmit(SubmitAccount)}
                 >
+                                    <div className="flex flex-col gap-y-4  -mx-8 ">
+
                   <Controller
                     name="accType"
                     control={control}
@@ -493,16 +497,17 @@ export default function Profile() {
                       </>
                     )}
                   />
-
-                  <div className="flex items-center justify-center">
+</div>
+                  <div className="flex items-center justify-center gap-x-20">
                     <Button
                       type="submit"
-                      className="mt-4 mx-10 hover:scale-10 min-w-fit"
+                      className="mt-4 hover:scale-10 min-w-fit w-24
+                      hover:scale-105 "
                     >
                       Add
                     </Button>
                     <Button
-                      className="mt-4 mx-10 bg-gray-400   shadow-lowshade hover:scale-105 hover:bg-gray-500 cursor-pointer 
+                      className="mt-4 bg-gray-400  w-24 shadow-lowshade hover:scale-105 hover:bg-gray-500 
               text-gray-900 min-w-fit"
                       onClick={toggleModal}
                     >
@@ -532,6 +537,8 @@ custId={custId} setAccountDetails={setAccountDetails}
             </div>
           </div>
         </div>
+        
+    <ToastContainer position="top-center"/>
       </div>
     </>
   );

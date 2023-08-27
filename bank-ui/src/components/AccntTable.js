@@ -41,6 +41,7 @@ export default function AccntTable(props) {
       // setIsDisabled(!isDisabled);
     });
   }
+
   return (
     <div>
       {props.accountDetails.length > 0 ? (
@@ -171,7 +172,7 @@ export default function AccntTable(props) {
             }
     
         }).then(res => {
-            console.log(res.data);
+            console.log("this",res.data);
           // setIsDisabled(!isDisabled);
         })
         .catch((e)=>{

@@ -1,11 +1,7 @@
-import { ArrowPathRoundedSquareIcon, ArrowsRightLeftIcon, CurrencyRupeeIcon } from '@heroicons/react/24/solid'
+import { ArrowsRightLeftIcon, CurrencyRupeeIcon } from '@heroicons/react/24/solid'
 import { Button, Card, CardBody, CardHeader, Input, Option, Select, Typography } from '@material-tailwind/react'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { Nav } from '../components/Nav';
-import { ArrowPathIcon } from '@heroicons/react/24/outline';
-
-
 
 export default function CurrencyChange() {
   const [symbols,setSymbols]=useState([]);
@@ -16,39 +12,42 @@ export default function CurrencyChange() {
     to:""
   }
   const [currency,setCurrency]=useState(currencyInitialValues)
-  
-//   const flip=()=> {
-    
-//     var temp = currency.from;
-//     currency.from=currency.to;
-//     currency.to=temp;
-//     console.log(currency);
-// }
- 
+  const [errorMessage, setErrorMessage] = useState('');
+
   useEffect(() => {
     const API_KEY='1ffa00d5eeb5f22671e4cdeb120dca07'
     axios.post(`http://data.fixer.io/api/symbols?access_key=${API_KEY}`)
     .then(res => {
       console.log(res.data.symbols);
       setSymbols(Object.keys(res.data.symbols))
-  
   })
 }, []);
+
 const handleClick=()=>{
+  if(currency.amount === "" || currency.from === ""  || currency.to === "" ) {
+console.log("empty")
+setErrorMessage("All quatities are required")
+  } else if (isNaN(currency.amount) || parseFloat(currency.amount) <= 0) {
+  setErrorMessage("Please enter a valid amount value");
+} else {
+    setErrorMessage("");
+      convertCurrency();
+  }
+};
+
+const convertCurrency = () => {
   console.log(currency);
   const API_KEY='1ffa00d5eeb5f22671e4cdeb120dca07'
   axios.post(`http://data.fixer.io/api/latest?access_key=${API_KEY}&base =${currency.from}`) 
   .then(res => {
-    let temp=currency.amount+' '+currency.from+' = '+(currency.amount*(res.data.rates[currency.to]/res.data.rates[currency.from]))+' '+currency.to
+    // let temp=currency.amount+' '+currency.from+' = '+(currency.amount*(res.data.rates[currency.to]/res.data.rates[currency.from]))+' '+currency.to
+    const temp = `${currency.amount} ${currency.from} = ${(currency.amount * (res.data.rates[currency.to] / res.data.rates[currency.from]))} ${currency.to}`;
+        
     setResult(temp);
     console.log(temp);
-//  axios.post(`http://data.fixer.io/api/convert?access_key=${API_KEY}& from = ${currency.from}& to = ${currency.to}& amount = ${currency.amount}`)
-// axios.post(`http://data.fixer.io/api/latest?access_key=${API_KEY}&base=${currency.from}&symbols=${currency.to}`)
-  // alert(`${currency.amount} ${currency.from} = ${currency.amount*(res.data.rates[currency.to]/res.data.rates[currency.from])} ${currency.to}`);
-  // alert(res.data.error.info)
-  // result=`${currency.amount} ${currency.from} = ${currency.amount*(res.data.rates[currency.to]/res.data.rates[currency.from])} ${currency.to}`;
 })
-}
+};
+
 const handleChange=(e)=>
 {
   setCurrency({ ...currency, [e.target.id]: e.target.value });
@@ -62,6 +61,13 @@ const handleSwap = () => {
   });
 };
 
+const handleReset = () => {
+  setCurrency(currencyInitialValues);
+  setResult("");
+  setErrorMessage("");
+};
+
+
   return (
     <>
           
@@ -74,7 +80,7 @@ const handleSwap = () => {
                     className="py-6 mb-4 grid place-items-center"
                 >
                     <div className="text-white mb-4">
-                        {/* <BanknotesIcon className="h-14 w-14" /> */}
+                        
                         <CurrencyRupeeIcon className="h-16 w-16" />
                     </div>
                     <Typography variant="h3" color="white">
@@ -93,21 +99,7 @@ const handleSwap = () => {
                             id="amount"
                             required />    
 <div className=' w-full flex  items-end justify-around'>
-{/* <Select
-      id="from"
-      label="From"
-      onChange={handleChange}
-      value={currency.from}
-      required 
-        >
-          {symbols.map((item,index)=>{
-            return(
-              <Option key={index} value={item}>{item}</Option>
-            )
-          })}
-          
-        {/* <Option value="dollar">Dollar</Option> */}
-      {/* </Select> */} 
+
 <div >
       <Typography
         variant="small"
@@ -172,7 +164,8 @@ const handleSwap = () => {
       
     
       </div>
-
+      {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+       
                          <Button
                      className="my-2"
                      onClick={handleClick}                   
@@ -182,7 +175,7 @@ const handleSwap = () => {
                     </form>
                     <div>
 
-        {(result!=="") ? 
+        {result && 
                         (<Card className='mb-2 mt-6 outline-double shadow-lg mx-4 bg-gradient-to-t from-gray-300'>
                             <CardBody>
                                 <Typography className="place-items-center">
@@ -191,7 +184,7 @@ const handleSwap = () => {
                                    
                             </CardBody>
                         </Card>)
-                        :(<></>) }
+                 }
         </div>
                             </CardBody>
                

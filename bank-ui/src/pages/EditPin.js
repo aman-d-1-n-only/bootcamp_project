@@ -1,157 +1,178 @@
-import { CurrencyRupeeIcon } from '@heroicons/react/24/solid'
-import { Button, Card, CardBody, CardHeader, Input, Typography } from '@material-tailwind/react'
-import axios from 'axios';
-import React, { useState } from 'react'
-import { set } from 'react-hook-form';
-import {ToastContainer, toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { CurrencyRupeeIcon } from "@heroicons/react/24/solid";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Input,
+  Typography,
+} from "@material-tailwind/react";
+import axios from "axios";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function EditPin() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    trigger,
+    reset,
+  } = useForm();
 
-    
-    const pinInitialValues = {
-        accNo: 0,
-       existingPin:"",
-       newPin:"",
-       confirmNewPin:""
-    };
-    const visibilityInitialValues={  
-        accNo: false,
-        ExistingPin:false,
-        NewPin:false};
-
-    const [visibility,setVisibility]=useState(visibilityInitialValues)
-    const [errorMsg,setErrorMsg]=useState({
-        accNo: "",
-       ExistingPin:"",
-       NewPin:""
-
-    })
-    const [pinDetails,setPinDetails]=useState(pinInitialValues);
-    
   const [errorMessage, setErrorMessage] = useState("");
-    const handleChange = (e) => {
-        if ((e.target.name=== "existingPin")|| (e.target.name=== "newPin")||(e.target.name=== "confirmNewPin")) {
-            if (e.target.value.length > 4) {
-              setErrorMessage("Pin length should less than 4");
-            }
-        
-        else
-        setErrorMessage("");   }
-            
-        setPinDetails({ ...pinDetails, [e.target.name]: e.target.value });
-    }
-    const changePin=()=>{
-        const jwtToken=sessionStorage.getItem("jwtToken")
-        if(pinDetails.newPin !== pinDetails.confirmNewPin)
-        { 
-            // toast.error("New pin and confirm new pin should be same")
-            setErrorMessage("New pin and confirm new pin should be same");
-        }
-        else{
-        // delete pinDetails["confirmNewPin"];
-        setVisibility(visibilityInitialValues)
-        if (visibility.accNo === "" || visibility.ExistingPin  === "" || visibility.NewPin ==="") {
-            setErrorMessage("All the quatities are required ");
-          } 
-          
-        console.log(visibility);
-        axios.post(`http://localhost:5165/changePin`,pinDetails,{
+  const changePin = (data) => {
+    const jwtToken = sessionStorage.getItem("jwtToken");
+
+    if (data.newPin !== data.confirmNewPin) {
+      setErrorMessage("New pin and confirm new pin should be same");
+    } else {
+      axios
+        .post(`http://localhost:5165/changePin`, data, {
           headers: {
             Authorization: "bearer " + jwtToken,
           },
         })
         .then((res) => {
-          console.log(res.data);
-        //   toast.success(`Pin Changed successfully for Account Number : ${res.data.accId}`)
-        alert(`Pin Changed successfully for Account Number : ${res.data.accId}`)
-          window.location.reload();
-        }
-        ).catch((error) => {
-            if(error.response.status === 404){
-                // toast.error(error.response.data);
-                setErrorMessage(error.response.data);
-
-            }
-            else if(error.response.status === 400){
-                Object.keys(error.response.data.errors).map((key, index) => {
-                        // setErrors(error.response.data.errors[key])
-                     error.response.data.errors[key].map((val, i) => {
-                        // toast.error(val)
-                        setErrorMessage(val);
-                     })  
-                 })  
-            }
+          toast.success(
+            `Pin Changed successfully for Account Number : ${res.data.accId}`
+          );
+          setErrorMessage("");
+          reset();
+          // window.location.reload();
         })
-    };
+        .catch((error) => {
+          if (error.response.status === 404) {
+            setErrorMessage(error.response.data);
+          } else if (error.response.status === 400) {
+            Object.keys(error.response.data.errors).forEach((key) => {
+              error.response.data.errors[key].forEach((val) => {
+                // toast.error(val);
+                setErrorMessage(val);
+              });
+            });
+          }
+        });
     }
+  };
+
   return (
     <>
-                               <div className=" min-h-fit  h-full flex justify-center items-center "
-             >
-            <Card className="w-96 ">
-                <CardHeader
-                    color="gray"
-                    className="py-6 mb-4 grid place-items-center"
-                >
-                    <div className="text-white mb-4">
-                        {/* <BanknotesIcon className="h-14 w-14" /> */}
-                        <CurrencyRupeeIcon className="h-16 w-16" />
-                    </div>
-                    <Typography variant="h3" color="white">
-                        Change Pin
-                    </Typography>
-                </CardHeader>
-              
-                <CardBody className='px-10'>
-                            
-                            <form className=" flex flex-col gap-4">
-                            <Input onChange={handleChange} label="Enter Account Number" size="lg" 
-                           
-                            name="accNo"
-                            pattern="[0-9]{1}"
-                            required /> 
-                              <span className={`${visibility.accNo? "block": "hidden"} `}>
-                            {errorMsg.accNo}
-                            </span>
+      <div className="min-h-fit h-full flex justify-center items-center">
+        <Card className="w-96">
+          <CardHeader
+            color="gray"
+            className="py-6 mb-4 grid place-items-center"
+          >
+            <div className="text-white mb-4">
+              <CurrencyRupeeIcon className="h-16 w-16" />
+            </div>
+            <Typography variant="h3" color="white">
+              Change Pin
+            </Typography>
+          </CardHeader>
+          <CardBody className="px-10">
+            <form
+              className="flex flex-col gap-4"
+              onSubmit={handleSubmit(changePin)}
+            >
+              <Input
+                {...register("accNo", {
+                  required: "Account Number is required",pattern: {
+                    value: /^[1-9]+$/,
+                    message: "Enter Valid Account Number"
+                  },
+                })}
+                label="Enter Account Number"
+                size="lg"
+                // pattern="[0-9]{1}"
+                onKeyUp={() => {
+                  trigger("accNo");
+                }}
+                required
+              />
+              <span className="-mt-3 flex items-center gap-1 font-normal text-red-600 text-sm">
+                {errors.accNo?.message}
+              </span>
 
-                            <Input onChange={handleChange} label="Enter Old Pin" size="lg" 
-                           name="existingPin" 
-                        //    type="password"
-                            required />
-                            <span className={`${visibility.ExistingPin? "block": "hidden"} `}>
-                            {errorMsg.ExistingPin}
-                            </span>
+              <Input
+                {...register("existingPin", {
+                  required: "PIN is required",
+                  validate: {
+                    onlyNumbers: (value) =>
+                      /^\d+$/.test(value) || "PIN must contain only numbers",
+                    validLength: (value) =>
+                      value.length === 4 || "PIN must be 4 digits",
+                  },
+                })}
+                label="Enter Old Pin"
+                size="lg"
+                type="password"
+                onKeyUp={() => {
+                  trigger("existingPin");
+                }}
+                required
+              />
+              <span className="-mt-3 flex items-center gap-1 font-normal text-red-600 text-sm">
+                {errors.existingPin?.message}
+              </span>
 
-                        <Input onChange={handleChange} label="Enter New Pin" size="lg"
-                        name= "newPin"
-                            required />
-                              <span className={`${visibility.NewPin? "block": "hidden"} `}>
-                            {errorMsg.NewPin}
-                            </span>
+              <Input
+                {...register("newPin", {
+                  required: "PIN is required",
+                  validate: {
+                    onlyNumbers: (value) =>
+                      /^\d+$/.test(value) || "PIN must contain only numbers",
+                    validLength: (value) =>
+                      value.length === 4 || "PIN must be 4 digits",
+                  },
+                })}
+                label="Enter New Pin"
+                size="lg"
+                type="password"
+                onKeyUp={() => {
+                  trigger("newPin");
+                }}
+                required
+              />
+              <span className="-mt-3 flex items-center gap-1 font-normal text-red-600 text-sm">
+                {errors.newPin?.message}
+              </span>
 
-                        <Input onChange={handleChange} label="Confirm New Pin" size="lg" 
-                           required 
-                           name="confirmNewPin"/>
-<div className="text-red-600 mt-2 text-sm"> {errorMessage} </div>
-                         <Button
-                     className=""
-                     onClick={changePin}   
-                      >
-                            Change Pin
-                        </Button>
-                    </form>
-                    
-          
-                            </CardBody>
-               
-             </Card>
-          {/*  {pinError && <p>Your pin is invalid</p>}
-            {AccError && <p>Your Account Number is invalid</p>} */}
-            <ToastContainer/>
-        </div>
-                        </>
-                  
+              <Input
+                {...register("confirmNewPin", {
+                  required: "PIN is required",
+                  validate: {
+                    onlyNumbers: (value) =>
+                      /^\d+$/.test(value) || "PIN must contain only numbers",
+                    validLength: (value) =>
+                      value.length === 4 || "PIN must be 4 digits",
+                  },
+                })}
+                label="Confirm New Pin"
+                size="lg"
+                type="password"
+                onKeyUp={() => {
+                  trigger("confirmNewPin");
+                }}
+                required
+              />
 
-  )
+              <span className="-mt-3 flex items-center gap-1 font-normal text-red-600 text-sm">
+                {errors.confirmNewPin?.message}
+              </span>
+              {errorMessage && (
+                <div className="text-red-600 text-sm">{errorMessage}</div>
+              )}
+              <Button type="submit">Change Pin</Button>
+            </form>
+            <div className="text-red-600 mt-2 text-sm">{errors.message}</div>
+          </CardBody>
+        </Card>
+    <ToastContainer position="top-center"/>
+      </div>
+    </>
+  );
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Button,
   Dialog,
@@ -7,7 +7,6 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { TrashIcon } from "@heroicons/react/24/outline";
  
 
@@ -15,7 +14,6 @@ export default function DeleteAccnt(props) {
   const [open, setOpen] = useState(false);
  
   const handleOpen = () => setOpen(!open);
-  const navigate=useNavigate();
   const jwtToken=sessionStorage.getItem('jwtToken')
   const handleDelete=()=>{
     axios
