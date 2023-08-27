@@ -8,10 +8,12 @@ import Card5 from "../img/Card5.png";
 import Card6 from "../img/Card6.png";
 import Card7 from "../img/Card7.png";
 import Card8 from "../img/Card8.png";
+import { Nav } from "./Nav";
 
 export const Customer = () => {
   return (
     <>
+    {/* <Nav/> */}
               <div className=" lg:h-full sm:min-h-screen max-w-full py-8">
      <div className="flex flex-wrap items-center justify-center ">  <CustomerCard
           cardName="add-customer"

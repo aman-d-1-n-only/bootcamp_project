@@ -11,7 +11,7 @@ import {
   Button,
 } from "@material-tailwind/react";
 import axios from "axios";
-import LoginImage from "../img/LoginImage.png";
+
 // import Profile1 from "../img/Profile1.png"
 
 export const Login = () => {
@@ -33,7 +33,7 @@ export const Login = () => {
 
       if (response.data) {
         sessionStorage.setItem("jwtToken", response.data);
-        navigate("customer");
+        navigate("/");
       }
     } catch (error) {
       if (error.response) {

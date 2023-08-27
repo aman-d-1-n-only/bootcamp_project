@@ -1,5 +1,5 @@
 import { ArrowsRightLeftIcon, CurrencyRupeeIcon } from '@heroicons/react/24/solid'
-import { Button, Card, CardBody, CardHeader, Input, Option, Select, Typography } from '@material-tailwind/react'
+import { Button, Card, CardBody, CardHeader, Input, Typography } from '@material-tailwind/react'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
@@ -61,11 +61,11 @@ const handleSwap = () => {
   });
 };
 
-const handleReset = () => {
-  setCurrency(currencyInitialValues);
-  setResult("");
-  setErrorMessage("");
-};
+// const handleReset = () => {
+//   setCurrency(currencyInitialValues);
+//   setResult("");
+//   setErrorMessage("");
+// };
 
 
   return (

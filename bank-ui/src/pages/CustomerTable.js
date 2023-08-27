@@ -9,13 +9,12 @@ import SearchIcon from "@material-ui/icons/Search";
 import { useNavigate } from "react-router";
 
 export default function CustomerTable() {
-  const jwtToken = sessionStorage.getItem("jwtToken");
   const [data, setData] = useState([]);
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState("");
   const [t, setT] = useState([]);
-
+  
   const TABLE_HEAD = [
     "Customer Id",
     "Name",
@@ -26,7 +25,7 @@ export default function CustomerTable() {
     "Pincode",
     "View Profile",
   ];
-
+  
   const handleChange = (event) => {
     event.preventDefault();
     setSearchInput(event.target.value);
@@ -34,9 +33,9 @@ export default function CustomerTable() {
       filterList(event.target.value);
     }
   };
-
+  
   let transac;
-
+  
   const filterList = (searchInput) => {
     transac = [...data];
     transac = transac.filter(function (row) {
@@ -44,10 +43,11 @@ export default function CustomerTable() {
     });
     setT([...transac]);
   };
-
+  
   useEffect(() => {
+    const jwtToken = sessionStorage.getItem("jwtToken");
     axios
-      .get("http://localhost:5165/api/Customer", {
+    .get("http://localhost:5165/api/Customer", {
         headers: {
           Authorization: "bearer " + jwtToken,
         },

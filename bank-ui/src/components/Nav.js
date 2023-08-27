@@ -11,7 +11,7 @@ import {
 } from "@material-tailwind/react";
 
 import { useNavigate } from "react-router";
-import  {Bars3Icon, ChevronDownIcon, UserIcon, HomeIcon, XMarkIcon, ChevronDoubleLeftIcon, ChevronDoubleDownIcon } from "@heroicons/react/24/outline";
+import  {Bars3Icon, UserIcon, HomeIcon, XMarkIcon, ChevronDoubleLeftIcon, ChevronDoubleDownIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import { ChevronDoubleRightIcon, ChevronDoubleUpIcon } from "@heroicons/react/24/solid";
 
@@ -20,13 +20,24 @@ export function Nav() {
   
   const [openMenu, setOpenMenu] = React.useState(false);
   
-  const [expanded, setExpanded] = useState(false);
+  // const [expanded, setExpanded] = useState(false);
+  const [loginName,setLoginName]=useState(sessionStorage.getItem('jwtToken'));
   const navigate = useNavigate();
   const navRef = useRef(null);
   const handleClick = () => {
-    sessionStorage.removeItem('jwtToken');
-    sessionStorage.setItem('token', false)
-    navigate('/')
+    console.log(loginName);
+    if(loginName)
+    {
+      sessionStorage.removeItem('jwtToken');
+      sessionStorage.setItem('token', false);
+      setLoginName("")
+      // window.location.reload();
+      navigate('/')
+    }
+    else{
+      console.log("hi");
+      navigate('/login')
+    }
   }
 
  useEffect(() => {
@@ -85,7 +96,7 @@ export function Nav() {
 
       <Navbar  ref={navRef}className="sticky top-0 z-10 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-3">
         <div className="flex items-center justify-between text-blue-gray-900 ">
-            <Link to="/customer/" className="lg:text-lg mr-4 py-1.5 font-medium flex items-center justify-center gap-x-4  hover:scale-105"><HomeIcon variant="text"
+            <Link to="/" className="lg:text-lg mr-4 py-1.5 font-medium flex items-center justify-center gap-x-4  hover:scale-105"><HomeIcon variant="text"
               className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent hover:scale-105"
               ripple={false}
               /> 
@@ -137,7 +148,7 @@ export function Nav() {
               size="sm"
               className="hidden lg:inline-block"
             >
-               <span className=" flex items-center justify-center "><UserIcon className="w-6 h-6 mr-2"/>Logout</span>
+               <span className=" flex items-center justify-center "><UserIcon className="w-6 h-6 mr-2"/>{(loginName)?"Logout":"Login"}</span>
             </Button>
             <IconButton
               variant="text"
@@ -159,7 +170,7 @@ export function Nav() {
 {expandedNavList}
           <Button variant="gradient" size="sm" fullWidth className="mb-2"
            onClick={handleClick}>
-          <span className=" flex items-center justify-center "><UserIcon className="w-5 h-5 mr-2"/>Logout</span>
+          <span className=" flex items-center justify-center "><UserIcon className="w-5 h-5 mr-2"/>{(loginName)?"Logout":"Login"}</span>
           </Button> 
           
         </Collapse>

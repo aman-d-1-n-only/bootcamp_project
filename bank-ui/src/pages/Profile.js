@@ -16,8 +16,6 @@ import LeftProfileCard from "../components/LeftProfileCard";
 import AccntTable from "../components/AccntTable";
 import {ClipboardDocumentListIcon, UserIcon } from "@heroicons/react/24/outline";
 import Info from "../components/Info";
-import { Nav } from "../components/Nav";
-import ModalAccount from "../components/ModalAddAccnt";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // import AddAccnt2 from "../services/AddAccnt";
@@ -37,7 +35,6 @@ export default function Profile() {
   const customerData = location.state.data1;
   const custId = customerData.custId;
 
-  const [total, setTotal] = useState(0);
   const accntType=[
     "Current", "Savings"
   ]
@@ -61,10 +58,10 @@ export default function Profile() {
   const jwtToken = sessionStorage.getItem("jwtToken");
   // console.log(localStorage.getItem('disabled'));
   useEffect(() => {
+    
     const custId = customerData.custId;
     // const jwtToken = sessionStorage.getItem("jwtToken");
-    axios
-      .get(`http://localhost:5165/api/customer/${custId}/account`, {
+      axios.get(`http://localhost:5165/api/customer/${custId}/account`, {
         headers: {
           Authorization: "bearer " + jwtToken,
         },
@@ -76,7 +73,8 @@ export default function Profile() {
         // customerData = res.data;
         // setcustomerData(res.data);
       });
-  },[]);
+    
+  });
 
   // const [option,setOption]=useState();
   // const handleAccountChange = (e) => {
@@ -281,7 +279,7 @@ export default function Profile() {
                     >
                       {name}
                     </Button>
-                    <DeleteCustomer customerId={custId}/>
+                    <DeleteCustomer custId={custId}/>
 
                   </div>
                 </form>

@@ -11,20 +11,21 @@ import UserDisable from "./UserDisable";
 
 export default function LeftProfileCard(props) {
   const [total, setTotal] = useState(0);
-  const [visible, setVisible] = React.useState(false);
+  const [visible, setVisible] = useState(false);
   const jwtToken=sessionStorage.getItem('jwtToken');
   const image = [
 
-   {Profile1},
-   {Profile2},
-   {Profile3},
-   {Profile4}
+    Profile1,
+    Profile2,
+  Profile3,
+   Profile4
   ];
 
   const [randomImage, setRandomImage] = useState("");
 
   const getRandomImage = () => {
     const randomIndex = Math.floor(Math.random() * image.length);
+    console.log(randomIndex);
     setRandomImage(image[randomIndex]);
   };
 
@@ -44,16 +45,18 @@ export default function LeftProfileCard(props) {
          
         })
         setTotal(sum);
-        getRandomImage();
         // setAccountDetails(res.data);
         // customerData = res.data;
         // setcustomerData(res.data);
       });
-
-    // accountDetails.map((item) => {
-    //   setTotal(total + item.balance)
-    // })
-  },[]);
+      
+      // accountDetails.map((item) => {
+        //   setTotal(total + item.balance)
+        // })
+      });
+      useEffect(()=>{
+        getRandomImage();
+      },[])
 
   return (
     <>
@@ -67,7 +70,7 @@ export default function LeftProfileCard(props) {
 
           <div className="w-full flex items-center justify-center p-8 md:p-4">
             <img
-              src={Profile1}
+              src={randomImage}
               alt="user_profile_icon"
               className="rounded-full 
                   "

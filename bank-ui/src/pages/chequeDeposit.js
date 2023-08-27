@@ -1,12 +1,11 @@
 import {
     Card,
     Input,
-    Checkbox,
     Button,
     Typography,
   } from "@material-tailwind/react";
   import * as React from 'react';
-  import { useState , useEffect } from 'react';
+  import { useState  } from 'react';
   import Table from '@mui/material/Table';
   import TableBody from '@mui/material/TableBody';
   import TableCell, { tableCellClasses } from '@mui/material/TableCell';

@@ -6,14 +6,14 @@ export default function UserDisable() {
     const handleSwitchChange = () => {
       setIsDisabled(!isDisabled);
     };
-    const [isOpen, setIsOpen] = useState({});
+    // const [isOpen, setIsOpen] = useState({});
 
-    const toggleOpen = (category) => {
-      setIsOpen({
-        ...isOpen,
-        [category]: !isOpen[category],
-      });
-    };
+    // const toggleOpen = (category) => {
+    //   setIsOpen({
+    //     ...isOpen,
+    //     [category]: !isOpen[category],
+    //   });
+    // };
 
     localStorage.setItem('disabled',isDisabled);
   return (

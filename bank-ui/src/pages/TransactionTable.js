@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Button, Input, Card } from "@material-tailwind/react";
+import {  Input, Card } from "@material-tailwind/react";
 import SearchIcon from "@material-ui/icons/Search";
-import { useNavigate } from "react-router";
 
 export default function TransactionTable() {
   const [transactions, setTransactions] = useState([]);
