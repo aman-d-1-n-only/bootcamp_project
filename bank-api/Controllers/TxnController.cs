@@ -175,6 +175,26 @@ namespace BankApi.Controllers
             return NotFound("Pin doesn't matches !");
         }
 
+        [HttpPost, Route("/miniStatement")]
+        public async Task<ActionResult<AccountDTO>> MiniStatement([FromBody] AtmDTO transfer)
+        {
+            if (!ModelState.IsValid){
+                return BadRequest(ModelState);
+            }
+
+            var account = await _bankRepository.GetAccountAsync( transfer.AccNo);
+            if ( account == null ){
+                return NotFound($"There is no account with account number :{transfer.AccNo}");
+            }else if( account.Enable == false ){
+                return NotFound($"The account with account number :{transfer.AccNo} is disabled by bank.");
+            }
+
+            // if( account.Pin == transfer.Pin ){
+                var txns = await _bankRepository.GetMiniStatementAsync(transfer);
+                return Ok(txns);
+            // }
+            // return NotFound("Pin doesn't matches !");
+        }
 
     }
 }

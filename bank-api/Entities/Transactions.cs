@@ -19,6 +19,6 @@ namespace BankApi.Entities
 
         public int CreditTo { get; set; }
 
-        public string Date { get; set; } = DateTime.Now.ToString("yyyy-MM-dd") ;
+        public DateTime CreatedAt { get; set; } = DateTime.Now ;
     }
 }

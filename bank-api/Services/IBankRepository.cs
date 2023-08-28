@@ -18,7 +18,6 @@ namespace BankApi.Services {
         Task<Account?> GetAccountAsync( int AccNo);
         Task AddTransactionAsync(Transaction transaction);
         Task<IEnumerable<Transaction>> GetTransactionsAsync();
-
-
+        Task<IEnumerable<Transaction>> GetMiniStatementAsync( AtmDTO tranfer );
     }
 }

@@ -91,6 +91,9 @@ namespace bank_api.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -117,12 +120,11 @@ namespace bank_api.Migrations
                     b.Property<double>("Amount")
                         .HasColumnType("REAL");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("CreditTo")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("Date")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
 
                     b.Property<int>("DebitedFrom")
                         .HasColumnType("INTEGER");

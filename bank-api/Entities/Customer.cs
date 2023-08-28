@@ -22,6 +22,8 @@ namespace BankApi.Entities
 
         public string Pincode { get; set; }
 
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+
         public ICollection<Account> Accounts { get; set; } = new List<Account>();
 
         public Customer() {

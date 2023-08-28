@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -35,7 +36,8 @@ namespace bank_api.Migrations
                     City = table.Column<string>(type: "TEXT", nullable: false),
                     Email = table.Column<string>(type: "TEXT", nullable: false),
                     Contact = table.Column<string>(type: "TEXT", nullable: false),
-                    Pincode = table.Column<string>(type: "TEXT", nullable: false)
+                    Pincode = table.Column<string>(type: "TEXT", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -52,7 +54,7 @@ namespace bank_api.Migrations
                     Amount = table.Column<double>(type: "REAL", nullable: false),
                     DebitedFrom = table.Column<int>(type: "INTEGER", nullable: false),
                     CreditTo = table.Column<int>(type: "INTEGER", nullable: false),
-                    Date = table.Column<string>(type: "TEXT", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

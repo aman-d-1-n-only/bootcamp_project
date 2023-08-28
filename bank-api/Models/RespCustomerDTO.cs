@@ -15,6 +15,7 @@ namespace BankApi.Models
 
         public string Pincode { get; set; }
 
+        public DateTime CreatedAt { get; set; } 
 
     }
 }
