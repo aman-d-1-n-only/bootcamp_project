@@ -35,9 +35,12 @@ export default function LeftProfileCard(props) {
           sum += item.balance;
         });
         setTotal(sum);
-        getRandomImage();
       });
-  }, []);
+    });
+  useEffect(()=>{
+    getRandomImage();
+
+  },[])
 
   return (
     <>

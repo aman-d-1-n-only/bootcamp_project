@@ -14,6 +14,81 @@ export default function ChequeDeposit() {
     trigger,
   } = useForm();
  
+const dummyData=[
+  {
+      "txnId": 1,
+      "status": "Pending",
+      "amount": 3455,
+      "debitedFrom": 1,
+      "creditTo": 2,
+      "createdAt": "2023-08-28"
+  },
+  {
+      "txnId": 2,
+      "status": "Success",
+      "amount": 345,
+      "debitedFrom": 2,
+      "creditTo": 1,
+      "createdAt": "2023-08-23" 
+  },
+  {
+      "txnId": 3,
+      "status": "Success",
+      "amount": 55,
+      "debitedFrom": 1,
+      "creditTo": 2,
+      "createdAt": "2023-08-26" 
+  },
+  {
+      "txnId": 4,
+      "status": "Success",
+      "amount": 45,
+      "debitedFrom": 2,
+      "creditTo": 1,
+      "createdAt": "2023-08-28" 
+  },
+  {
+      "txnId": 5,
+      "status": "Success",
+      "amount": 1000,
+      "debitedFrom": 3,
+      "creditTo": 4,
+      "createdAt": "2023-08-27" 
+  },
+  {
+      "txnId": 6,
+      "status": "Success",
+      "amount": 2000,
+      "debitedFrom": 11,
+      "creditTo": 3,
+      "createdAt": "2023-08-28"
+  },
+  {
+      "txnId": 7,
+      "status": "Pending",
+      "amount": 2000,
+      "debitedFrom": 4,
+      "creditTo": 3,
+      "createdAt": "2023-08-25" 
+  },
+  {
+      "txnId": 8,
+      "status": "Success",
+      "amount": 2000,
+      "debitedFrom": 4,
+      "creditTo": 10,
+      "createdAt": "2023-08-28" 
+  },
+  {
+      "txnId": 9,
+      "status": "Pending",
+      "amount": 22,
+      "debitedFrom":7,
+      "creditTo": 2,
+      "createdAt": "2023-08-28" 
+  }
+]
+
   const [chequeTransactions, setChequeTransactions] = useState([]);
   const TABLE_HEAD = ["Cheque Number", "Account Number", "Amount", "Date"];
 
