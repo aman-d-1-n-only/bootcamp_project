@@ -55,6 +55,7 @@ export default function TransactionTable() {
     <>
       <div className="my-10 flex flex-col items-center justify-center gap-y-5">
         <div className="min-w-fit w-1/3 ">
+       
           <Input
             label="Enter Sender's Account Number"
             className="w-full "
@@ -102,7 +103,7 @@ export default function TransactionTable() {
                  <td className="p-3">{row.amount}</td>
                  <td className="p-3">{row.debitedFrom}</td>
                  <td className="p-3">{row.creditTo}</td>
-                 <td className="p-3">{row.date}</td>
+                 <td className="p-3">{row.createdAt}</td>
                  
                </tr>
                 ))}

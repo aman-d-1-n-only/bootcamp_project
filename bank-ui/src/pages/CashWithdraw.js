@@ -28,15 +28,14 @@ const CheckBalanceForm = (props) => {
     trigger,
   } = useForm();
 
-  const accountInitalValues = {
-    accId: 0,
-    balance: 0,
-    cardNo: "",
-    pin: "",
-  };
-  const [accountData, setAccountData] = useState({
-    accountInitalValues,
-  });
+  // const accountInitalValues = {
+  //  accType: "",
+  //   balance: 0,
+  //   cardNo: "",
+  //   pin: "",
+  //   enable: true
+  // };
+  const [accountData, setAccountData] = useState();
   const [visible, setVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -50,7 +49,7 @@ const CheckBalanceForm = (props) => {
     }
     try {
       const response = await axios.post(
-        `http://localhost:5165/api/checkBalance`, postData,
+        `http://localhost:5165/checkBalance`, postData,
         {
           headers: {
             Authorization: "bearer " + props.jwtToken,
@@ -58,6 +57,7 @@ const CheckBalanceForm = (props) => {
         }
       );
       setAccountData(response.data);
+      console.log(response.data)
       setVisible(true);
       reset({
         accNo: "",
@@ -158,8 +158,8 @@ const CheckBalanceForm = (props) => {
       {visible && (
         <Card className="mb-2 mt-6 outline-double shadow-lg mx-4 bg-gradient-to-t from-gray-300">
           <CardBody>
-            <Typography>Card Number: {accountData.cardNo}</Typography>
-            <Typography>Balance: {accountData.balance}</Typography>
+           
+            <Typography>Balance: {accountData}</Typography>
           </CardBody>
         </Card>
       )}

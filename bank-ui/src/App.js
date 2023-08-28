@@ -20,6 +20,7 @@ import ChangePin from './pages/ChangePin';
 import Profile from './pages/Profile/Profile';
 import { Nav } from './components/Nav';
 import { Customer } from './components/HomePage';
+import MiniStatement from './pages/MiniStatement';
 // import { Customer } from './components/Dashboard';
 
 function App() {
@@ -42,6 +43,8 @@ function App() {
               <Route path = "/customer/cheque-deposit" element={<ChequeDeposit/>}/>
               <Route path="/customer/cash-withdraw" element={<CashWithdraw />} />
             <Route path = "/customer/currency-change" element={<CurrencyChange/>}/>
+            <Route path = "/customer/mini-statement" element={<MiniStatement/>}/>
+
             <Route path="/" element={<Customer />}  />
             <Route path="*" element={<Navigate to="/" replace />} />
             </Route>
