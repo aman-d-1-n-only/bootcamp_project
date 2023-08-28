@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
+
+import BankLogo from "../img/BankLogo.png";
 import {
   Navbar,
   Button,
@@ -172,12 +174,13 @@ export function Nav() {
           to="/"
           className="lg:text-lg mr-4 py-1.5 font-medium flex items-center justify-center gap-x-4  hover:scale-105"
         >
-          <HomeIcon
+          {/* <HomeIcon
             variant="text"
             className="ml-auto h-7 w-7 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent hover:scale-105"
             ripple={false}
-          />
-        <div className="text-xl">Home</div> 
+          /> */}
+          <img  className="ml-auto h-8 w-8 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent hover:scale-105"  src={BankLogo} alt="bank_logo" />
+ <div className="text-xl">Namma Bank</div> 
         </Link>
 
           <div className="flex items-center gap-4">

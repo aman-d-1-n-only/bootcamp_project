@@ -8,13 +8,10 @@ import Card5 from "../img/Cards/Card5.png";
 import Card6 from "../img/Cards/Card6.png";
 import Card7 from "../img/Cards/Card7.png";
 import Card8 from "../img/Cards/Card8.png";
-import { Nav } from "./Nav";
 
-export const Customer = () => {
+export const Dashboard = () => {
   return (
     <>
-    {/* <Nav/> */}
-              <div className=" lg:h-full sm:min-h-screen max-w-full py-8">
      <div className="flex flex-wrap items-center justify-center ">  <CustomerCard
           cardName="add-customer"
           img={Card1}
@@ -47,9 +44,7 @@ export const Customer = () => {
           cardName="cheque-deposit"
           img={Card8}
           />
-     </div>  </div>
-      {/* </div> */}
-     
+     </div>  
     </>
   );
 };
