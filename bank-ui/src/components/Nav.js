@@ -88,6 +88,12 @@ export function Nav() {
       >
         Transaction
       </Link>
+      <Link
+        to="/customer/mini-statement"
+        className="p-2 text-blue-gray-800 flex items-center hover:scale-105 hover:bg-gradient-to-b focus:bg-gradient-to-b from-gray-200 rounded-2xl "
+      >
+        Mini Statement
+      </Link>
     </ul>
   );
 

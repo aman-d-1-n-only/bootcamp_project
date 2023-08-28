@@ -186,6 +186,14 @@ const WithdrawMoneyForm = (props) => {
       pin: pin,
     };
 
+    axios.post("http://localhost:5165/api/txns",{
+      status:"Success",
+      amount: parseInt(amount),
+      debitedFrom: parseInt(accountId),
+      creditedTo: "",
+    }).then((res)=>{
+      console.log(res.data);
+    })
     console.log("withData");
     try {
       const response = await axios.post(

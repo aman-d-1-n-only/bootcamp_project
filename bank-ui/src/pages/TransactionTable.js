@@ -42,9 +42,12 @@ export default function TransactionTable() {
     axios
       .get("http://localhost:5165/api/txns")
       .then((response) => {
-        setTransactions(response.data);
-        console.log("response");
         console.log(response.data);
+        const filteredData=response.data.filter(obj=>{
+          return obj.debitedFrom!=-1
+        })
+        setTransactions(filteredData);
+        console.log("response");
       })
       .catch((error) => {
         console.log(error);
@@ -103,7 +106,7 @@ export default function TransactionTable() {
                  <td className="p-3">{row.amount}</td>
                  <td className="p-3">{row.debitedFrom}</td>
                  <td className="p-3">{row.creditTo}</td>
-                 <td className="p-3">{row.createdAt}</td>
+                 <td className="p-3">{row.createdAt.split('T')[0]}</td>
                  
                </tr>
                 ))}

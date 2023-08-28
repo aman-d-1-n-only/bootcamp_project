@@ -65,8 +65,8 @@ const MiniStatement =  (props) => {
           },
         }
       );
-      setTransactions(response.data);
       console.log(response.data)
+      setTransactions(response.data);
       
       reset({
         accNo: "",
@@ -143,8 +143,8 @@ const MiniStatement =  (props) => {
                 label="Enter Pin"
                 size="lg"
                 id="pin"
+                type="password"
                 {...field}
-                type="text"
                 error={errors.pin?.message}
                 required
                 onKeyUp={() => {
@@ -195,7 +195,7 @@ const MiniStatement =  (props) => {
            <td className="p-3">{row.amount}</td>
            <td className="p-3">{row.debitedFrom}</td>
            <td className="p-3">{row.creditTo}</td>
-           <td className="p-3">{row.date}</td>
+           <td className="p-3">{row.createdAt.split('T')[0]}</td>
            
          </tr>
           ))}

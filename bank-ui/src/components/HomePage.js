@@ -49,6 +49,10 @@ export const Customer = () => {
           cardName="transactions"
           img={Card3}
         />
+         <CustomerCard
+          cardName="mini-statement"
+          img={Card3}
+        />
         <CustomerCard
           cardName="cash-withdraw"
           img={Card4}
