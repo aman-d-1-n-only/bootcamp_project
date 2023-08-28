@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Input, Card } from "@material-tailwind/react";
-import SearchIcon from "@material-ui/icons/Search";
+import {
+  MagnifyingGlassIcon
+} from "@heroicons/react/24/outline";
 
 export default function TransactionTable() {
   const [transactions, setTransactions] = useState([]);
@@ -59,7 +61,8 @@ export default function TransactionTable() {
             size="lg"
             value={searchInput}
             onChange={handleChange}
-            icon={<SearchIcon className=" border-l-2 border-blue-gray-100" />}
+            icon={<
+              MagnifyingGlassIcon className=" border-l-2 border-blue-gray-100" />}
           />
           {/* <input  placeholder="Enter Customer ID"className="w-72 items-center"
             size="lg"

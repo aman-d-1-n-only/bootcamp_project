@@ -10,7 +10,6 @@ import TransactionTable from './pages/TransactionTable';
 import PrivateRoutes, { NormalRoutes } from './components/PrivateRoute';
 import  CashWithdraw  from './pages/CashWithdraw';
 // import ChequeDeposit from './pages/ChequeDeposit';
-
 import ChequeDeposit from './pages/ChequeDepositTable';
 import FundTransfer from './pages/FundTransfer';
 import 'react-toastify/dist/ReactToastify.css';
@@ -20,8 +19,8 @@ import ViewCustomer from './pages/ViewCustomer';
 import ChangePin from './pages/ChangePin';
 import Profile from './pages/Profile/Profile';
 import { Nav } from './components/Nav';
-// import { Customer } from './components/HomePage';
-import { Customer } from './components/Dashboard';
+import { Customer } from './components/HomePage';
+// import { Customer } from './components/Dashboard';
 
 function App() {
   return (
