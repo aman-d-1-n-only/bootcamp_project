@@ -120,7 +120,7 @@ function AddAccountModal({
                                   rules={{
                                     required: "Balance is required",
                                     pattern: {
-                                      value: /^[1-9]+$/,
+                                      value: /^[1-9][0-9]*$/,
                                       message: "Enter a valid balance",
                                     }, // },
                                     min: {

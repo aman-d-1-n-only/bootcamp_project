@@ -1,5 +1,5 @@
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
-import { useState} from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
@@ -13,8 +13,11 @@ export default function ChequeDeposit() {
     reset,
     trigger,
   } = useForm();
- 
+
   const [chequeTransactions, setChequeTransactions] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 9;
+
   const TABLE_HEAD = ["Cheque Number", "Account Number", "Amount", "Date"];
 
   const handleDeposit = (data) => {
@@ -77,6 +80,10 @@ export default function ChequeDeposit() {
     setChequeTransactions([...transac]);
   };
 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = chequeTransactions.slice(indexOfFirstItem, indexOfLastItem);
+
   return (
     <>
     
@@ -84,8 +91,9 @@ export default function ChequeDeposit() {
       <Card
         color="transparent"
         shadow={false}
-        className="w-full flex justify-center items-center my-4"
+        className="w-full my-6 flex justify-center items-center"
       >
+        <div className="flex justify-center items-center flex-col shadow-lg w-fit p-6 rounded-lg">
         <div className="p-1 border-b-2 border-gray-800 mb-4">
         <Typography variant="h4" className="text-gray-800">
           Cheque Status
@@ -174,31 +182,30 @@ export default function ChequeDeposit() {
             </Button>
           </div>
         </form>
+        </div>
       </Card>
 
- 
-    <div className="w-full h-fit bg-white py-5 px-10">
+      {chequeTransactions.length > 0 && (
+      <div className="w-full h-fit bg-white py-5 px-10">
         <Card className="h-full w-full overflow-auto rounded-none">
-          <table className="w-full min-w-max table-auto text-center overflow-auto">
+          <table className="w-full min-w-max table-auto text-center">
             <thead>
               <tr>
                 {TABLE_HEAD.map((head) => (
                   <th
                     key={head}
-                    varian="gradient"
-                    className="border-b border-gray-300 bg-gray-900 p-5 font-normal leading-none  text-gray-50 text-center"
+                    className="border-b border-gray-300 bg-gray-900 p-5 font-normal leading-none text-gray-50 text-center"
                   >
                     {head}
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody className="text-center text-sm overflow-auto">
-              {/* {chequeTransactions?.slice(0, 9).map((row) => ( */}
-              {chequeTransactions?.map((row) => (
+            <tbody className="text-center text-sm">
+              {currentItems.map((row) => (
                 <tr
                   key={row.txnId}
-                  className="even:bg-gray-100/100 border-b border-blue-gray-50 overflow-auto"
+                  className="even:bg-gray-100/100 border-b border-blue-gray-50"
                 >
                   <td className="p-3 ">{row.txnId}</td>
                   <td className="p-3 ">{row.creditTo}</td>
@@ -209,7 +216,27 @@ export default function ChequeDeposit() {
             </tbody>
           </table>
         </Card>
+
+        <div className="flex justify-center mt-4">
+          <Button
+            onClick={() => setCurrentPage(currentPage - 1)}
+            variant="gradient"
+            disabled={currentPage === 1}
+          >
+            
+            Previous
+          </Button>
+          <Button
+            onClick={() => setCurrentPage(currentPage + 1)}
+            variant="gradient"
+            disabled={indexOfLastItem >= chequeTransactions.length}
+            className="ml-2"
+          >
+            Next
+          </Button>
+        </div>
       </div>
+  )}
     </>
   );
 }

@@ -118,7 +118,8 @@ const CheckBalanceForm = (props) => {
           control={control}
           rules={{ required: "Account ID is required",
           pattern: {
-            value: /^[1-9]+$/,
+            
+            value: /^[1-9][0-9]*$/,
             message: "Enter a valid account number",
           }, }}
           render={({ field }) => (
@@ -233,7 +234,8 @@ const WithdrawMoneyForm = (props) => {
           control={control}
           rules={{ required: "Account ID is required",
           pattern: {
-            value: /^[1-9]+$/,
+           
+            value: /^[1-9][0-9]*$/,
             message: "Enter a valid Account ID",
           }, }}
           render={({ field }) => (
@@ -265,7 +267,8 @@ const WithdrawMoneyForm = (props) => {
           rules={{
             required: "Balance is required",
             pattern: {
-              value: /^[1-9]+$/,
+             
+              value: /^[1-9][0-9]*$/,
               message: "Enter a valid amount",
             },
           }}
@@ -276,6 +279,7 @@ const WithdrawMoneyForm = (props) => {
                 size="lg"
                 id="amount"
                 type="number"
+                min="1"
                 {...field}
                 error={errors.amount?.message}
                 required

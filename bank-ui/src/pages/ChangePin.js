@@ -81,7 +81,8 @@ export default function ChangePin() {
               <Input
                 {...register("accNo", {
                   required: "Account Number is required",pattern: {
-                    value: /^[1-9]+$/,
+                    
+                    value: /^[1-9][0-9]*$/,
                     message: "Enter Valid Account Number"
                   },
                 })}

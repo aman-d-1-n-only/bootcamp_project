@@ -85,7 +85,7 @@ const FundTransfer = () => {
             <Input
               {...register("accNo1", { required: "Sender's Account Number is required",
               pattern: {
-                value: /^[1-9]+$/,
+                value: /^[1-9][0-9]*$/,
                 message: "Enter Valid Account Number"
               },
             })}
@@ -103,7 +103,8 @@ const FundTransfer = () => {
 
             <Input
               {...register("accNo2", { required: "Receiver's Account Number is required",pattern: {
-                value: /^[1-9]+$/,
+             
+                value: /^[1-9][0-9]*$/,
                 message: "Enter Valid Account Number"
               },
             })}
@@ -122,7 +123,7 @@ const FundTransfer = () => {
             <Input
               {...register("amount", { required: "Amount is required",
               pattern: {
-                value: /^[1-9]+$/,
+                value: /^[1-9][0-9]*$/,
                 message: "Enter a valid amount"
                 } , 
              })}
