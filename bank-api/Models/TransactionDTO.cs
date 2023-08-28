@@ -16,7 +16,6 @@ namespace BankApi.Models
         [Required]
         public int CreditTo { get; set; }
 
-        public DateTime CreatedAt { get; set; } 
 
     }
     

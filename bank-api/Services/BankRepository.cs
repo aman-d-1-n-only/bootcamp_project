@@ -87,7 +87,7 @@ namespace BankApi.Services {
 
         public async Task<IEnumerable<Transaction>> GetMiniStatementAsync( AtmDTO transfer )
         {
-            return await _context.Transaction.OrderBy( t => t.CreatedAt ).Where( t => t.DebitedFrom != -1 && ( t.CreditTo == transfer.AccNo || t.DebitedFrom == transfer.AccNo ) ).ToListAsync();
+            return await _context.Transaction.OrderByDescending( t => t.CreatedAt ).Where( t => t.DebitedFrom != -1 && ( t.CreditTo == transfer.AccNo || t.DebitedFrom == transfer.AccNo ) ).ToListAsync();
             throw new NotImplementedException();
         }
     }

@@ -176,7 +176,7 @@ namespace BankApi.Controllers
         }
 
         [HttpPost, Route("/miniStatement")]
-        public async Task<ActionResult<AccountDTO>> MiniStatement([FromBody] AtmDTO transfer)
+        public async Task<ActionResult<IEnumerable<Transaction>>> MiniStatement([FromBody] AtmDTO transfer)
         {
             if (!ModelState.IsValid){
                 return BadRequest(ModelState);
