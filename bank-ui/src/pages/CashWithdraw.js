@@ -43,10 +43,14 @@ const CheckBalanceForm = (props) => {
   const handleBalance = async (data) => {
     console.log("this is data", data);
     // console.log(errors)
-    const { customerId, accountId } = data;
+    const { accNo, pin } = data;
+    let postData = {
+      "accNo": accNo,
+      "pin": pin
+    }
     try {
-      const response = await axios.get(
-        `http://localhost:5165/api/customer/${customerId}/account/${accountId}`,
+      const response = await axios.post(
+        `http://localhost:5165/api/checkBalance`, postData,
         {
           headers: {
             Authorization: "bearer " + props.jwtToken,
@@ -56,8 +60,8 @@ const CheckBalanceForm = (props) => {
       setAccountData(response.data);
       setVisible(true);
       reset({
-        customerId: "",
-        accountId: "",
+        accNo: "",
+        pin : "",
       });
 
       setErrorMessage("");
@@ -86,27 +90,27 @@ const CheckBalanceForm = (props) => {
         onSubmit={handleSubmit(handleBalance)}
       >
         <Controller
-          name="customerId"
+          name="accNo"
           control={control}
-          rules={{ required: "Customer ID is required" }}
+          rules={{ required: "Account Number is required" }}
           render={({ field }) => (
             <>
               <Input
-                label="Enter CustomerId"
+                label="Enter Account Number"
                 size="lg"
-                id="customerId"
+                id="accNo"
                 {...field}
                 type="number"
-                error={errors.customerId?.message}
+                error={errors.accNo?.message}
                 required
                 onKeyUp={() => {
-                  trigger("customerId");
+                  trigger("accNo");
                 }}
               />
-              {errors.customerId && (
+              {errors.accNo && (
                 <span className="-mt-3 flex items-center gap-1 font-normal text-red-600 text-sm">
                   {" "}
-                  {errors.customerId?.message}
+                  {errors.accNo?.message}
                 </span>
               )}
             </>
@@ -114,31 +118,31 @@ const CheckBalanceForm = (props) => {
         />
 
         <Controller
-          name="accountId"
+          name="pin"
           control={control}
-          rules={{ required: "Account ID is required",
+          rules={{ required: "Pin is required",
           pattern: {
             
             value: /^[1-9][0-9]*$/,
-            message: "Enter a valid account number",
+            message: "Enter a valid pin",
           }, }}
           render={({ field }) => (
             <>
               <Input
-                label="Enter Account Number"
+                label="Enter Pin"
                 size="lg"
-                id="accountId"
+                id="pin"
                 {...field}
                 type="number"
-                error={errors.accountId?.message}
+                error={errors.pin?.message}
                 required
                 onKeyUp={() => {
-                  trigger("accountId");
+                  trigger("pin");
                 }}
               />
-              {errors.accountId && (
+              {errors.pin && (
                 <span className="-mt-3 flex items-center gap-1 font-normal text-red-600 text-sm">
-                  {errors.accountId?.message}
+                  {errors.pin?.message}
                 </span>
               )}
             </>
@@ -154,7 +158,7 @@ const CheckBalanceForm = (props) => {
       {visible && (
         <Card className="mb-2 mt-6 outline-double shadow-lg mx-4 bg-gradient-to-t from-gray-300">
           <CardBody>
-            <Typography>Account Number: {accountData.accId}</Typography>
+            <Typography>Card Number: {accountData.cardNo}</Typography>
             <Typography>Balance: {accountData.balance}</Typography>
           </CardBody>
         </Card>

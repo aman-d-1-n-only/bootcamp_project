@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { Login } from './pages/Login';
+import { Login } from './pages/login';
 // import { Customer } from './components/Dashboard'
 
 import CustomerTable from './pages/ViewCustomer';
