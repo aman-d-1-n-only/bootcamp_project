@@ -73,7 +73,7 @@ namespace BankApi.Controllers
         }
 
         [HttpPut, Route("{AccId:int}")]
-        public async Task<IActionResult> UpdateAccount([FromRoute] int CustId, int AccId , AccountDTO updatedAccount )
+        public async Task<IActionResult> UpdateAccount([FromRoute] int CustId, int AccId , UpdateAccountDTO updatedAccount )
         {
             if (!ModelState.IsValid)
             {
