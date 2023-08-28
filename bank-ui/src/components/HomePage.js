@@ -27,11 +27,15 @@ export const Customer = () => {
     <div className="container m-auto text-center opacity-100 ">
       <h1 className="text-4xl font-bold mb-2 text-gray-800">Welcome!!!</h1>
       <h3 className="text-2xl mb-8 text-gray-600 ont-normal leading-wide ">Thank you for choosing us for your financial needs.</h3>
-      <Button size="lg" className="rounded-full">View Services</Button>
+      <a href="#services">
+              <Button size="lg" className="rounded-full">
+                View Services
+              </Button>
+            </a>
     </div>
   </div>
         <div className="w-full h-full bg-gray-100 py-6 overflow-x-none">
-        <section className="container mx-auto p-10 bg-white  shadow-md my-8 overflow-x-none">
+        <section id="services" className="container mx-auto p-10 bg-white  shadow-md my-8 overflow-x-none">
           <h4 className="text-3xl font-bold text-center text-gray-600 mb-8">Our Services</h4>
           <div className="flex flex-wrap items-center justify-center ">  <CustomerCard
           cardName="add-customer"
