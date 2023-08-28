@@ -19,7 +19,8 @@ export default function PinInput({control, errors, trigger, name,label}) {
                       }}
                       render={({ field }) => (
                         <>
-                          <Input label={label} size="lg"{...field} type="password" required onKeyUp={() => {
+                          <Input label={label} size="lg"{...field} type="password" 
+                          required onKeyUp={() => {
                             trigger(`${name}`);
                           }}/>
                           {errors[name] && <span className="-mt-3 flex items-center gap-1 font-normal text-red-600 text-sm">{errors[name]?.message}</span>}

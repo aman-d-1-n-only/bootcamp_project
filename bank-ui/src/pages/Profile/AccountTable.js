@@ -8,6 +8,9 @@ import {
 import DeleteAccount from "./DeleteAccount";
 import axios from "axios";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function AccountTable(props) {
   const navigate = useNavigate();
 
@@ -41,6 +44,9 @@ export default function AccountTable(props) {
   };
 
   return (
+    <>
+    
+    <ToastContainer position="top-center"/>
     <div>
       {props.accountDetails.length > 0 && (
         <>
@@ -126,6 +132,10 @@ export default function AccountTable(props) {
                                   )
                                   .then((res) => {
                                     console.log("this", res.data);
+                                  {!item.enable &&  toast.success("Account disabled successfully")};
+                                  
+                                  {item.enable &&  toast.success("Account enabled successfully")};
+       
                                     // setIsDisabled(!isDisabled);
                                   })
                                   .catch((e) => {
@@ -144,5 +154,6 @@ export default function AccountTable(props) {
         </>
       )}
     </div>
+    </>
   );
 }

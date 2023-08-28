@@ -4,6 +4,7 @@ import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SearchIcon from "@material-ui/icons/Search";
 
 export default function ChequeDeposit() {
   const {
@@ -15,11 +16,15 @@ export default function ChequeDeposit() {
   } = useForm();
 
   const [chequeTransactions, setChequeTransactions] = useState([]);
+  const [showTable , setShowTable] = useState(true);
+  const [searchInput, setSearchInput] = useState();
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchList , setSearchList] = useState([]);
   const itemsPerPage = 9;
 
-  const TABLE_HEAD = ["Cheque Number", "Account Number", "Amount", "Date"];
+  const TABLE_HEAD = ["Cheque Number", "Account Number","Cheque Status" ,  "Amount", "Date"];
 
+ 
   const handleDeposit = (data) => {
     console.log(chequeTransactions);
     console.log("data",data)
@@ -61,6 +66,7 @@ export default function ChequeDeposit() {
 
   };
   const handleHistory = () => {
+    setShowTable(true)
     console.log("history")
     axios
       .get("http://localhost:5165/api/txns")
@@ -77,9 +83,30 @@ export default function ChequeDeposit() {
     transac = transac.filter(function (transaction) {
       return parseInt(transaction.debitedFrom) === parseInt(-1);
     });
+    
+    if(searchInput){
+      transac = transac.filter(function (transaction) {
+        return parseInt(transaction.txnId) === parseInt(searchInput)
+      })
+    }
     setChequeTransactions([...transac]);
+   
   };
-
+  const searchFilter = (input) => {
+    let transac = [...chequeTransactions];
+    if(input){
+      transac = transac.filter(function (transaction) {
+        return parseInt(transaction.txnId) === parseInt(input)
+      })
+    }
+    setSearchList([...transac]);
+    
+  }
+  const handleInput = (event) => {
+    setSearchInput(event.target.value);
+    searchFilter(event.target.value)
+  }
+  
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = chequeTransactions.slice(indexOfFirstItem, indexOfLastItem);
@@ -185,8 +212,31 @@ export default function ChequeDeposit() {
         </div>
       </Card>
 
-      {chequeTransactions.length > 0 && (
-      <div className="w-full h-fit bg-white py-5 px-10">
+      {(chequeTransactions.length > 0 && showTable) && (
+
+
+        <div>
+        
+      <div className="w-full h-fit bg-white py-5 px-10  flex flex-col items-center justify-center ">
+      <div className=" min-w-fit w-1/3 mb-6 ">
+        <Input
+          label="Enter Cheque Number"
+          className="w-full "
+          size="lg"
+          value={searchInput}
+          onChange={handleInput}
+          icon={<SearchIcon className=" border-l-2 border-blue-gray-100" />}
+        />
+        {/* <input  placeholder="Enter Customer ID"className="w-72 items-center"
+          size="lg"
+          value={searchInput}
+          onChange={handleChange}
+           >
+            
+          </input>
+          <SearchIcon/> */}
+      </div>
+        
         <Card className="h-full w-full overflow-auto rounded-none">
           <table className="w-full min-w-max table-auto text-center">
             <thead>
@@ -201,24 +251,41 @@ export default function ChequeDeposit() {
                 ))}
               </tr>
             </thead>
-            <tbody className="text-center text-sm">
-              {currentItems.map((row) => (
+            {searchInput 
+            ? <tbody className="text-center text-sm">
+              {searchList?.map((row) => (
                 <tr
                   key={row.txnId}
                   className="even:bg-gray-100/100 border-b border-blue-gray-50"
                 >
                   <td className="p-3 ">{row.txnId}</td>
                   <td className="p-3 ">{row.creditTo}</td>
+                  <td className="p-3 ">{row.status}</td>
                   <td className="p-3 ">{row.amount}</td>
                   <td className="p-3 ">{row.date}</td>
                 </tr>
               ))}
             </tbody>
+            :<tbody className="text-center text-sm">
+              {currentItems?.map((row) => (
+                <tr
+                  key={row.txnId}
+                  className="even:bg-gray-100/100 border-b border-blue-gray-50"
+                >
+                  <td className="p-3 ">{row.txnId}</td>
+                  <td className="p-3 ">{row.creditTo}</td>
+                  <td className="p-3 ">{row.status}</td>
+                  <td className="p-3 ">{row.amount}</td>
+                  <td className="p-3 ">{row.date}</td>
+                </tr>
+              ))}
+            </tbody>}
+            
           </table>
         </Card>
 
         <div className="flex justify-center mt-4">
-          <Button
+        {currentPage > 1 && ( <Button
             onClick={() => setCurrentPage(currentPage - 1)}
             variant="gradient"
             disabled={currentPage === 1}
@@ -226,6 +293,8 @@ export default function ChequeDeposit() {
             
             Previous
           </Button>
+        )}
+        {indexOfLastItem < chequeTransactions.length && (
           <Button
             onClick={() => setCurrentPage(currentPage + 1)}
             variant="gradient"
@@ -234,9 +303,10 @@ export default function ChequeDeposit() {
           >
             Next
           </Button>
+        )}
         </div>
       </div>
-  )}
+   </div>)}
     </>
   );
 }

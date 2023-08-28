@@ -28,6 +28,8 @@ export default function ChangePin() {
 
     if (data.newPin !== data.confirmNewPin) {
       setErrorMessage("New pin and confirm new pin should be same");
+    } else if (data.existingPin === data.newPin) {
+      setErrorMessage("Old pin and new pin cannot be the same");
     } else {
       axios
         .post(`http://localhost:5165/changePin`, data, {

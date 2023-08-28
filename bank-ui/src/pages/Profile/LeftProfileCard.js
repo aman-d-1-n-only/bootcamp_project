@@ -72,7 +72,7 @@ export default function LeftProfileCard(props) {
 
             <li class="flex items-center py-3 gap-x-4">
               <span>Member since</span>
-              <span class="ml-auto ">July xx, 20xx</span>
+              <span class="ml-auto ">{props.customerData.createdAt.split('T')[0]}</span>
             </li>
           </ul>
         </div>

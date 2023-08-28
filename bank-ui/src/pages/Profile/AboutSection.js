@@ -84,7 +84,7 @@ function AboutSection(props) {
             >
               {name}
             </Button>
-            <DeleteCustomer />
+            <DeleteCustomer custId={props.custId}/>
           </div>
         </form>
       </div>

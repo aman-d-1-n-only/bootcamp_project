@@ -83,7 +83,7 @@ function Profile() {
       <div className="bg-gray-100 min-h-screen">
         <div className="container mx-auto my-5 p-0">
           <div className="md:flex no-wrap md:-mx-2">
-            <LeftProfileCard custId={custId} />
+            <LeftProfileCard custId={custId} customerData={customerData}/>
 
             {/* <!-- Right Side --> */}
             <div className="w-full md:w-9/12 mx-2 h-64">
