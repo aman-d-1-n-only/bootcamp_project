@@ -16,7 +16,7 @@ export const CustomerCard = (props) => {
       onClick={() => navigate(`/customer/${props.cardName}`)}
       className="shadow-none bg-transparent "
     >
-      <Card className="mt-6 max-w-[12rem] lg:max-w-[16rem] bg-gradient-to-t from-gray-800">
+      <Card className="mt-6 max-w-[10rem] lg:max-w-[12rem] bg-gradient-to-t from-gray-800">
         <CardHeader color="blue-gray" className="relative ">
           <img className="w-fit h-fit" src={props.img} alt="card-image" />
         </CardHeader>

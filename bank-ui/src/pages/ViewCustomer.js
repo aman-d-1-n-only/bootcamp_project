@@ -5,8 +5,11 @@ import {
   Input,
   Card,
 } from "@material-tailwind/react";
-import SearchIcon from "@material-ui/icons/Search";
 import { useNavigate } from "react-router";
+import {
+  MagnifyingGlassIcon
+} from "@heroicons/react/24/outline";
+
 
 export default function ViewCustomer() {
   const jwtToken = sessionStorage.getItem("jwtToken");
@@ -70,7 +73,7 @@ export default function ViewCustomer() {
             size="lg"
             value={searchInput}
             onChange={handleChange}
-            icon={ <SearchIcon className=" border-l-2 border-blue-gray-100"/>} />
+            icon={ <MagnifyingGlassIcon className=" border-l-2 border-blue-gray-100"/>} />
             {/* <input  placeholder="Enter Customer ID"className="w-72 items-center"
             size="lg"
             value={searchInput}

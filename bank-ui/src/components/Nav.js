@@ -174,10 +174,10 @@ export function Nav() {
         >
           <HomeIcon
             variant="text"
-            className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent hover:scale-105"
+            className="ml-auto h-7 w-7 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent hover:scale-105"
             ripple={false}
           />
-          Dashboard
+        <div className="text-xl">Home</div> 
         </Link>
 
           <div className="flex items-center gap-4">

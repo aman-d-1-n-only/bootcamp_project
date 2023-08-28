@@ -1,8 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Login } from './pages/Login';
-// import { Customer } from './components/Dashboard'
-
 import CustomerTable from './pages/ViewCustomer';
 // import CustomerList from './pages/CustomerList';
 import TransactionTable from './pages/TransactionTable';
@@ -10,7 +8,6 @@ import TransactionTable from './pages/TransactionTable';
 import PrivateRoutes, { NormalRoutes } from './components/PrivateRoute';
 import  CashWithdraw  from './pages/CashWithdraw';
 // import ChequeDeposit from './pages/ChequeDeposit';
-
 import ChequeDeposit from './pages/ChequeDepositTable';
 import FundTransfer from './pages/FundTransfer';
 import 'react-toastify/dist/ReactToastify.css';
@@ -20,8 +17,8 @@ import ViewCustomer from './pages/ViewCustomer';
 import ChangePin from './pages/ChangePin';
 import Profile from './pages/Profile/Profile';
 import { Nav } from './components/Nav';
-// import { Customer } from './components/HomePage';
-import { Customer } from './components/Dashboard';
+import { Customer } from './components/HomePage';
+// import { Customer } from './components/Dashboard';
 
 function App() {
   return (
