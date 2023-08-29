@@ -1,29 +1,29 @@
-import { Outlet, Navigate } from 'react-router-dom'
-import { Nav } from './Nav';
+import { Outlet, Navigate } from "react-router-dom";
+import { Nav } from "./Nav";
 
 const PrivateRoutes = () => {
-    let auth = sessionStorage.getItem('jwtToken')
-    // console.log(auth);
-    return (
-    (auth) ? <>
-    
-     <Nav/>
-     <div className="w-[100vw] h-[90.5vh] bg-gray-100">
-     <Outlet /> 
-    </div>
-    </>: <Navigate to="/login" /> 
-    )
-}
-export const NormalRoutes=()=>{
-    return(
-        <>
-        <Nav/>
-        <div className="w-[100vw] h-[90.5vh] bg-gray-100">
-        <Outlet /> 
-       </div>
-       </>
-        )
-}
-
+  let auth = sessionStorage.getItem("jwtToken");
+  // console.log(auth);
+  return auth ? (
+    <>
+      <Nav />
+      <div className="w-[100vw] h-[90.5vh] bg-gray-100">
+        <Outlet />
+      </div>
+    </>
+  ) : (
+    <Navigate to="/login" />
+  );
+};
+export const NormalRoutes = () => {
+  return (
+    <>
+      <Nav />
+      <div className="w-[100vw] h-[90.5vh] bg-gray-100">
+        <Outlet />
+      </div>
+    </>
+  );
+};
 
 export default PrivateRoutes;

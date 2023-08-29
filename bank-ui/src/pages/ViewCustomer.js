@@ -1,15 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {
-  Button,
-  Input,
-  Card,
-} from "@material-tailwind/react";
+import { Button, Input, Card } from "@material-tailwind/react";
 import { useNavigate } from "react-router";
-import {
-  MagnifyingGlassIcon
-} from "@heroicons/react/24/outline";
-
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 export default function ViewCustomer() {
   const jwtToken = sessionStorage.getItem("jwtToken");
@@ -29,6 +22,7 @@ export default function ViewCustomer() {
     "View Profile",
   ];
 
+  const [currentPage, setCurrentPage] = useState(1);
   const handleChange = (event) => {
     event.preventDefault();
     setSearchInput(event.target.value);
@@ -63,6 +57,20 @@ export default function ViewCustomer() {
       });
   }, []);
 
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
+  const itemsPerPage = 10;
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = searchInput
+    ? t.slice(indexOfFirstItem, indexOfLastItem)
+    : data.slice(indexOfFirstItem, indexOfLastItem);
+
+  const totalPages = Math.ceil(
+    (searchInput ? t.length : data.length) / itemsPerPage
+  );
+
   return (
     <>
       <div className="my-10 flex flex-col items-center justify-center gap-y-5">
@@ -73,8 +81,11 @@ export default function ViewCustomer() {
             size="lg"
             value={searchInput}
             onChange={handleChange}
-            icon={ <MagnifyingGlassIcon className=" border-l-2 border-blue-gray-100"/>} />
-            {/* <input  placeholder="Enter Customer ID"className="w-72 items-center"
+            icon={
+              <MagnifyingGlassIcon className=" border-l-2 border-blue-gray-100" />
+            }
+          />
+          {/* <input  placeholder="Enter Customer ID"className="w-72 items-center"
             size="lg"
             value={searchInput}
             onChange={handleChange}
@@ -82,58 +93,72 @@ export default function ViewCustomer() {
               
             </input>
             <SearchIcon/> */}
-            </div>
-            
-          
-        <div className="w-full h-full bg-white py-5 px-10">
+        </div>
 
-        <Card className="h-full w-full overflow-auto rounded-none">
-          <table className="w-full min-w-max table-auto text-center ">
-            <thead>
-              <tr>
-                {TABLE_HEAD.map((head) => (
-                  <th
-                    key={head}
-                    varian="gradient"
-                    className="border-b border-gray-300 bg-gray-900 p-5 font-normal leading-none  text-gray-50 text-center"
-                  >
-                   
-                      {head}
-                   
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="text-center text-sm">
-              {(searchInput ? t : data).map((row) => (
-                <tr key={row.custId} className="even:bg-gray-100/100 border-b border-blue-gray-50">
-                  <td className="p-3 ">
-                    {row.custId}
-                  </td>
-                  <td className="p-3 ">
-                    {row.name}
-                  </td>
-                  <td className="p-3 ">{row.address}</td>
-                  <td className="p-3 ">{row.city}</td>
-                  <td className="p-3 ">{row.email}</td>
-                  <td className="p-3 ">{row.contact}</td>
-                  <td className="p-3 ">{row.pincode}</td>
-                  <td className="p-3 ">
-                    <Button
-                      onClick={() =>
-                        navigate("/customer/customer-profile", {
-                          state: { data1: row },
-                        })
-                      }
+        <div className="w-full h-full bg-white py-5 px-10">
+          <Card className="h-full w-full overflow-auto rounded-none">
+            <table className="w-full min-w-max table-auto text-center ">
+              <thead>
+                <tr>
+                  {TABLE_HEAD.map((head) => (
+                    <th
+                      key={head}
+                      varian="gradient"
+                      className="border-b border-gray-300 bg-gray-900 p-5 font-normal leading-none  text-gray-50 text-center"
                     >
-                      View
-                    </Button>
-                  </td>
+                      {head}
+                    </th>
+                  ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </Card>
+              </thead>
+              <tbody className="text-center text-sm">
+                {currentItems.map((row) => (
+                  <tr
+                    key={row.custId}
+                    className="even:bg-gray-100/100 border-b border-blue-gray-50"
+                  >
+                    <td className="p-3 ">{row.custId}</td>
+                    <td className="p-3 ">{row.name}</td>
+                    <td className="p-3 ">{row.address}</td>
+                    <td className="p-3 ">{row.city}</td>
+                    <td className="p-3 ">{row.email}</td>
+                    <td className="p-3 ">{row.contact}</td>
+                    <td className="p-3 ">{row.pincode}</td>
+                    <td className="p-3 ">
+                      <Button
+                        onClick={() =>
+                          navigate("/customer/customer-profile", {
+                            state: { data1: row },
+                          })
+                        }
+                      >
+                        View
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </Card>
+          <div className="flex justify-center mt-4">
+            {currentPage > 1 && (
+              <Button
+                onClick={() => handlePageChange(currentPage - 1)}
+                variant="gradient"
+              >
+                Previous
+              </Button>
+            )}
+            {currentPage < totalPages && (
+              <Button
+                onClick={() => handlePageChange(currentPage + 1)}
+                variant="gradient"
+                className="ml-2"
+              >
+                Next
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </>

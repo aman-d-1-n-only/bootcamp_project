@@ -82,10 +82,10 @@ export default function ChangePin() {
             >
               <Input
                 {...register("accNo", {
-                  required: "Account Number is required",pattern: {
-                    
+                  required: "Account Number is required",
+                  pattern: {
                     value: /^[1-9][0-9]*$/,
-                    message: "Enter Valid Account Number"
+                    message: "Enter Valid Account Number",
                   },
                 })}
                 label="Enter Account Number"
@@ -174,7 +174,7 @@ export default function ChangePin() {
             <div className="text-red-600 mt-2 text-sm">{errors.message}</div>
           </CardBody>
         </Card>
-    <ToastContainer position="top-center"/>
+        <ToastContainer position="top-center" />
       </div>
     </>
   );

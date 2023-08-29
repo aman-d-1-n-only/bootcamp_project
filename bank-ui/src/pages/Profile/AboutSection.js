@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import DeleteCustomer from "./DeleteCustomer";
 import axios from "axios";
-import DisplayInput from "./DisplayInput";
 import { Button, Input } from "@material-tailwind/react";
 import { UserIcon } from "@heroicons/react/24/outline";
 import { ToastContainer, toast } from "react-toastify";

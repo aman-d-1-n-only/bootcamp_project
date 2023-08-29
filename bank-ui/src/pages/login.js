@@ -36,25 +36,23 @@ export const Login = () => {
       }
     } catch (error) {
       if (error.response) {
-        
-        console.log(error.response,"here")
+        console.log(error.response, "here");
         setErrorMessage("Invalid Credentials! Please Try again.");
       }
     }
   };
-
 
   return (
     <>
       {/* -------!!! if login image doesn't work please comment it and uncomment below link ----- */}
       <div
         className="relative min-h-screen flex items-center justify-center bg-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8  bg-no-repeat bg-cover"
-        style={{ backgroundImage: `url(${LoginImage})` }}>
-             {/* style={{ backgroundImage: "url('https://images.unsplash.com/photo-1532423622396-10a3f979251a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1500&q=80')" }}>  */}
+        style={{ backgroundImage: `url(${LoginImage})` }}
+      >
+        {/* style={{ backgroundImage: "url('https://images.unsplash.com/photo-1532423622396-10a3f979251a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1500&q=80')" }}>  */}
 
-      
         <div className="absolute bg-black opacity-60 inset-0 z-0"></div>
-         <Card className="w-96">
+        <Card className="w-96">
           <CardHeader
             variant="gradient"
             color="gray"
@@ -78,8 +76,8 @@ export const Login = () => {
                     required
                     {...field}
                     onKeyUp={() => {
-                        trigger("username");
-                      }}
+                      trigger("username");
+                    }}
                   />
                 )}
               />
@@ -111,8 +109,8 @@ export const Login = () => {
                     {...field}
                     type="password"
                     onKeyUp={() => {
-                        trigger("password");
-                      }}
+                      trigger("password");
+                    }}
                   />
                 )}
               />
@@ -125,9 +123,7 @@ export const Login = () => {
                   {errors.password.message}
                 </Typography>
               )}
-              <div className="text-red-600 mt-2 text-sm">
-                {errorMessage}
-              </div>
+              <div className="text-red-600 mt-2 text-sm">{errorMessage}</div>
             </CardBody>
             <CardFooter className="pt-0 mb-4">
               <Button variant="gradient" fullWidth type="submit">

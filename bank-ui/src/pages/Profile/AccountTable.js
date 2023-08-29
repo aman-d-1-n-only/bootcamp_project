@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Switch, Typography } from "@material-tailwind/react";
+import { Card, Switch} from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 import {
   CurrencyRupeeIcon,

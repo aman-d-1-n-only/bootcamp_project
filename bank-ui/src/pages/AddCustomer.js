@@ -15,40 +15,39 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const AddCustomer = () => {
-
   const {
     control,
     handleSubmit,
     formState: { errors },
-    trigger
-  } = useForm({
-  });
+    trigger,
+  } = useForm({});
 
   const jwtToken = sessionStorage.getItem("jwtToken");
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     console.log(data);
-  
+
     try {
-      const response = await axios.post('http://localhost:5165/api/Customer/', data, {
-        headers: {
-          'Authorization': 'bearer ' + jwtToken
+      const response = await axios.post(
+        "http://localhost:5165/api/Customer/",
+        data,
+        {
+          headers: {
+            Authorization: "bearer " + jwtToken,
+          },
         }
-      });
-  
+      );
+
       if (response.data) {
         toast.success("Customer add successfully");
-       console.log("Customer add successfully");
-        navigate('/customer/view-customer');
-        // reset(); 
+        console.log("Customer add successfully");
+        navigate("/customer/view-customer");
+        // reset();
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
-
- 
   return (
     <>
       <div className="bg-gray-100 flex justify-center items-center pt-10">
@@ -78,192 +77,197 @@ export const AddCustomer = () => {
                                     </Typography> */}
               {/* <div className="flex flex-wrap items-center  gap-y-6"> */}
               <Controller
-  control={control}
-  name="name"
-  render={({ field }) => (
-   <> <Input
-      label="Name"
-      
-      required
-      {...field}
-      error={errors.name?.message}
-    />
-    <Typography
-        variant="small"
-        color="gray"
-        className="my-2 flex items-center gap-1 font-normal text-red-600"
-      >{errors.name?.message}</Typography>
-    
-    </>
-  )}
-  rules={{ required: 'Name is required' }}
-  
-/>
+                control={control}
+                name="name"
+                render={({ field }) => (
+                  <>
+                    {" "}
+                    <Input
+                      label="Name"
+                      required
+                      {...field}
+                      error={errors.name?.message}
+                    />
+                    <Typography
+                      variant="small"
+                      color="gray"
+                      className="my-2 flex items-center gap-1 font-normal text-red-600"
+                    >
+                      {errors.name?.message}
+                    </Typography>
+                  </>
+                )}
+                rules={{ required: "Name is required" }}
+              />
 
-<Controller
-  control={control}
-  name="address"
-  render={({ field }) => (
-    <>
-    <Input
-      label="Address"
-      {...field}
-      error={errors.address?.message}
-      
-      required
-    />
-    <Typography
-    variant="small"
-    color="gray"
-    className="my-2 flex items-center gap-1 font-normal text-red-600"
-  >{errors.address?.message}</Typography>
+              <Controller
+                control={control}
+                name="address"
+                render={({ field }) => (
+                  <>
+                    <Input
+                      label="Address"
+                      {...field}
+                      error={errors.address?.message}
+                      required
+                    />
+                    <Typography
+                      variant="small"
+                      color="gray"
+                      className="my-2 flex items-center gap-1 font-normal text-red-600"
+                    >
+                      {errors.address?.message}
+                    </Typography>
+                  </>
+                )}
+                rules={{ required: "Address is required" }}
+              />
 
-</>
-  )}
-  rules={{ required: 'Address is required' }}
-/>
+              <Controller
+                control={control}
+                name="email"
+                render={({ field }) => (
+                  <>
+                    <Input
+                      label="Email Address"
+                      {...field}
+                      required
+                      error={errors.email?.message}
+                      onKeyUp={() => {
+                        trigger("email");
+                      }}
+                    />
+                    <Typography
+                      variant="small"
+                      color="gray"
+                      className="my-2 flex items-center gap-1 font-normal text-red-600"
+                    >
+                      {errors.email?.message}
+                    </Typography>
+                  </>
+                )}
+                rules={{
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/,
+                    message: "Invalid email format ",
+                  },
+                }}
+              />
 
-<Controller
-  control={control}
-  name="email"
-  render={({ field }) => (
-    <>
-    <Input
-    label="Email Address"
-      {...field}
-      required
-      error={errors.email?.message}
-      onKeyUp={() => {
-        trigger("email");
-      }}
-    />
-    <Typography
-    variant="small"
-    color="gray"
-    className="my-2 flex items-center gap-1 font-normal text-red-600"
-  >{errors.email?.message}</Typography>
+              <Controller
+                control={control}
+                name="contact"
+                render={({ field }) => (
+                  <>
+                    <Input
+                      label="Contact Number"
+                      required
+                      {...field}
+                      error={errors.contact?.message}
+                      onKeyUp={() => {
+                        trigger("contact");
+                      }}
+                    />
 
+                    <Typography
+                      variant="small"
+                      color="gray"
+                      className="my-2 flex items-center gap-1 font-normal text-red-600"
+                    >
+                      {errors.contact?.message}
+                    </Typography>
+                  </>
+                )}
+                rules={{
+                  required: "Contact Number is required",
+                  validate: {
+                    startsWith6To9: (value) =>
+                      /^[6-9]/.test(value) ||
+                      "Contact number should start with a digit from 6 to 9",
+                    validLength: (value) =>
+                      value.length === 10 ||
+                      "Contact number should be exactly 10 digits",
+                  },
+                }}
+              />
 
-</>
-  )}
-  rules={{ required: 'Email is required',
-  pattern: {
-    value: /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/
-    ,   message: 'Invalid email format ',
-  },
-}}/>
+              <Controller
+                control={control}
+                name="city"
+                render={({ field }) => (
+                  <>
+                    <Input
+                      label="City"
+                      {...field}
+                      error={errors.city?.message}
+                      required
+                      onKeyUp={() => {
+                        trigger("city");
+                      }}
+                    />
+                    <Typography
+                      variant="small"
+                      color="gray"
+                      className="my-2 flex items-center gap-1 font-normal text-red-600"
+                    >
+                      {errors.city?.message}
+                    </Typography>
+                  </>
+                )}
+                rules={{
+                  required: "City is required",
+                  pattern: {
+                    value: /^[A-Za-z]+$/,
+                    message: "City name can not be numbers",
+                  },
+                }}
+              />
+              <Controller
+                control={control}
+                name="pincode"
+                render={({ field }) => (
+                  <>
+                    <Input
+                      label="Pincode"
+                      {...field}
+                      error={errors.pincode?.message}
+                      required
+                      onKeyUp={() => {
+                        trigger("pincode");
+                      }}
+                    />
+                    <Typography
+                      variant="small"
+                      color="gray"
+                      className="my-2 flex items-center gap-1 font-normal text-red-600"
+                    >
+                      {errors.pincode?.message}
+                    </Typography>
+                  </>
+                )}
+                rules={{
+                  required: "Pincode is required",
+                  validate: {
+                    isANumber: (value) =>
+                      /^[0-9]/.test(value) || "Pincode can only be numbers",
+                    validLength: (value) =>
+                      value.length === 6 ||
+                      "Pincode should be exactly 6 digits long",
+                  },
+                }}
+              />
 
-<Controller
-  control={control}
-  name="contact"
-  render={({ field }) => (
-    <>
-    <Input
-    label="Contact Number"
-    
-    required
-      {...field}
-      error={errors.contact?.message}
-      onKeyUp={() => {
-        trigger("contact");
-      }}
-    />
-   
-   <Typography
-    variant="small"
-    color="gray"
-    className="my-2 flex items-center gap-1 font-normal text-red-600"
-  >{errors.contact?.message}</Typography>
-</>
-  )}
-  rules={{ required: 'Contact Number is required',
-    validate: {
-        startsWith6To9: (value) =>
-          /^[6-9]/.test(value) ||
-          "Contact number should start with a digit from 6 to 9",
-        validLength: (value) =>
-          value.length === 10 || "Contact number should be exactly 10 digits",
-      },
-     }}
-/>
+              {/* </div> */}
 
-
-<Controller
-  control={control}
-  name="city"
-  render={({ field }) => (
-    <>
-    <Input
-    label="City"
-      {...field}
-      error={errors.city?.message}
-      
-      required
-      onKeyUp={() => {
-        trigger("city");
-      }}
-    />
-     <Typography
-        variant="small"
-        color="gray"
-        className="my-2 flex items-center gap-1 font-normal text-red-600"
-      >{errors.city?.message}</Typography>
-    
-    </>
-  )}
-  rules={{ required: 'City is required',  pattern: {
-    value: /^[A-Za-z]+$/
-    ,   message: 'City name can not be numbers',
-  }, }}
-/>
-<Controller
-  control={control}
-  name="pincode"
-  render={({ field }) => (
-    <>
-    <Input
-    label="Pincode"
-      {...field}
-      error={errors.pincode?.message}
-      
-      required
-      onKeyUp={() => {
-        trigger("pincode");
-      }}
-    />
-    <Typography
-    variant="small"
-    color="gray"
-    className="my-2 flex items-center gap-1 font-normal text-red-600"
-  >{errors.pincode?.message}</Typography>
-
-</>
-  )}
-  rules={{ required: 'Pincode is required',
-  validate: {
-    isANumber: (value) =>
-      /^[0-9]/.test(value) ||
-      "Pincode can only be numbers",
-    validLength: (value) =>
-      value.length === 6 || "Pincode should be exactly 6 digits long",
-  },
- }}
-
- 
-/>
-
-{/* </div> */}
-
-              <Button type="submit" className="w-full mt-4  items-center" 
-
-              >
+              <Button type="submit" className="w-full mt-4  items-center">
                 Add Customer
               </Button>
             </form>
           </CardBody>
         </Card>
-        
-    <ToastContainer position="top-center"/>
+
+        <ToastContainer position="top-center" />
       </div>
     </>
   );

@@ -1,6 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-
-import BankLogo from "../img/BankLogo.png";
 import {
   Navbar,
   Button,
@@ -27,27 +25,27 @@ import { Link } from "react-router-dom";
 export function Nav() {
   const [openNav, setOpenNav] = useState(false);
   const [openMenu, setOpenMenu] = React.useState(false);
-  
+
   // const [expanded, setExpanded] = useState(false);
-  const [loginName,setLoginName]=useState(sessionStorage.getItem('jwtToken'));
+  const [loginName, setLoginName] = useState(
+    sessionStorage.getItem("jwtToken")
+  );
   const navigate = useNavigate();
   const navRef = useRef(null);
-  
+
   const handleClick = () => {
     console.log(loginName);
-    if(loginName)
-    {
-      sessionStorage.removeItem('jwtToken');
-      sessionStorage.setItem('token', false);
-      setLoginName("")
+    if (loginName) {
+      sessionStorage.removeItem("jwtToken");
+      sessionStorage.setItem("token", false);
+      setLoginName("");
       // window.location.reload();
-      navigate('/')
-    }
-    else{
+      navigate("/");
+    } else {
       console.log("hi");
-      navigate('/login')
+      navigate("/login");
     }
-  }
+  };
 
   useEffect(() => {
     window.addEventListener(
@@ -184,14 +182,18 @@ export function Nav() {
             className="ml-auto h-7 w-7 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent hover:scale-105"
             ripple={false}
           /> */}
-          <img  className="ml-auto h-8 w-8 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent hover:scale-105"  src={BankLogo} alt="bank_logo" />
- <div className="text-xl">Namma Bank</div> 
+          <img
+            className="ml-auto h-8 w-8 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent hover:scale-105"
+            src="/BankLogo.png"
+            alt="bank_logo"
+          />
+          <div className="text-xl">Namma Bank</div>
         </Link>
 
-          <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4">
           <div className="flex items-center justify-center">
-            {window.innerWidth > 960 && window.innerWidth < 1410 ? (
-              openMenu ? (
+            {window.innerWidth > 960 &&
+              (openMenu ? (
                 <>
                   {" "}
                   <div className="mr-4 hidden lg:flex items-center justify-center">
@@ -232,42 +234,20 @@ export function Nav() {
                     onClick={() => setOpenMenu(!openMenu)}
                   />
                 </>
-              )
-            ) : openMenu ? (
-              <>
-                <div className="mr-4 hidden lg:flex items-center justify-center">
-                  {" "}
-                  {expandedNavList}
-                  <ChevronDoubleLeftIcon
-                    className="w-6 h-6 lg:inline-block cursor-pointer hover:scale-110 "
-                    title="Show less"
-                    onClick={() => setOpenMenu(!openMenu)}
-                  />
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="mr-4 hidden lg:flex items-center justify-center">
-                  {" "}
-                  {navList}{" "}
-                </div>
-                <ChevronDoubleRightIcon
-                  className="w-6 h-6 hidden lg:inline-block cursor-pointer hover:scale-110 "
-                  title="Show more"
-                  onClick={() => setOpenMenu(!openMenu)}
-                />
-              </>
-            )}
+              ))}
           </div>
-            <Button
-              variant="gradient"
-              onClick={handleClick}
-              size="sm"
-              className="hidden lg:inline-block"
-            >
-               <span className=" flex items-center justify-center "><UserIcon className="w-6 h-6 mr-2"/>{(loginName)?"Logout":"Login"}</span>
-            </Button>
-           
+          <Button
+            variant="gradient"
+            onClick={handleClick}
+            size="sm"
+            className="hidden lg:inline-block"
+          >
+            <span className=" flex items-center justify-center ">
+              <UserIcon className="w-6 h-6 mr-2" />
+              {loginName ? "Logout" : "Login"}
+            </span>
+          </Button>
+
           <IconButton
             variant="text"
             className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
@@ -282,16 +262,22 @@ export function Nav() {
             )}
           </IconButton>
         </div>
-        </div>
-        <Collapse open={openNav}>
-{expandedNavList}
-          <Button variant="gradient" size="sm" fullWidth className="mb-2"
-           onClick={handleClick}>
-          <span className=" flex items-center justify-center "><UserIcon className="w-5 h-5 mr-2"/>{(loginName)?"Logout":"Login"}</span>
-          </Button> 
-          
-        </Collapse>
-      </Navbar>
-      
+      </div>
+      <Collapse open={openNav}>
+        {expandedNavList}
+        <Button
+          variant="gradient"
+          size="sm"
+          fullWidth
+          className="mb-2"
+          onClick={handleClick}
+        >
+          <span className=" flex items-center justify-center ">
+            <UserIcon className="w-5 h-5 mr-2" />
+            {loginName ? "Logout" : "Login"}
+          </span>
+        </Button>
+      </Collapse>
+    </Navbar>
   );
 }

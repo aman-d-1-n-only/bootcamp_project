@@ -12,39 +12,18 @@ import Card8 from "../img/Cards/Card8.png";
 export const Dashboard = () => {
   return (
     <>
-     <div className="flex flex-wrap items-center justify-center ">  <CustomerCard
-          cardName="add-customer"
-          img={Card1}
-          />
-        <CustomerCard
-          cardName="view-customer"
-          img={Card2}
-        />
-        <CustomerCard
-          cardName="transactions"
-          img={Card3}
-        />
-        <CustomerCard
-          cardName="cash-withdraw"
-          img={Card4}
-        />
-        <CustomerCard
-          cardName="changepin"
-          img={Card5}
-        />
-        <CustomerCard
-          cardName="fund-transfer"
-          img={Card6}
-        />
-         <CustomerCard
-          cardName="currency-change"
-          img={Card7}
-        />
-        <CustomerCard
-          cardName="cheque-deposit"
-          img={Card8}
-          />
-     </div>  
+      <div className="flex flex-wrap items-center justify-center space-x-auto ">
+        {" "}
+        <CustomerCard cardName="add-customer" img={Card1} />
+        <CustomerCard cardName="view-customer" img={Card2} />
+        <CustomerCard cardName="transactions" img={Card3} />
+        <CustomerCard cardName="mini-statement" img={Card8} />
+        <CustomerCard cardName="cash-withdraw" img={Card4} />
+        <CustomerCard cardName="changepin" img={Card5} />
+        <CustomerCard cardName="fund-transfer" img={Card6} />
+        <CustomerCard cardName="currency-change" img={Card7} />
+        <CustomerCard cardName="cheque-deposit" img={Card8} />
+      </div>
     </>
   );
 };
