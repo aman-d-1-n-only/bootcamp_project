@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { Card, Input, Button } from "@material-tailwind/react";
+import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -81,9 +81,14 @@ const MiniStatement = (props) => {
   return (
     <div>
       <ToastContainer position="top-center" />
-      <div className="flex flex-col items-center justify-center gap-y-4 ">
+      <div className="flex flex-col items-center justify-center gap-y-4 my-4">
+      <div className="p-1 border-b-2 border-gray-800 ">
+            <Typography variant="h4" className="text-gray-800">
+              Mini Statement
+            </Typography>
+          </div>
         <form
-          className="mt-4 mb-2 w-80 max-w-screen-lg sm:w-96 gap-y-6 flex flex-col"
+          className="mt-2 mb-2 w-80 max-w-screen-lg sm:w-96 gap-y-6 flex flex-col"
           onSubmit={handleSubmit(handleStatement)}
         >
           <Controller
