@@ -4,7 +4,7 @@ import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import SearchIcon from "@material-ui/icons/Search";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 export default function ChequeDeposit() {
   const {
@@ -230,7 +230,7 @@ export default function ChequeDeposit() {
                 value={searchInput}
                 onChange={handleInput}
                 icon={
-                  <SearchIcon className=" border-l-2 border-blue-gray-100" />
+                  <MagnifyingGlassIcon className=" border-l-2 border-blue-gray-100" />
                 }
               />
               {/* <input  placeholder="Enter Customer ID"className="w-72 items-center"
